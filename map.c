@@ -36,4 +36,53 @@ int	extension_map(int ac, char **av)
 	}
 	return (1);
 }
+t_list	*get_line(int fd)
+{
+	t_list	*list;
+	char	*line;
+	t_list	*new;
+	t_list	*temp;
+
+	line = get_next_line(fd);
+	list = NULL;
+	while (line)
+	{
+		new = malloc (sizeof(t_list));
+		if (!new)
+			return (NULL);
+		new->content = line;
+		new->next = NULL;
+		if (list == NULL)
+			list = new;
+		else
+		{
+			temp = list;
+			while (temp->next)
+				temp = temp->next;
+			temp->next = new;
+		}
+		line = get_next_line(fd);
+	}
+	return (list);
+}
+
+char	**parse_map(char *av, t_cub3d *cub)
+{
+	int		fd;
+	t_list	*list;
+
+	fd = open(av, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	list = get_line(fd);
+
+}
+
+char	**read_map(char av[1], t_cub3d *cub)
+{
+	cub->map = parse_map(av, cub);
+	if (!cub->map)
+		return (ft_putstr_fd("Error\nCannot read map\n", 2), NULL);
+	return (cub->map);
+}
 

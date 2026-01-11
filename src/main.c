@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 14:09:27 by cecompte          #+#    #+#             */
-/*   Updated: 2026/01/09 14:10:09 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/01/11 17:53:43 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@
 - Check file extension is ".cub"
 =========================================================
 */
-intecheck_arguments(int ac, char **av)
+int	check_arguments(int ac, char **av)
 {
 	if (ac != 2)
 	{
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
-		return (0);
+		return (1);
 	}
 	if (!check_map(av[1]))
-		return (0);
-	return (1);
+		return (ft_putstr_fd("Error\nMap is not valid\n", 2), 1);
+	if (extension_map(ac, av))
+		return (ft_putstr_fd("Error\nNot good extention of map\n", 2), 1);
 }
 
-intemain(int ac, char **av)
+int	main(int ac, char **av)
 {
-	if (!check_arguments(ac, av))
-		return (1);
+	t_cub3d	cub;
 
 	/*
 	=========================================================
@@ -45,6 +45,9 @@ intemain(int ac, char **av)
 	- Set default values (NULL pointers, flags, etc.)
 	=========================================================
 	*/
+	cub = (t_cub3d){0}; //ft_memset(&cub, 0, sizeof(t_cub3d));
+	if (check_arguments(ac, av))
+		return (1);
 
 	/*
 	=========================================================
@@ -60,6 +63,7 @@ intemain(int ac, char **av)
 	- Store everything in structures
 	=========================================================
 	*/
+	cub.map = read_map(av[1], &cub);
 
 	/*
 	=========================================================
