@@ -4,8 +4,8 @@ INCLUDES		= -Ilibft -Iincludes
 NAME			= cub3d
 
 # Sources
-SRC_PATH		= src/ map.c
-SRC				= main.c
+SRC_PATH		= src/
+SRC				= main.c map.c parce_config.c init.c
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects
