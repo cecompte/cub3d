@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 14:09:27 by cecompte          #+#    #+#             */
-/*   Updated: 2026/01/09 14:10:09 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/01/13 11:55:34 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,11 @@ int main(int ac, char **av)
 
     return (0);
 }
+/*
+Notes discussion avec Ben
+- mlx hook pour affichage en continu ( pas mlx key hook )
+- structure map en blocks
+- fonction my mlx image pour modifier l'adresse de l'image et changer le pixel en question
+- commencer par faire une minimap en 2d, afficher le joueur et les rayons et voir si ca marche
+
+*/
