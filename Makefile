@@ -15,6 +15,7 @@ SRC				= main.c \
 					draw_minimap/get_next_line.c \
 					draw_minimap/draw_minimap.c \
 					draw_minimap/parsing_so_long.c \
+					draw_minimap/hooks.c \
 					init_game.c 
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 

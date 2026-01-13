@@ -26,11 +26,22 @@ static void	init_win(t_game *game)
 	game->win_height = 600;	// Default window height in pixels
 }
 
+static void init_input(t_input *input)
+{
+	input->down = 0;
+	input->up = 0;
+	input->left = 0;
+	input->right = 0;
+	input->rotate_left = 0;
+	input->rotate_right = 0;
+}
+
 void	init_cub3d(t_cub3d *cub)
 {
 	init_win(&cub->game);
 	init_texture(&cub->texture);
 	init_pos(&cub->pos);
+	init_input(&cub->input);
 	cub->map_info.width = 0;
 	cub->map_info.height = 0;
 	cub->map = NULL;

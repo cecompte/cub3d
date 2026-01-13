@@ -22,10 +22,13 @@ int	main(int ac, char **av)
 	if (check_arguments(ac, av))
 		return (1);
 	// cub.map = read_map(av[1], &cub);
+
+	/*Creating a 2D representation of the map (like a grid) and making player move & cast rays*/
 	parse_map_sl(&cub, av);
-	cub.mlx_ptr = mlx_init();
-	cub.win_ptr = mlx_new_window(cub.mlx_ptr, cub.game.win_width, cub.game.win_height, "cub3d");
-	draw_minimap(&cub);
+	init_minimap(&cub);
+	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
+	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
+	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);
 	mlx_loop_hook(cub.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_ptr);
 	return (0);
