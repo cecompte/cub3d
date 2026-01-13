@@ -19,16 +19,16 @@ static void	init_pos(t_pos *pos)
 	pos->strt_dir = 0;
 }
 
-static void	init_game(t_game *game)
+static void	init_win(t_game *game)
 {
-	game->run = 1;          // Game loop flag: 1 = running, 0 = exit
-	game->win_width = 800;  // Default window width in pixels (4:3 aspect)
-	game->win_height = 600; // Default window height in pixels
+	game->run = 1;			// Game loop flag: 1 = running, 0 = exit
+	game->win_width = 800;	// Default window width in pixels (4:3 aspect)
+	game->win_height = 600;	// Default window height in pixels
 }
 
 void	init_cub3d(t_cub3d *cub)
 {
-	init_game(&cub->game);
+	init_win(&cub->game);
 	init_texture(&cub->texture);
 	init_pos(&cub->pos);
 	cub->map_info.width = 0;

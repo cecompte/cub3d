@@ -1,11 +1,12 @@
 CC				= cc
 CFLAGS			= -g3 -Wall -Wextra -Werror -MMD -MP
-INCLUDES		= -Ilibft -Iincludes
+INCLUDES		= -Ilibft -Iincludes -Iminilibx-linux
+LDFLAGS			= -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
 NAME			= cub3d
 
 # Sources
 SRC_PATH		= src/
-SRC				= main.c map.c parce_config.c init.c
+SRC				= main.c map.c parce_config.c init.c init_game.c
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects
@@ -33,7 +34,7 @@ all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJECTS)
 	@printf "$(BLUE)%s$(RESET): $(YELLOW)Building $(NAME)...$(RESET)\n" $(NAME)
-	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT_FLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT_FLAGS) $(LDFLAGS) -o $(NAME)
 	@printf "$(BLUE)%s$(RESET): $(GREEN)Successfully built $(NAME)$(RESET)\n" $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c | $(OBJ_PATH)

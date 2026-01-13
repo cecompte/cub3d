@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "../minilibx-linux/mlx.h"
 
 typedef struct s_game
 {
@@ -48,6 +49,8 @@ typedef struct s_cub3d
 	t_pos		pos;
 	void		*mlx_ptr;
 	void		*win_ptr;
+	void		*img_ptr;
+	char		**map_grid;
 }				t_cub3d;
 
 int		check_map(char **arg);
@@ -55,6 +58,6 @@ int		extension_map(int ac, char **av);
 char	**read_map(char av[1], t_cub3d *cub);
 int		parce_config(char **map, t_cub3d *cub);
 void	init_cub3d(t_cub3d *cub);
-
+void	init_game(t_cub3d *cub);
 
 #endif

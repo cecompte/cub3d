@@ -93,8 +93,6 @@ char	**parse_map(char *av, t_cub3d *cub)
 	if (!list)
 		return (NULL);
 	cub->map = convert_list_to_array(list);
-	if (parce_config(cub->map, cub) != 0)
-		return (ft_putstr_fd("Error\nConfig is not valid\n", 2), NULL);
 	ft_lstclear(&list, NULL);
 	if (!cub->map)
 		return (NULL);
