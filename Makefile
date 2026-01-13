@@ -5,7 +5,7 @@ NAME			= cub3d
 
 # Sources
 SRC_PATH		= src/
-SRC				= main.c
+SRC				= main.c map.c parce_config.c init.c
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects

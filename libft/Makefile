@@ -19,38 +19,38 @@ SOURCES = \
 	ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c \
 	ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
 	ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
-	ft_putendl_fd.c ft_putnbr_fd.c
+	ft_putendl_fd.c ft_putnbr_fd.c ft_printf/ft_printf.c ft_printf/ft_putchar.c \
+	ft_printf/ft_puthex.c ft_printf/ft_putnbr.c  ft_printf/ft_putptr.c  \
+	ft_printf/ft_putunsign.c get_next_line.c get_next_line_utils.c
 
 BSOURCES = \
 	   ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c \
-	ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c 
+	ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
 
 OBJECTS = $(SOURCES:.c=.o)
-DEPS = $(SOURCES:.c=.d)
 
 BOBJECTS = $(BSOURCES:.c=.o)
-BDEPS = $(BSOURCES:.c=.d)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
-
--include $(DEPS) $(BDEPS)
+all: bonus
 
 $(NAME): $(OBJECTS)
-	ar -rcs $(NAME) $(OBJECTS)
+	@echo "Creating $(NAME)..."
+	@ar -rcs $(NAME) $(OBJECTS)
 
 bonus: $(OBJECTS) $(BOBJECTS)
-	ar -rcs $(NAME) $(OBJECTS) $(BOBJECTS)
+	@echo "Creating $(NAME) with bonus..."
+	@ar -rcs $(NAME) $(OBJECTS) $(BOBJECTS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJECTS) $(BOBJECTS)
-	rm -f $(DEPS) $(BDEPS)
+	@echo "Cleaning $(NAME)..."
+	@rm -f $(OBJECTS) $(BOBJECTS)
 
 fclean: clean
 	rm -f $(NAME)
