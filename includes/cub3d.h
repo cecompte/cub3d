@@ -1,12 +1,14 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "../minilibx-linux/mlx.h"
+#include <mlx.h>
+#include <X11/keysym.h>
+#include <X11/X.h>
 
 typedef struct s_game
 {
@@ -40,6 +42,21 @@ typedef struct s_pos
 	char			strt_dir;
 }				t_pos;
 
+typedef struct s_color
+{
+	int			R;
+	int			G;
+	int			B;
+}				t_color;
+
+typedef struct	s_img {
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_img;
+
 typedef struct s_cub3d
 {
 	t_game		game;
@@ -47,6 +64,8 @@ typedef struct s_cub3d
 	char		**map;
 	t_texture	texture;
 	t_pos		pos;
+	t_color		color;
+	t_img		img;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img_ptr;
@@ -58,6 +77,11 @@ int		extension_map(int ac, char **av);
 char	**read_map(char av[1], t_cub3d *cub);
 int		parce_config(char **map, t_cub3d *cub);
 void	init_cub3d(t_cub3d *cub);
+
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int		render_frame(void *param);
 void	init_game(t_cub3d *cub);
 
+int		parse_map_sl(t_cub3d *cub, char **argv);
+int		draw_minimap(t_cub3d *cub);
 #endif
