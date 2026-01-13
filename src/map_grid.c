@@ -142,11 +142,17 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 	if (find_player(map, &cub->pos) == 0)
 		return (0);
 
+
 	cub->map_grid = map; //start of map_grid assignment
 	if (check_chars(map) != 0)
 		return (ft_putstr_fd("Error\nInvalid character in map\n", 2), 1);
 	if (check_walls(map) != 0)
 		return (ft_putstr_fd("Error\nWall is not close\n", 2), 1);
+
+	/*cub->map_grid = map;
+	return (1);
+	//check_chars
+	8f97436ce3df45eb764e7df206a0ef0441e67b13*/
 	//flood_fill
 	/*char	**grid;
 	int		i;
