@@ -6,7 +6,7 @@
 #    By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 18:46:47 by esergeev          #+#    #+#              #
-#    Updated: 2026/01/13 15:16:45 by cecompte         ###   ########.fr        #
+#    Updated: 2026/01/13 15:55:01 by cecompte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SOURCES = \
 	ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
 	ft_putendl_fd.c ft_putnbr_fd.c ft_printf/ft_printf.c ft_printf/ft_putchar.c \
 	ft_printf/ft_puthex.c ft_printf/ft_putnbr.c  ft_printf/ft_putptr.c  \
-	ft_printf/ft_putunsign.c get_next_line.c get_next_line_utils.c
+	ft_printf/ft_putunsign.c get_next_line.c get_next_line_utils.c ft_strndup.c
 
 BSOURCES = \
 	   ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c \
