@@ -43,20 +43,18 @@ int	find_player_minimap(t_cub3d *cub)
 	return (0);
 }
 
-int	print_tile(t_cub3d *cub, int width, int height, int tile_size, int color)
+int	print_tile(t_cub3d *cub, int width, int height, int color)
 {
-	int border_color = 0x00404040;  // Dark grey borders
+	int border_color = 0x00404040;
 	
-	for (int y = 0; y < tile_size; y++)
+	for (int y = 0; y < cub->tile_size; y++)
 	{
-		for (int x = 0; x < tile_size; x++)
+		for (int x = 0; x < cub->tile_size; x++)
 		{
 			int draw_x = width + x;
 			int draw_y = height + y;
 			int pixel_color = color;
-			
-			// Draw black borders on edges
-			if (x == 0 || y == 0 || x == tile_size - 1 || y == tile_size - 1)
+			if (x == 0 || y == 0 || x == cub->tile_size - 1 || y == cub->tile_size - 1)
 				pixel_color = border_color;
 			
 			if (draw_x >= 0 && draw_x < cub->game.win_width && 
@@ -66,7 +64,7 @@ int	print_tile(t_cub3d *cub, int width, int height, int tile_size, int color)
 	}
 	return (0);
 }
-int	draw_grid(t_cub3d *cub, int tile_size)
+int	draw_grid(t_cub3d *cub)
 {
 	int	width;
 	int	height = 0;
@@ -76,9 +74,9 @@ int	draw_grid(t_cub3d *cub, int tile_size)
 		while (width < cub->map_info.width)
 		{
 			if (cub->map[height][width] == '1')
-				print_tile(cub, width * tile_size, height * tile_size, tile_size, 0x00808080);
+				print_tile(cub, width * cub->tile_size, height * cub->tile_size, 0x00808080);
 			else
-				print_tile(cub, width * tile_size, height * tile_size, tile_size, 0x00FFFFFF);
+				print_tile(cub, width * cub->tile_size, height * cub->tile_size, 0x00FFFFFF);
 			width++;
 		}
 		height++;
@@ -86,10 +84,10 @@ int	draw_grid(t_cub3d *cub, int tile_size)
 	return (0);
 }
 
-int	draw_player(t_cub3d *cub, int tile_size)
+int	draw_player(t_cub3d *cub)
 {
-	int player_x = cub->pos.x * tile_size;
-	int player_y = cub->pos.y * tile_size;
+	int player_x = cub->pos.x * cub->tile_size;
+	int player_y = cub->pos.y * cub->tile_size;
 	
 	for (int y = -2; y <= 2; y++)
 	{
@@ -107,9 +105,8 @@ int	draw_player(t_cub3d *cub, int tile_size)
 
 int	init_minimap(t_cub3d *cub)
 {
-	int	tile_size = 32;
-	int	win_height = cub->map_info.height * tile_size;
-	int	win_width = cub->map_info.width * tile_size;
+	int	win_height = cub->map_info.height * cub->tile_size;
+	int	win_width = cub->map_info.width * cub->tile_size;
 
 	cub->mlx_ptr = mlx_init();
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, win_width, win_height, "cub3d");
@@ -117,16 +114,16 @@ int	init_minimap(t_cub3d *cub)
 	cub->img.addr = mlx_get_data_addr(cub->img.img, &cub->img.bits_per_pixel, &cub->img.line_length,
 								&cub->img.endian);
 	find_player_minimap(cub);
-	draw_grid(cub, 32);
-	draw_player(cub, 32);
+	draw_grid(cub);
+	draw_player(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img.img, 0, 0);
 	return (0);
 }
 
 int	render_minimap(t_cub3d *cub)
 {
-	draw_grid(cub, 32);
-	draw_player(cub, 32);
+	draw_grid(cub);
+	draw_player(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img.img, 0, 0);
 	return (0);
 }

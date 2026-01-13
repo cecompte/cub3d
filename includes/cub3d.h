@@ -89,6 +89,7 @@ typedef struct s_cub3d
 	void		*win_ptr;
 	void		*img_ptr;
 	char		**map_grid;
+	int			tile_size;
 }				t_cub3d;
 
 int		check_map(char **arg);

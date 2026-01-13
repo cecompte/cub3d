@@ -47,4 +47,5 @@ void	init_cub3d(t_cub3d *cub)
 	cub->map = NULL;
 	cub->mlx_ptr = NULL;
 	cub->win_ptr = NULL;
+	cub->tile_size = 32;
 }
