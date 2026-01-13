@@ -1,11 +1,14 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <mlx.h>
+#include <X11/keysym.h>
+#include <X11/X.h>
 
 typedef struct s_game
 {
