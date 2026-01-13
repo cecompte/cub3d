@@ -43,6 +43,7 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 		return (0);
 
 	cub->map_grid = map;
+	return (1);
 	//check_chars
 	//flood_fill
 	/*char	**grid;

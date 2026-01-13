@@ -76,6 +76,7 @@ int		check_map(char **arg);
 int		extension_map(int ac, char **av);
 char	**read_map(char av[1], t_cub3d *cub);
 int		parce_config(char **map, t_cub3d *cub);
+int		parce_map_grid(char **map, t_cub3d *cub);
 void	init_cub3d(t_cub3d *cub);
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
