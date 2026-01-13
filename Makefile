@@ -1,10 +1,7 @@
 CC				= cc
 CFLAGS			= -g3 -Wall -Wextra -Werror -MMD -MP
-ifeq ($(shell uname), Linux)
-	INCLUDES 	= -Iincludes -Ilibft -I/usr/include -Imlx
-else
-	INCLUDES 	= -Iincludes -Ilibft -I/opt/X11/include -Imlx 
-endif
+INCLUDES		= -Ilibft -Iincludes -Iminilibx-linux
+LDFLAGS			= -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
 NAME			= cub3d
 
 # Sources
@@ -16,17 +13,13 @@ SRC				= main.c \
 					mlx_utils.c \
 					draw_minimap/get_next_line.c \
 					draw_minimap/draw_minimap.c \
-					draw_minimap/parsing_so_long.c
+					draw_minimap/parsing_so_long.c \
+					init_game.c
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Mlx
 MLX_DIR 		= ./mlx
 MLX_LIB 		= $(MLX_DIR)/libmlx_$(UNAME).a
-ifeq ($(shell uname), Linux)
-	MLX_FLAGS 	= -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-else
-	MLX_FLAGS 	= -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
-endif
 
 # Objects
 OBJ_PATH		= obj/
@@ -53,7 +46,7 @@ all: $(LIBFT) mlx $(NAME)
 
 $(NAME): $(OBJECTS)
 	@printf "$(BLUE)%s$(RESET): $(YELLOW)Building $(NAME)...$(RESET)\n" $(NAME)
-	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT_FLAGS) $(LDFLAGS) -o $(NAME)
 	@printf "$(BLUE)%s$(RESET): $(GREEN)Successfully built $(NAME)$(RESET)\n" $(NAME)
 
 mlx:

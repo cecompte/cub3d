@@ -68,6 +68,8 @@ typedef struct s_cub3d
 	t_img		img;
 	void		*mlx_ptr;
 	void		*win_ptr;
+	void		*img_ptr;
+	char		**map_grid;
 }				t_cub3d;
 
 int		check_map(char **arg);
@@ -78,6 +80,7 @@ void	init_cub3d(t_cub3d *cub);
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		render_frame(void *param);
+void	init_game(t_cub3d *cub);
 
 int		parse_map_sl(t_cub3d *cub, char **argv);
 int		draw_minimap(t_cub3d *cub);

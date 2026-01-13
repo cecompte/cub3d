@@ -67,17 +67,23 @@ int	parce_config(char **map, t_cub3d *cub)
 		dest = get_texture_dest(line, &cub->texture);
 		color_dest = get_color_dest(line, &cub->texture);
 		if (dest && *dest)
-			return (ft_putstr_fd("Error\nDuplicate texture\n", 2), 0);
+			return (ft_putstr_fd("Error\nDuplicate texture\n", 2), 1);
 		else if (dest)
-			*dest = ft_strtrim(line + 2, " \t\n");
+			*dest = ft_strtrim(line + 3, " \t\n");
 		else if (color_dest && *color_dest != -1)
-			return (ft_putstr_fd("Error\nDuplicate color\n", 2), 0);
+			return (ft_putstr_fd("Error\nDuplicate color\n", 2), 1);
 		else if (color_dest)
 			*color_dest = parse_rgb(line + 2);
 		else if (*line == '1' || *line == '0')
+		{
+			if (parce_map_grid(&map[i], cub))
+				return (1);
 			break ;
+		}
 		i++;
 	}
-	return (config_complete(&cub->texture));
+	if (!config_complete(&cub->texture))
+		return (ft_putstr_fd("Error\nIncomplete config\n", 2), 1);
+	return (0);
 }
 
