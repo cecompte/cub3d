@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 16:36:06 by esergeev          #+#    #+#             */
-/*   Updated: 2026/01/13 15:16:12 by cecompte         ###   ########.fr       */
+/*   Created: 2025/09/11 15:17:31 by cecompte          #+#    #+#             */
+/*   Updated: 2025/09/11 15:18:20 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	if (!s)
+	char	*ptr;
+	size_t	i;
+	size_t	len;
+
+	if (!s1[0])
 		return (NULL);
-	while (*s)
+	len = ft_strlen(s1);
+	if (len < n)
+		n = len + 1;
+	ptr = ft_calloc(n + 1, 1);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	if (n > 0)
 	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
+		while (s1[i] && i < n)
+		{
+			ptr[i] = s1[i];
+			i++;
+		}
+		ptr[i] = '\0';
 	}
-	if ((char)c == '\0')
-	{
-		return ((char *)s);
-	}
-	return (NULL);
+	return (ptr);
 }

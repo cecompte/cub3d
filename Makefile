@@ -1,9 +1,9 @@
 CC				= cc
 CFLAGS			= -g3 -Wall -Wextra -Werror -MMD -MP
 ifeq ($(shell uname), Linux)
-	INCLUDES 	= -Ilibft -Iincludes -I/usr/include -Imlx
+	INCLUDES 	= -Iincludes -Ilibft -I/usr/include -Imlx
 else
-	INCLUDES 	= -Ilibft -Iincludes -I/opt/X11/include -Imlx 
+	INCLUDES 	= -Iincludes -Ilibft -I/opt/X11/include -Imlx 
 endif
 NAME			= cub3d
 
@@ -12,7 +12,11 @@ SRC_PATH		= src/
 SRC				= main.c \
 					map.c \
 					parce_config.c \
-					init.c
+					init.c \
+					mlx_utils.c \
+					draw_minimap/get_next_line.c \
+					draw_minimap/draw_minimap.c \
+					draw_minimap/parsing_so_long.c
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Mlx
@@ -57,10 +61,11 @@ mlx:
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c | $(OBJ_PATH)
 	@printf "$(BLUE)%s$(RESET): $(MAGENTA)Compiling$(RESET) $<\n" $(NAME)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_PATH):
-	@mkdir $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) all --no-print-directory
