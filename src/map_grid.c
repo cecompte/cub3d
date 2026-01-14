@@ -1,13 +1,13 @@
 #include "cub3d.h"
 
-static void	save_player(t_pos *pos, int i, int j, char dir)
+static void	save_player(t_player *player, int i, int j, char dir)
 {
-	pos->strt_dir = dir;
-	pos->x = j;
-	pos->y = i;
+	player->strt_dir = dir;
+	player->x = j;
+	player->y = i;
 }
 
-int	find_player(char **map, t_pos *pos)
+int	find_player(char **map, t_player *player)
 {
 	int		i;
 	int		j;
@@ -23,7 +23,7 @@ int	find_player(char **map, t_pos *pos)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
 				|| map[i][j] == 'W' )
 			{
-				save_player(pos, i, j, map[i][j]);
+				save_player(player, i, j, map[i][j]);
 				player_count++;
 			}
 			j++;
@@ -39,7 +39,7 @@ int	find_player(char **map, t_pos *pos)
 
 int	parce_map_grid(char **map, t_cub3d *cub)
 {
-	if (find_player(map, &cub->pos) == 0)
+	if (find_player(map, &cub->player) == 0)
 		return (0);
 
 	cub->map_grid = map;

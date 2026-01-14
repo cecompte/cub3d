@@ -9,6 +9,7 @@
 #include <mlx.h>
 #include <X11/keysym.h>
 #include <X11/X.h>
+#include <math.h>
 
 # define UP 119
 # define DOWN 115
@@ -41,14 +42,31 @@ typedef struct s_texture
 	int			ceiling_color;
 }				t_texture;
 
-typedef struct s_pos
+typedef struct s_player
 {
-	double		x; // pour raycasting(?)
+	double		x;
 	double		y;
 	double		dir_x;
 	double		dir_y;
 	char		strt_dir;
-}				t_pos;
+}				t_player;
+
+typedef struct s_ray
+{
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	int			step_x;
+	int			step_y;
+	int			map_x;
+	int			map_y;
+	int			hit_side; // 0 = vertical, 1 = horizontal
+}				t_ray;
 
 typedef struct s_input
 {
@@ -59,13 +77,6 @@ typedef struct s_input
 	int			rotate_left;
 	int			rotate_right;
 } t_input;
-
-typedef struct s_color
-{
-	int			R;
-	int			G;
-	int			B;
-}				t_color;
 
 typedef struct	s_img {
 	void		*img;
@@ -81,9 +92,9 @@ typedef struct s_cub3d
 	t_map_info	map_info;
 	char		**map;
 	t_texture	texture;
-	t_pos		pos;
+	t_player	player;
+	t_ray		*ray;
 	t_input		input;
-	t_color		color;
 	t_img		img;
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -103,9 +114,14 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		render_frame(void *param);
 void	init_game(t_cub3d *cub);
 
+// minimap
 int		parse_map_sl(t_cub3d *cub, char **argv);
 int		init_minimap(t_cub3d *cub);
 int		render_minimap(t_cub3d *cub);
+int		find_player_minimap(t_cub3d *cub);
+int		draw_player(t_cub3d *cub);
+int 	draw_ray_fixed_step(t_cub3d *cub);
+int		draw_ray_dda(t_cub3d *cub);
 
 int		handle_keypress(int keysym, t_cub3d *cub);
 int		handle_keyrelease(int keysym, t_cub3d *cub);

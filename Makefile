@@ -14,6 +14,7 @@ SRC				= main.c \
 					mlx_utils.c \
 					draw_minimap/get_next_line.c \
 					draw_minimap/draw_minimap.c \
+					draw_minimap/draw_player.c \
 					draw_minimap/parsing_so_long.c \
 					draw_minimap/hooks.c \
 					init_game.c 

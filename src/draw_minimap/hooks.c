@@ -10,6 +10,30 @@ int	close_game(t_cub3d *cub)
 	exit(0);
 	return (0);
 }
+void	rotate(t_cub3d *cub, double angle)
+{
+	double	new_dir_y;
+	double	new_dir_x;
+
+	new_dir_x = cub->player.dir_x * cos(angle) - cub->player.dir_y * sin(angle);
+	new_dir_y = cub->player.dir_x * sin(angle) + cub->player.dir_y * cos(angle);
+	cub->player.dir_x = new_dir_x;
+	cub->player.dir_y = new_dir_y;
+}
+
+void	update_position(t_cub3d *cub, int move_x, int move_y)
+{
+	double	try_y;
+	double	try_x;
+
+	try_x = cub->player.x + move_x * 0.005;
+	if (cub->map[(int)cub->player.y][(int)try_x] != '1')
+    	cub->player.x = try_x;
+	
+	try_y = cub->player.y + move_y * 0.005;
+	if (cub->map[(int)try_y][(int)cub->player.x] != '1')
+    	cub->player.y = try_y;
+}
 
 int	handle_keypress(int keycode, t_cub3d *cub)
 {
@@ -53,13 +77,17 @@ int	render_frame(void *param)
 
 	cub = (t_cub3d *)param;
 	if (cub->input.down == 1)
-		cub->pos.y += 0.005;
+		update_position(cub, 0, 1);
 	if (cub->input.up == 1)
-		cub->pos.y -= 0.005;
+		update_position(cub, 0, -1);
 	if (cub->input.left == 1)
-		cub->pos.x -= 0.005;
+		update_position(cub, -1, 0);
 	if (cub->input.right == 1)
-		cub->pos.x += 0.005;
+		update_position(cub, 1, 0);
+	if (cub->input.rotate_left == 1)
+		rotate(cub, -0.005);
+	if (cub->input.rotate_right == 1)
+		rotate(cub, 0.005);
 	render_minimap(cub);
 	return (0);
 }
