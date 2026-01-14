@@ -72,103 +72,58 @@ int	check_chars(char **map)
 То же самое правило — все символы правее длины нижней строки должны быть '1'.
 */
 
-int	check_bot_wall(char **map, int i, int len_cur)
+static char	**make_rect_map(char **map, int height, int width)
 {
-	int	j;
-	int	len_bot;
-
-	len_bot = ft_strlen(map[i + 1]);
-	if (len_cur > len_bot)
-	{
-		j = len_bot;
-		while (j < len_cur)
-		{
-			if (map[i][j] != '1')
-				return (1);
-			j++;
-		}
-	}
-	return (0);
-}
-
-int	check_top_wall(char **map, int i, int len_cur)
-{
-	int	j;
-	int	len_top;
-
-	len_top = ft_strlen(map[i - 1]);
-	if (len_cur > len_top)
-	{
-		j = len_top;
-		while (j < len_cur)
-		{
-			if (map[i][j] != '1')
-				return (1);
-			j++;
-		}
-	}
-	return (0);
-}
-
-
-int	check_walls(char **map)
-{
-	int	i;
-	int	len_cur;
+	int		i;
+	int		j;
+	char	**rect_map;
 
 	i = 0;
-	while (map[i])
+	rect_map = malloc(sizeof(char *) * (height + 1));
+	if (!rect_map)
+		return (NULL);
+	while (i < height)
 	{
-		len_cur = ft_strlen(map[i]);
-		if (map[i][0] != '1' || map[i][len_cur - 1] != '1')
-			return (1);
-		if (i > 0)
+		rect_map[i] = malloc(sizeof(char) * (width + 1));
+		if (!rect_map[i])
+			return (free_tabc(rect_map), NULL);
+		j = 0;
+		while (map[i][j])
 		{
-			if (check_top_wall(map, i, len_cur))
-				return (1);
+			rect_map[i][j] = map[i][j];
+			j++;
 		}
-		if (map[i + 1])
-		{
-			if (check_bot_wall(map, i, len_cur))
-				return (1);
-		}
+		while (j < width)
+			rect_map[i][j++] = ' ';
+		rect_map[i][j] = '\0';
 		i++;
 	}
-	return (0);
+	rect_map[i] = NULL;
+	return (rect_map);
 }
 
 int	parce_map_grid(char **map, t_cub3d *cub)
 {
+	char	**rect_map;
+
+	cub->map_info.height = get_map_height(map);
+	cub->map_info.width = get_max_width(map, cub->map_info.height);
 	if (find_player(map, &cub->pos) == 0)
 		return (0);
-
-
-	cub->map_grid = map; //start of map_grid assignment
 	if (check_chars(map) != 0)
 		return (ft_putstr_fd("Error\nInvalid character in map\n", 2), 1);
-	if (check_walls(map) != 0)
-		return (ft_putstr_fd("Error\nWall is not close\n", 2), 1);
-
-	/*cub->map_grid = map;
-	return (1);
-	//check_chars
-	8f97436ce3df45eb764e7df206a0ef0441e67b13*/
-	//flood_fill
-	/*char	**grid;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = 0;
-	while (map[i])
+	rect_map = make_rect_map(map, cub->map_info.height, cub->map_info.width);
+	if (!rect_map)
+		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
+	if (flood_fill(rect_map, &cub->map_info, (int)cub->pos.y,
+			(int)cub->pos.x) != 0)
 	{
-		while (map[i][j])
-		{
-			grid[i][j] = map[i][j];
-			j++;
-		}
-		j = 0;
-		i++;
-	}*/
-
+		free_tabc(rect_map);
+		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
+	}
+	free_tabc(map);
+	/*
+	8f97436ce3df45eb764e7df206a0ef0441e67b13*/
+	cub->map_grid = rect_map;
+	return (0);
 }

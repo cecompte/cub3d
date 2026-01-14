@@ -1,7 +1,7 @@
 CC				= cc
 CFLAGS			= -g3 -Wall -Wextra -Werror -MMD -MP
-INCLUDES		= -Iincludes -Ilibft -Imlx
-LDFLAGS			= -Lmlx -lmlx -lXext -lX11 -lm -lz
+INCLUDES		= -Iincludes -Ilibft -I./minilibx-linux
+LDFLAGS			= -L./minilibx-linux -lmlx -lXext -lX11 -lm -lz
 NAME			= cub3d
 
 # Sources
@@ -10,16 +10,17 @@ SRC				= main.c \
 					map.c \
 					parce_config.c \
 					map_grid.c \
+					map_utils.c \
 					init.c \
 					mlx_utils.c \
 					draw_minimap/get_next_line.c \
 					draw_minimap/draw_minimap.c \
 					draw_minimap/parsing_so_long.c \
-					init_game.c 
+					init_game.c
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Mlx
-MLX_DIR 		= ./mlx
+MLX_DIR 		= ./minilibx-linux
 MLX_LIB 		= $(MLX_DIR)/libmlx_$(UNAME).a
 
 # Objects
