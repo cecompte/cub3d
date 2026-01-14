@@ -120,7 +120,8 @@ int		init_minimap(t_cub3d *cub);
 int		render_minimap(t_cub3d *cub);
 int		find_player_minimap(t_cub3d *cub);
 int		draw_player(t_cub3d *cub);
-int		draw_ray(t_cub3d *cub);
+int 	draw_ray_fixed_step(t_cub3d *cub);
+int		draw_ray_dda(t_cub3d *cub);
 
 int		handle_keypress(int keysym, t_cub3d *cub);
 int		handle_keyrelease(int keysym, t_cub3d *cub);

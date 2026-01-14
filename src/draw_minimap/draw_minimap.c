@@ -62,7 +62,7 @@ int	render_minimap(t_cub3d *cub)
 {
 	draw_grid(cub);
 	draw_player(cub);
-	draw_ray(cub);
+	draw_ray_dda(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img.img, 0, 0);
 	return (0);
 }
