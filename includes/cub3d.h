@@ -9,6 +9,7 @@
 #include <mlx.h>
 #include <X11/keysym.h>
 #include <X11/X.h>
+#include <math.h>
 
 # define UP 119
 # define DOWN 115
@@ -103,9 +104,13 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		render_frame(void *param);
 void	init_game(t_cub3d *cub);
 
+// minimap
 int		parse_map_sl(t_cub3d *cub, char **argv);
 int		init_minimap(t_cub3d *cub);
 int		render_minimap(t_cub3d *cub);
+int		find_player_minimap(t_cub3d *cub);
+int		draw_player(t_cub3d *cub);
+int		draw_direction(t_cub3d *cub);
 
 int		handle_keypress(int keysym, t_cub3d *cub);
 int		handle_keyrelease(int keysym, t_cub3d *cub);
