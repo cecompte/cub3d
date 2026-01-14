@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <mlx.h>
+#include "../minilibx-linux/mlx.h"
 #include <X11/keysym.h>
 #include <X11/X.h>
 #include <math.h>
@@ -109,6 +109,12 @@ char	**read_map(char av[1], t_cub3d *cub);
 int		parce_config(char **map, t_cub3d *cub);
 int		parce_map_grid(char **map, t_cub3d *cub);
 void	init_cub3d(t_cub3d *cub);
+int		get_map_height(char **map);
+int		get_max_width(char **map, int height);
+int		flood_fill(char **map, t_map_info *info, int y, int x);
+void	free_tabc(char **tab);
+
+
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		render_frame(void *param);

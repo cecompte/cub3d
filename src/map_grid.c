@@ -36,31 +36,94 @@ int	find_player(char **map, t_player *player)
 	return (0);
 }
 
-
-int	parce_map_grid(char **map, t_cub3d *cub)
+int	check_chars(char **map)
 {
-	if (find_player(map, &cub->player) == 0)
-		return (0);
-
-	cub->map_grid = map;
-	return (1);
-	//check_chars
-	//flood_fill
-	/*char	**grid;
 	int		i;
 	int		j;
+	int		player_count;
 
+	player_count = 0;
 	j = 0;
 	i = 0;
 	while (map[i])
 	{
 		while (map[i][j])
 		{
-			grid[i][j] = map[i][j];
-			j++;
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
+				|| map[i][j] == 'W' || map[i][j] == '1' || map[i][j] == '0'
+				|| map[i][j] == ' ')
+				j++;
+			else
+				return (1);
 		}
 		j = 0;
 		i++;
-	}*/
+	}
+	return (0);
+}
+/*-Первый и последний символ строки обязаны быть '1',
+иначе карта считается «протекающей» (незакрытой).
 
+-Если текущая строка длиннее строки сверху:
+Тогда все «выступающие» символы справа (те, у которых current_col > strlen(row_on_top)) должны быть '1'.
+→ Это нужно, чтобы не возникало "дыр" между строками разной длины.
+
+-Если текущая строка длиннее строки снизу:
+То же самое правило — все символы правее длины нижней строки должны быть '1'.
+*/
+
+static char	**make_rect_map(char **map, int height, int width)
+{
+	int		i;
+	int		j;
+	char	**rect_map;
+
+	i = 0;
+	rect_map = malloc(sizeof(char *) * (height + 1));
+	if (!rect_map)
+		return (NULL);
+	while (i < height)
+	{
+		rect_map[i] = malloc(sizeof(char) * (width + 1));
+		if (!rect_map[i])
+			return (free_tabc(rect_map), NULL);
+		j = 0;
+		while (map[i][j])
+		{
+			rect_map[i][j] = map[i][j];
+			j++;
+		}
+		while (j < width)
+			rect_map[i][j++] = ' ';
+		rect_map[i][j] = '\0';
+		i++;
+	}
+	rect_map[i] = NULL;
+	return (rect_map);
+}
+
+int	parce_map_grid(char **map, t_cub3d *cub)
+{
+	char	**rect_map;
+
+	cub->map_info.height = get_map_height(map);
+	cub->map_info.width = get_max_width(map, cub->map_info.height);
+	if (find_player(map, &cub->pos) == 0)
+		return (0);
+	if (check_chars(map) != 0)
+		return (ft_putstr_fd("Error\nInvalid character in map\n", 2), 1);
+	rect_map = make_rect_map(map, cub->map_info.height, cub->map_info.width);
+	if (!rect_map)
+		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
+	if (flood_fill(rect_map, &cub->map_info, (int)cub->pos.y,
+			(int)cub->pos.x) != 0)
+	{
+		free_tabc(rect_map);
+		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
+	}
+	free_tabc(map);
+	/*
+	8f97436ce3df45eb764e7df206a0ef0441e67b13*/
+	cub->map_grid = rect_map;
+	return (0);
 }
