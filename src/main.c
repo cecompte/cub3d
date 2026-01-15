@@ -9,7 +9,7 @@ int	check_arguments(int ac, char **av)
 	}
 	//if (!check_map(av[1]))
 		//return (ft_putstr_fd("Error\nMap is not valid\n", 2), 1);
-	if (extension_map(ac, av))
+	if (check_extension(av[1], ".cub"))
 		return (ft_putstr_fd("Error\nNot good extention of map\n", 2), 1);
 	return (0);
 }
@@ -21,10 +21,14 @@ int	main(int ac, char **av)
 	init_cub3d(&cub);
 	if (check_arguments(ac, av))
 		return (1);
-	// cub.map = read_map(av[1], &cub);
-
+	cub.map = read_map(av[1], &cub);
+	if (parce_config(cub.map, &cub))
+		return (1);
+	if (validate_texture(&cub))
+		return (1);
 	/*Creating a 2D representation of the map (like a grid) and making player move & cast rays*/
-	parse_map_sl(&cub, av);
+	//parse_map_sl(&cub, av);
+
 	init_minimap(&cub);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);

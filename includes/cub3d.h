@@ -103,8 +103,7 @@ typedef struct s_cub3d
 	int			tile_size;
 }				t_cub3d;
 
-int		check_map(char **arg);
-int		extension_map(int ac, char **av);
+int		check_extension(char *str, char *ext);
 char	**read_map(char av[1], t_cub3d *cub);
 int		parce_config(char **map, t_cub3d *cub);
 int		parce_map_grid(char **map, t_cub3d *cub);
@@ -113,6 +112,9 @@ int		get_map_height(char **map);
 int		get_max_width(char **map, int height);
 int		flood_fill(char **map, t_map_info *info, int y, int x);
 void	free_tabc(char **tab);
+int		check_empty_line(char **map);
+int		check_file(char *path);
+int		validate_texture(t_cub3d *cub);
 
 
 

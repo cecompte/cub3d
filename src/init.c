@@ -26,7 +26,7 @@ static void	init_win(t_game *game)
 	game->win_height = 600;	// Default window height in pixels
 }
 
-static void init_input(t_input *input)
+static void	init_input(t_input *input)
 {
 	input->down = 0;
 	input->up = 0;
