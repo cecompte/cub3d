@@ -108,6 +108,8 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 
 	cub->map_info.height = get_map_height(map);
 	cub->map_info.width = get_max_width(map, cub->map_info.height);
+	if (check_empty_line(map))
+		return (ft_putstr_fd("Error\nEmpty line in map\n", 2), 1);
 	if (find_player(map, &cub->player) == 0)
 		return (0);
 	if (check_chars(map) != 0)

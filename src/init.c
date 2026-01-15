@@ -27,7 +27,7 @@ static void	init_win(t_game *game)
 	game->speed = 0.008;
 }
 
-static void init_input(t_input *input)
+static void	init_input(t_input *input)
 {
 	input->down = 0;
 	input->up = 0;

@@ -29,6 +29,26 @@ char	**get_texture_dest(char *line, t_texture *texture)
 	return (NULL);
 }
 
+int	is_numeric(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	if (!str[i] || str[i] == '\n')
+		return (0);
+	while (ft_isdigit(str[i]))
+		i++;
+	while (str[i])
+	{
+		if (str[i] != '\n' && str[i] != '\t' && str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static int	parse_rgb(char *line)
 {
 	char	**rgb;
@@ -37,6 +57,13 @@ static int	parse_rgb(char *line)
 	int		b;
 
 	rgb = ft_split(line, ',');
+	if (!rgb)
+		return (-1);
+	if (!is_numeric(rgb[0]) || !is_numeric(rgb[1]) || !is_numeric(rgb[2]))
+	{
+		free_tabc(rgb);
+		return (-1);
+	}
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 		return (-1);
 	r = ft_atoi(rgb[0]);

@@ -43,6 +43,26 @@ void	free_tabc(char **tab)
 	free(tab);
 }
 
+int	check_empty_line(char **map)
+{
+	int	i;
+	int	map_end;
+
+	i = 0;
+	map_end = 0;
+	while (map[i] && map[i][0] == '\0')
+		i++;
+	while (map[i])
+	{
+		if (map[i][0] == '\0' || map[i][0] == "\n" || map[i][1] == "\0")
+			map_end = 1;
+		else if (map_end == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	flood_fill(char **map, t_map_info *info, int y, int x)
 {
 	if (y < 0 || y >= info->height || x < 0 || x >= info->width)
