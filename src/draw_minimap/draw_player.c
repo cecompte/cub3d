@@ -78,7 +78,7 @@ int	draw_direction(t_cub3d *cub)
 	double	start_y = cub->player.y;
 	double	end_x = cub->player.x + cub->player.dir_x;
 	double	end_y = cub->player.y + cub->player.dir_y;
-	draw_segment(cub, start_x, start_y, end_x, end_y, 0x0000FF00);
+	draw_segment(cub, start_x, start_y, end_x, end_y, 0x00FF0000);
 	return (0);
 }
 
@@ -112,27 +112,3 @@ int	draw_player(t_cub3d *cub)
 	draw_plane(cub);
 	return (0);
 }
-
-// int draw_ray_fixed_step(t_cub3d *cub)
-// {
-// 	float	ray_x;
-// 	float	ray_y;
-// 	float	step;
-// 	int		map_x;
-// 	int		map_y;
-
-// 	ray_x = cub->player.x;
-// 	ray_y = cub->player.y;
-// 	step = 0.01;
-// 	while (1)
-// 	{
-// 		map_x = (int)ray_x;
-// 		map_y = (int)ray_y;
-// 		if (cub->map[map_y][map_x] == '1')
-// 			break;
-// 		my_mlx_pixel_put(&cub->img, (int)(ray_x * cub->tile_size), (int)(ray_y * cub->tile_size), 0x0000FF00);
-// 		ray_x += cub->player.dir_x * step;
-// 		ray_y += cub->player.dir_y * step;
-// 	}
-// 	return (0);
-// }

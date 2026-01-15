@@ -63,6 +63,7 @@ typedef struct s_ray
 	double		delta_dist_y;
 	double		side_dist_x;
 	double		side_dist_y;
+	double		cameraX;
 	int			step_x;
 	int			step_y;
 	int			map_x;
@@ -128,10 +129,8 @@ int		init_minimap(t_cub3d *cub);
 int		render_minimap(t_cub3d *cub);
 int		find_player_minimap(t_cub3d *cub);
 int		draw_player(t_cub3d *cub);
-int 	draw_ray_fixed_step(t_cub3d *cub);
-int		draw_ray_dda(t_cub3d *cub);
 void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color);
-
+int		draw_rays(t_cub3d *cub, int width);
 int		handle_keypress(int keysym, t_cub3d *cub);
 int		handle_keyrelease(int keysym, t_cub3d *cub);
 int		close_game(t_cub3d *cub);

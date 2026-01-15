@@ -24,15 +24,12 @@ void	init_side_dist(t_ray *ray)
 	}
 }
 
-void	init_ray(t_cub3d *cub)
+void	init_ray(t_cub3d *cub, t_ray *ray)
 {
-	t_ray	*ray;
-
-	ray = cub->ray;
 	ray->pos_x = cub->player.x;
 	ray->pos_y = cub->player.y;
-	ray->dir_x = cub->player.dir_x;
-	ray->dir_y = cub->player.dir_y;
+	ray->dir_x = cub->player.dir_x + cub->player.plane_x * ray->cameraX;
+	ray->dir_y = cub->player.dir_y + cub->player.plane_y * ray->cameraX;
 	ray->map_x = (int)ray->pos_x;
 	ray->map_y = (int)ray->pos_y;
 	if (ray->dir_x == 0)
@@ -66,16 +63,13 @@ void	dda_step(t_ray *ray, double *curr_x, double *curr_y)
 	}
 }
 
-int	draw_ray_dda(t_cub3d *cub)
+int	draw_ray_dda(t_cub3d *cub, t_ray *ray)
 {
-	t_ray	*ray;
 	double	start_x;
 	double	start_y;
 	double	end_x;
 	double	end_y;
 
-	ray = cub->ray;
-	init_ray(cub);
 	start_x = ray->pos_x;
 	start_y = ray->pos_y;
 	end_x = start_x;
@@ -89,6 +83,21 @@ int	draw_ray_dda(t_cub3d *cub)
 			break;
 		dda_step(ray, &end_x, &end_y);
 	}
-	draw_segment(cub, start_x, start_y, end_x, end_y, 0x00FF0000);
+	draw_segment(cub, start_x, start_y, end_x, end_y, 0x0000FF00);
+	return (0);
+}
+int	draw_rays(t_cub3d *cub, int width)
+{
+	t_ray	rays[width];
+	int 	i;
+
+	i = 0;
+	while (i < width)
+	{
+		rays[i].cameraX = 2 * i / (double)(width - 1) - 1;
+		init_ray(cub, &rays[i]);
+		draw_ray_dda(cub, &rays[i]);
+		i++;
+	}
 	return (0);
 }
