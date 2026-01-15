@@ -14,11 +14,17 @@ void	rotate(t_cub3d *cub, double angle)
 {
 	double	new_dir_y;
 	double	new_dir_x;
+	double	new_plane_y;
+	double	new_plane_x;
 
 	new_dir_x = cub->player.dir_x * cos(angle) - cub->player.dir_y * sin(angle);
 	new_dir_y = cub->player.dir_x * sin(angle) + cub->player.dir_y * cos(angle);
+	new_plane_x = cub->player.plane_x * cos(angle) - cub->player.plane_y * sin(angle);
+	new_plane_y = cub->player.plane_x * sin(angle) + cub->player.plane_y * cos(angle);
 	cub->player.dir_x = new_dir_x;
 	cub->player.dir_y = new_dir_y;
+	cub->player.plane_x = new_plane_x;
+	cub->player.plane_y = new_plane_y;
 }
 
 void	update_position(t_cub3d *cub, int move_x, int move_y)

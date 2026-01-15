@@ -48,6 +48,8 @@ typedef struct s_player
 	double		y;
 	double		dir_x;
 	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 	char		strt_dir;
 }				t_player;
 
@@ -128,6 +130,7 @@ int		find_player_minimap(t_cub3d *cub);
 int		draw_player(t_cub3d *cub);
 int 	draw_ray_fixed_step(t_cub3d *cub);
 int		draw_ray_dda(t_cub3d *cub);
+void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color);
 
 int		handle_keypress(int keysym, t_cub3d *cub);
 int		handle_keyrelease(int keysym, t_cub3d *cub);
