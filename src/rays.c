@@ -43,61 +43,34 @@ void	init_ray(t_cub3d *cub, t_ray *ray)
 	init_side_dist(ray);
 }
 
-void	dda_step(t_ray *ray, double *curr_x, double *curr_y)
+int	dda_loop(t_cub3d *cub, t_ray *ray)
 {
-	if (ray->side_dist_x < ray->side_dist_y)
-	{
-		ray->side_dist_x += ray->delta_dist_x;
-		ray->map_x += ray->step_x;
-		*curr_x = ray->map_x + (ray->step_x < 0 ? 1 : 0);
-		*curr_y = ray->pos_y + (*curr_x - ray->pos_x) * ray->dir_y / ray->dir_x;
-		ray->hit_side = 0;
-	}
-	else
-	{
-		ray->side_dist_y += ray->delta_dist_y;
-		ray->map_y += ray->step_y;
-		*curr_y = ray->map_y + (ray->step_y < 0 ? 1 : 0);
-		*curr_x = ray->pos_x + (*curr_y - ray->pos_y) * ray->dir_x / ray->dir_y;
-		ray->hit_side = 1;
-	}
-}
+	int	max_steps;
 
-int	draw_ray_dda(t_cub3d *cub, t_ray *ray)
-{
-	double	start_x;
-	double	start_y;
-	double	end_x;
-	double	end_y;
-
-	start_x = ray->pos_x;
-	start_y = ray->pos_y;
-	end_x = start_x;
-	end_y = start_y;
-	while (1)
+	max_steps = 0;
+	while (max_steps++ < 1000)
 	{
 		if (ray->map_x < 0 || ray->map_x >= cub->map_info.width || 
 			ray->map_y < 0 || ray->map_y >= cub->map_info.height)
 			break;
+		if (!cub->map[ray->map_y])
+			break;
+		if (ray->map_x >= (int)ft_strlen(cub->map[ray->map_y]))
+			break;
 		if (cub->map[ray->map_y][ray->map_x] == '1')
 			break;
-		dda_step(ray, &end_x, &end_y);
-	}
-	draw_segment(cub, start_x, start_y, end_x, end_y, 0x0000FF00);
-	return (0);
-}
-int	draw_rays(t_cub3d *cub, int width)
-{
-	t_ray	rays[width];
-	int 	i;
-
-	i = 0;
-	while (i < width)
-	{
-		rays[i].cameraX = 2 * i / (double)(width - 1) - 1;
-		init_ray(cub, &rays[i]);
-		draw_ray_dda(cub, &rays[i]);
-		i++;
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
+			ray->hit_side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
+			ray->hit_side = 1;
+		}
 	}
 	return (0);
 }

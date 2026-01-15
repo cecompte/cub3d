@@ -77,23 +77,3 @@ int	handle_keyrelease(int keycode, t_cub3d *cub)
 	return (0);
 }
 
-int	render_frame(void *param)
-{
-	t_cub3d	*cub;
-
-	cub = (t_cub3d *)param;
-	if (cub->input.down == 1)
-		update_position(cub, 0, 1);
-	if (cub->input.up == 1)
-		update_position(cub, 0, -1);
-	if (cub->input.left == 1)
-		update_position(cub, -1, 0);
-	if (cub->input.right == 1)
-		update_position(cub, 1, 0);
-	if (cub->input.rotate_left == 1)
-		rotate(cub, -0.005);
-	if (cub->input.rotate_right == 1)
-		rotate(cub, 0.005);
-	render_minimap(cub);
-	return (0);
-}

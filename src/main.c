@@ -23,9 +23,9 @@ int	main(int ac, char **av)
 		return (1);
 	// cub.map = read_map(av[1], &cub);
 
-	/*Creating a 2D representation of the map (like a grid) and making player move & cast rays*/
 	parse_map_sl(&cub, av);
 	init_minimap(&cub);
+	init_game(&cub);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
 	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);

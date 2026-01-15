@@ -18,6 +18,8 @@
 # define ESC 65307
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+# define WIDTH 800
+# define HEIGHT 600
 
 typedef struct s_game
 {
@@ -89,6 +91,14 @@ typedef struct	s_img {
 	int			endian;
 }				t_img;
 
+typedef struct	s_minimap {
+	int			offset_x;       // top-left corner of minimap in window
+    int 		offset_y;
+    int 		tile_size;      // size of each map square in pixels on minimap
+    int 		width;          // total width in pixels
+    int 		height;         // total height in pixels
+} t_minimap;
+
 typedef struct s_cub3d
 {
 	t_game		game;
@@ -96,14 +106,16 @@ typedef struct s_cub3d
 	char		**map;
 	t_texture	texture;
 	t_player	player;
-	t_ray		*ray;
 	t_input		input;
 	t_img		img;
+	t_minimap	minimap;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img_ptr;
 	char		**map_grid;
 	int			tile_size;
+	int			screen_width;
+	int			screen_height;
 }				t_cub3d;
 
 int		check_map(char **arg);
@@ -125,12 +137,19 @@ void	init_game(t_cub3d *cub);
 
 // minimap
 int		parse_map_sl(t_cub3d *cub, char **argv);
-int		init_minimap(t_cub3d *cub);
+void	init_minimap(t_cub3d *cub);
 int		render_minimap(t_cub3d *cub);
 int		find_player_minimap(t_cub3d *cub);
-int		draw_player(t_cub3d *cub);
+int		draw_player_minimap(t_cub3d *cub);
 void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color);
-int		draw_rays(t_cub3d *cub, int width);
+
+// full map
+void	init_ray(t_cub3d *cub, t_ray *ray);
+int		dda_loop(t_cub3d *cub, t_ray *ray);
+
+// hooks
+void	rotate(t_cub3d *cub, double angle);
+void	update_position(t_cub3d *cub, int move_x, int move_y);
 int		handle_keypress(int keysym, t_cub3d *cub);
 int		handle_keyrelease(int keysym, t_cub3d *cub);
 int		close_game(t_cub3d *cub);
