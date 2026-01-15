@@ -27,16 +27,16 @@ void	rotate(t_cub3d *cub, double angle)
 	cub->player.plane_y = new_plane_y;
 }
 
-void	update_position(t_cub3d *cub, int move_x, int move_y)
+void	update_position(t_cub3d *cub, int forward, int strafe, double speed)
 {
 	double	try_y;
 	double	try_x;
 
-	try_x = cub->player.x + move_x * 0.005;
+	try_x = cub->player.x + (forward * cub->player.dir_x + strafe * cub->player.plane_x) * speed;
 	if (cub->map[(int)cub->player.y][(int)try_x] != '1')
     	cub->player.x = try_x;
 	
-	try_y = cub->player.y + move_y * 0.005;
+	try_y = cub->player.y + (forward * cub->player.dir_y + strafe * cub->player.plane_y) * speed;
 	if (cub->map[(int)try_y][(int)cub->player.x] != '1')
     	cub->player.y = try_y;
 }

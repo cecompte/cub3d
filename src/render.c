@@ -67,17 +67,17 @@ int	render_frame(void *param)
 	total_pixels = cub->game.win_width * cub->game.win_height * (cub->img.bits_per_pixel / 8);
 	ft_memset(cub->img.addr, 0, total_pixels);
 	if (cub->input.down == 1)
-		update_position(cub, 0, 1);
+		update_position(cub, -1, 0, cub->game.speed);
 	if (cub->input.up == 1)
-		update_position(cub, 0, -1);
+		update_position(cub, 1, 0, cub->game.speed);
 	if (cub->input.left == 1)
-		update_position(cub, -1, 0);
+		update_position(cub, 0, -1, cub->game.speed);
 	if (cub->input.right == 1)
-		update_position(cub, 1, 0);
+		update_position(cub, 0, 1, cub->game.speed);
 	if (cub->input.rotate_left == 1)
-		rotate(cub, -0.005);
+		rotate(cub, -cub->game.speed);
 	if (cub->input.rotate_right == 1)
-		rotate(cub, 0.005);
+		rotate(cub, cub->game.speed);
 	render_fullmap(cub);
 	render_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img.img, 0, 0);

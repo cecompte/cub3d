@@ -26,6 +26,7 @@ typedef struct s_game
 	int			run;
 	int			win_width;
 	int			win_height;
+	double		speed;
 }				t_game;
 
 typedef struct s_map_info
@@ -113,7 +114,6 @@ typedef struct s_cub3d
 	void		*win_ptr;
 	void		*img_ptr;
 	char		**map_grid;
-	int			tile_size;
 	int			screen_width;
 	int			screen_height;
 }				t_cub3d;
@@ -149,7 +149,7 @@ int		dda_loop(t_cub3d *cub, t_ray *ray);
 
 // hooks
 void	rotate(t_cub3d *cub, double angle);
-void	update_position(t_cub3d *cub, int move_x, int move_y);
+void	update_position(t_cub3d *cub, int forward, int strafe, double speed);
 int		handle_keypress(int keysym, t_cub3d *cub);
 int		handle_keyrelease(int keysym, t_cub3d *cub);
 int		close_game(t_cub3d *cub);

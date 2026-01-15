@@ -24,6 +24,7 @@ static void	init_win(t_game *game)
 	game->run = 1;			// Game loop flag: 1 = running, 0 = exit
 	game->win_width = 800;	// Default window width in pixels (4:3 aspect)
 	game->win_height = 600;	// Default window height in pixels
+	game->speed = 0.008;
 }
 
 static void init_input(t_input *input)
@@ -47,5 +48,4 @@ void	init_cub3d(t_cub3d *cub)
 	cub->map = NULL;
 	cub->mlx_ptr = NULL;
 	cub->win_ptr = NULL;
-	cub->tile_size = 32;
 }
