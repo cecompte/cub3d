@@ -108,15 +108,15 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 
 	cub->map_info.height = get_map_height(map);
 	cub->map_info.width = get_max_width(map, cub->map_info.height);
-	if (find_player(map, &cub->pos) == 0)
+	if (find_player(map, &cub->player) == 0)
 		return (0);
 	if (check_chars(map) != 0)
 		return (ft_putstr_fd("Error\nInvalid character in map\n", 2), 1);
 	rect_map = make_rect_map(map, cub->map_info.height, cub->map_info.width);
 	if (!rect_map)
 		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
-	if (flood_fill(rect_map, &cub->map_info, (int)cub->pos.y,
-			(int)cub->pos.x) != 0)
+	if (flood_fill(rect_map, &cub->map_info, (int)cub->player.y,
+			(int)cub->player.x) != 0)
 	{
 		free_tabc(rect_map);
 		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
