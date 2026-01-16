@@ -20,6 +20,7 @@ SRC				= main.c \
 					minimap/parsing_so_long.c \
 					hooks.c \
 					rays.c \
+					render.c
 
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
