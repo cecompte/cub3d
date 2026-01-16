@@ -1,5 +1,37 @@
 #include "cub3d.h"
 
+#include "cub3d.h"
+
+void	draw_floor_ceiling(t_cub3d *cub)
+{
+	int x;
+	int	y;
+
+	y = 0;
+	cub->texture.floor_color = 0x7a7a7a; // to remove (test only)
+	cub->texture.ceiling_color = 0x4b0082; // to remove (test only)
+	while (y < cub->game.win_height / 2)
+	{
+		x = 0;
+		while (x < cub->game.win_width)
+		{
+			my_mlx_pixel_put(&cub->img, x, y, cub->texture.ceiling_color);
+			x++;
+		}
+		y++;
+	}
+	while (y < cub->game.win_height)
+	{
+		x = 0;
+		while (x < cub->game.win_width)
+		{
+			my_mlx_pixel_put(&cub->img, x, y, cub->texture.floor_color);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	draw_vertical_line(t_cub3d *cub, int col, double draw_start, double draw_end, int wall_color)
 {
 	int	y;
@@ -78,6 +110,7 @@ int	render_frame(void *param)
 		rotate(cub, -cub->game.speed);
 	if (cub->input.rotate_right == 1)
 		rotate(cub, cub->game.speed);
+	draw_floor_ceiling(cub);
 	render_fullmap(cub);
 	render_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img.img, 0, 0);
