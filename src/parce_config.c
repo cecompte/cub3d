@@ -59,13 +59,13 @@ static int	parse_rgb(char *line)
 	rgb = ft_split(line, ',');
 	if (!rgb)
 		return (-1);
+	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
+		return (free_tabc(rgb), -1);
 	if (!is_numeric(rgb[0]) || !is_numeric(rgb[1]) || !is_numeric(rgb[2]))
 	{
 		free_tabc(rgb);
 		return (-1);
 	}
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
-		return (-1);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);

@@ -51,7 +51,7 @@ int	check_chars(char **map)
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
 				|| map[i][j] == 'W' || map[i][j] == '1' || map[i][j] == '0'
-				|| map[i][j] == ' ')
+				|| map[i][j] == ' ' || map[i][j] == '\n')
 				j++;
 			else
 				return (1);
@@ -110,8 +110,8 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 	cub->map_info.width = get_max_width(map, cub->map_info.height);
 	if (check_empty_line(map))
 		return (ft_putstr_fd("Error\nEmpty line in map\n", 2), 1);
-	if (find_player(map, &cub->player) == 0)
-		return (0);
+	if (find_player(map, &cub->player) != 0)
+		return (1);
 	if (check_chars(map) != 0)
 		return (ft_putstr_fd("Error\nInvalid character in map\n", 2), 1);
 	rect_map = make_rect_map(map, cub->map_info.height, cub->map_info.width);
@@ -123,7 +123,6 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 		free_tabc(rect_map);
 		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
 	}
-	free_tabc(map);
 	/*
 	8f97436ce3df45eb764e7df206a0ef0441e67b13*/
 	cub->map_grid = rect_map;
