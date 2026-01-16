@@ -12,9 +12,8 @@ SRC				= main.c \
 					map_grid.c \
 					map_utils.c \
 					init.c \
-					init_game.c \
+					texture_operation.c \
 					mlx_utils.c \
-<<<<<<< HEAD
 					minimap/get_next_line.c \
 					minimap/draw_minimap.c \
 					minimap/draw_player.c \
@@ -22,14 +21,7 @@ SRC				= main.c \
 					hooks.c \
 					rays.c \
 					render.c
-=======
-					draw_minimap/get_next_line.c \
-					draw_minimap/draw_minimap.c \
-					draw_minimap/draw_player.c \
-					draw_minimap/parsing_so_long.c \
-					draw_minimap/hooks.c \
-					texture_operation.c
->>>>>>> esergeev
+
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Mlx

@@ -4,10 +4,16 @@
 void	init_game(t_cub3d *cub)
 {
 	cub->mlx_ptr = mlx_init();
+	if (!cub->mlx_ptr)
+		exit(1);
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->game.win_width,
 			cub->game.win_height, "Cub3D");
-	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
+	//cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
+	//		cub->game.win_height); // not used
+	cub->img.img = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
 			cub->game.win_height);
+	cub->img.addr = mlx_get_data_addr(cub->img.img, &cub->img.bits_per_pixel,
+			&cub->img.line_length, &cub->img.endian);
 }
 
 int	check_arguments(int ac, char **av)
@@ -43,7 +49,6 @@ int	main(int ac, char **av)
 	//parse_map_sl(&cub, av);
 
 	init_minimap(&cub);
-	init_game(&cub);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
 	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);
