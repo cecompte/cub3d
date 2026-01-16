@@ -1,5 +1,15 @@
 #include "cub3d.h"
 
+
+void	init_game(t_cub3d *cub)
+{
+	cub->mlx_ptr = mlx_init();
+	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->game.win_width,
+			cub->game.win_height, "Cub3D");
+	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
+			cub->game.win_height);
+}
+
 int	check_arguments(int ac, char **av)
 {
 	if (ac != 2)
@@ -26,6 +36,9 @@ int	main(int ac, char **av)
 		return (1);
 	if (validate_texture(&cub))
 		return (1);
+
+	init_game(&cub);
+	load_texture(&cub);
 	/*Creating a 2D representation of the map (like a grid) and making player move & cast rays*/
 	//parse_map_sl(&cub, av);
 

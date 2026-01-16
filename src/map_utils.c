@@ -54,7 +54,7 @@ int	check_empty_line(char **map)
 		i++;
 	while (map[i])
 	{
-		if (map[i][0] == '\0' || map[i][0] == "\n" || map[i][1] == "\0")
+		if (map[i][0] == '\0' || map[i][0] == '\n' || map[i][1] == '\0')
 			map_end = 1;
 		else if (map_end == 1)
 			return (1);
