@@ -18,7 +18,7 @@ SRC				= main.c \
 					draw_minimap/draw_player.c \
 					draw_minimap/parsing_so_long.c \
 					draw_minimap/hooks.c \
-					init_game.c 
+					texture_operation.c
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Mlx

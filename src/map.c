@@ -11,7 +11,7 @@ int	check_extension(char *str, char *ext)
 	ext_len = ft_strlen(ext);
 	if (len < ext_len)
 		return (1);
-	if (ft_strncmp(str - len + ext_len, ext_len, ext) == 0)
+	if (ft_strncmp(str + len - ext_len, ext, ext_len) == 0)
 		return (0);
 	return (1);
 }

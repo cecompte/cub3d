@@ -92,6 +92,10 @@ typedef struct s_cub3d
 	t_map_info	map_info;
 	char		**map;
 	t_texture	texture;
+	t_img		tex_n;	//images
+	t_img		tex_s;
+	t_img		tex_w;
+	t_img		tex_e;
 	t_player	player;
 	t_ray		*ray;
 	t_input		input;
@@ -115,7 +119,7 @@ void	free_tabc(char **tab);
 int		check_empty_line(char **map);
 int		check_file(char *path);
 int		validate_texture(t_cub3d *cub);
-
+void	load_texture(t_cub3d *cub);
 
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);

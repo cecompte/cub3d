@@ -1,15 +1,5 @@
 #include "cub3d.h"
 
-void	init_game(t_cub3d *cub)
-{
-	cub->mlx_ptr = mlx_init();
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->game.win_width,
-			cub->game.win_height, "Cub3D");
-	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
-			cub->game.win_height);
-	mlx_loop(cub->mlx_ptr);
-}
-
 int	check_file(char *path)
 {
 	int	fd;
@@ -32,4 +22,27 @@ int	validate_texture(t_cub3d *cub)
 		|| check_file(cub->texture.we_path) || check_file(cub->texture.ea_path))
 		return (ft_putstr_fd("Error\nTexture file not found\n", 2), 1);
 	return (0);
+}
+
+static void	load_one_texture(t_cub3d *cub, t_img *img, char *path)
+{
+	int	width;
+	int	height;
+
+	img->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &width, &height);
+	if (!img->img)
+	{
+		ft_putstr_fd("Error\nCannot load texture\n", 2);
+		exit (1);
+	}
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
+}
+
+void	load_texture(t_cub3d *cub)
+{
+	load_one_texture(cub, &cub->tex_n, cub->texture.no_path);
+	load_one_texture(cub, &cub->tex_s, cub->texture.so_path);
+	load_one_texture(cub, &cub->tex_w, cub->texture.we_path);
+	load_one_texture(cub, &cub->tex_e, cub->texture.ea_path);
 }
