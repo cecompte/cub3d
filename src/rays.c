@@ -53,10 +53,10 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 		if (ray->map_x < 0 || ray->map_x >= cub->map_info.width || 
 			ray->map_y < 0 || ray->map_y >= cub->map_info.height)
 			break;
-		if (!cub->map[ray->map_y])
-			break;
-		if (ray->map_x >= (int)ft_strlen(cub->map[ray->map_y]))
-			break;
+		// if (!cub->map[ray->map_y])
+		// 	break;
+		// if (ray->map_x >= (int)ft_strlen(cub->map[ray->map_y]))
+		// 	break;
 		if (cub->map[ray->map_y][ray->map_x] == '1')
 			break;
 		if (ray->side_dist_x < ray->side_dist_y)

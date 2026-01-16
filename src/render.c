@@ -55,7 +55,7 @@ int	draw_vertical_line(t_cub3d *cub, int col, double draw_start, double draw_end
 	return (0);
 }
 
-int	render_fullmap(t_cub3d *cub)
+int	draw_walls(t_cub3d *cub)
 {
 	t_ray	ray;
 	int 	i;
@@ -79,25 +79,21 @@ int	render_fullmap(t_cub3d *cub)
 		line_height = cub->game.win_height / perp_wall_dist;
 		draw_start = cub->game.win_height/2 - line_height/2;
 		draw_end   = cub->game.win_height/2 + line_height/2;
-		if (ray.hit_side == 0)
+		if (ray.hit_side == 0 && ray.dir_x > 0) // EAST
 			draw_vertical_line(cub, i, draw_start, draw_end, 0x00FFC0CB);
-		else
+		else if (ray.hit_side == 0 && ray.dir_x < 0) // WEST
 			draw_vertical_line(cub, i, draw_start, draw_end, 0x00FF0000);
+		else if (ray.hit_side == 1 && ray.dir_y > 0) // NORTH
+			draw_vertical_line(cub, i, draw_start, draw_end, 0x000000FF);
+		else // SOUTH
+			draw_vertical_line(cub, i, draw_start, draw_end, 0x00C0CBFF);
 		i++;
 	}
 	return (0);
 }
 
-int	render_frame(void *param)
+void	handle_inputs(t_cub3d *cub)
 {
-	t_cub3d	*cub;
-	int	total_pixels;
-
-	cub = (t_cub3d *)param;
-	if (!cub->img.addr)
-		return (0);
-	total_pixels = cub->game.win_width * cub->game.win_height * (cub->img.bits_per_pixel / 8);
-	ft_memset(cub->img.addr, 0, total_pixels);
 	if (cub->input.down == 1)
 		update_position(cub, -1, 0, cub->game.speed);
 	if (cub->input.up == 1)
@@ -110,8 +106,21 @@ int	render_frame(void *param)
 		rotate(cub, -cub->game.speed);
 	if (cub->input.rotate_right == 1)
 		rotate(cub, cub->game.speed);
+}
+
+int	render_frame(void *param)
+{
+	t_cub3d	*cub;
+	int	total_pixels;
+
+	cub = (t_cub3d *)param;
+	if (!cub->img.addr)
+		return (0);
+	total_pixels = cub->game.win_width * cub->game.win_height * (cub->img.bits_per_pixel / 8);
+	ft_memset(cub->img.addr, 0, total_pixels);
+	handle_inputs(cub);
 	draw_floor_ceiling(cub);
-	render_fullmap(cub);
+	draw_walls(cub);
 	render_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img.img, 0, 0);
 	return (0);
