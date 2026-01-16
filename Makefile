@@ -1,7 +1,7 @@
 CC				= cc
 CFLAGS			= -g3 -Wall -Wextra -Werror -MMD -MP
 INCLUDES		= -Iincludes -Ilibft -I./minilibx-linux
-LDFLAGS			= -L./minilibx-linux -lmlx -lXext -lX11 -lm -lz
+LDFLAGS			= -L./minilibx-linux -lmlx -lXext -lX11 -lm
 NAME			= cub3d
 
 # Sources

@@ -6,14 +6,14 @@ int	draw_vertical_line(t_cub3d *cub, int col, double draw_start, double draw_end
 	int	start;
 	int	end;
 
-	if (col < 0 || col >= WIDTH)
+	if (col < 0 || col >= cub->game.win_width)
 		return (0);
 	start = (int)draw_start;
 	end = (int)draw_end;
 	if (start < 0)
 		start = 0;
-	if (end > HEIGHT)
-		end = HEIGHT;
+	if (end > cub->game.win_height)
+		end = cub->game.win_height;
 	y = start;
 	while (y < end)
 	{
@@ -35,18 +35,18 @@ int	render_fullmap(t_cub3d *cub)
 	if (!cub->map || cub->map_info.width == 0 || cub->map_info.height == 0)
 		return (0);
 	i = 0;
-	while (i < WIDTH)
+	while (i < cub->game.win_width)
 	{
-		ray.cameraX = 2 * i / (double)(WIDTH - 1) - 1;
+		ray.cameraX = 2 * i / (double)(cub->game.win_width - 1) - 1;
 		init_ray(cub, &ray);
 		dda_loop(cub, &ray);
 		if (ray.hit_side == 0)
 			perp_wall_dist = (ray.map_x - cub->player.x + (1 - ray.step_x) /2) / ray.dir_x;
 		else
 			perp_wall_dist = (ray.map_y - cub->player.y + (1 - ray.step_y) /2) / ray.dir_y;
-		line_height = HEIGHT / perp_wall_dist;
-		draw_start = HEIGHT/2 - line_height/2;
-		draw_end   = HEIGHT/2 + line_height/2;
+		line_height = cub->game.win_height / perp_wall_dist;
+		draw_start = cub->game.win_height/2 - line_height/2;
+		draw_end   = cub->game.win_height/2 + line_height/2;
 		if (ray.hit_side == 0)
 			draw_vertical_line(cub, i, draw_start, draw_end, 0x00FFC0CB);
 		else

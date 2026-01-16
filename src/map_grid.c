@@ -40,9 +40,9 @@ int	check_chars(char **map)
 {
 	int		i;
 	int		j;
-	int		player_count;
+	// int		player_count;
 
-	player_count = 0;
+	// player_count = 0;
 	j = 0;
 	i = 0;
 	while (map[i])

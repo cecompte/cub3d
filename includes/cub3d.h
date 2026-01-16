@@ -18,8 +18,6 @@
 # define ESC 65307
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
-# define WIDTH 800
-# define HEIGHT 600
 
 typedef struct s_game
 {
