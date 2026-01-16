@@ -61,5 +61,6 @@ int parse_map_sl(t_cub3d *cub, char **argv)
 	cub->map_info.height = count_lines(argv);
 	cub->map_info.width = ft_strlen(cub->map[0]);
 	close(fd);
+	find_player_minimap(cub);
 	return (1);
 }

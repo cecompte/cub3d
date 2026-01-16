@@ -30,6 +30,8 @@
 
 # Executables
 cub3d
+Makefile.gen
+mlx-test
 
 # Debug files
 *.dSYM/

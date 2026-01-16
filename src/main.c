@@ -43,6 +43,7 @@ int	main(int ac, char **av)
 	//parse_map_sl(&cub, av);
 
 	init_minimap(&cub);
+	init_game(&cub);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
 	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);
