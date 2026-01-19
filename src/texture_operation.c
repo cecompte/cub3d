@@ -12,6 +12,19 @@
 								&cub->img.endian);
 }*/
 
+char	**get_texture_dest(char *line, t_texture *texture)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0)
+		return (&texture->no_path);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		return (&texture->so_path);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		return (&texture->we_path);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		return (&texture->ea_path);
+	return (NULL);
+}
+
 int	check_file(char *path)
 {
 	int	fd;

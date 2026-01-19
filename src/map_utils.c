@@ -28,21 +28,6 @@ int	get_max_width(char **map, int height)
 	return (max);
 }
 
-void	free_tabc(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
 int	check_empty_line(char **map)
 {
 	int	i;

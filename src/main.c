@@ -9,7 +9,7 @@ void	init_game(t_cub3d *cub)
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->game.win_width,
 			cub->game.win_height, "Cub3D");
 	//cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
-	//		cub->game.win_height); // not used
+	//		cub->game.win_height);// not used
 	cub->img.img = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
 			cub->game.win_height);
 	cub->img.addr = mlx_get_data_addr(cub->img.img, &cub->img.bits_per_pixel,
@@ -39,10 +39,10 @@ int	main(int ac, char **av)
 		return (1);
 	cub.map = read_map(av[1], &cub);
 	if (parce_config(cub.map, &cub))
-		return (1);
+		return (free_cub3d(&cub), 1);
+	find_player_minimap(&cub); // find player position and set direction
 	if (validate_texture(&cub))
-		return (1);
-
+		return (free_cub3d(&cub), 1);
 	init_game(&cub);
 	load_texture(&cub);
 	/*Creating a 2D representation of the map (like a grid) and making player move & cast rays*/
@@ -54,6 +54,7 @@ int	main(int ac, char **av)
 	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);
 	mlx_loop_hook(cub.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_ptr);
+	free_cub3d(&cub);
 	return (0);
 }
 /*

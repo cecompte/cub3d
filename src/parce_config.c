@@ -16,19 +16,6 @@ int	*get_color_dest(char *line, t_texture *texture)
 	return (NULL);
 }
 
-char	**get_texture_dest(char *line, t_texture *texture)
-{
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (&texture->no_path);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (&texture->so_path);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (&texture->we_path);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (&texture->ea_path);
-	return (NULL);
-}
-
 int	is_numeric(char *str)
 {
 	int	i;
@@ -69,45 +56,55 @@ static int	parse_rgb(char *line)
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
-	free(rgb[0]);
-	free(rgb[1]);
-	free(rgb[2]);
-	free(rgb);
+	free_tabc(rgb);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (-1);
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	parce_config(char **map, t_cub3d *cub)
+int	handle_parce_config(char **map, t_cub3d *cub, int i)
 {
 	char	**dest;
 	char	*line;
 	int		*color_dest;
-	int		i;
 
+	line = map[i];
+	while (*line == ' ' || *line == '\n' || *line == '\t')
+		line++;
+	dest = get_texture_dest(line, &cub->texture);
+	color_dest = get_color_dest(line, &cub->texture);
+	if (dest && *dest)
+		return (ft_putstr_fd("Error\nDuplicate texture\n", 2), 1);
+	else if (dest)
+		*dest = ft_strtrim(line + 3, " \t\n");
+	else if (color_dest && *color_dest != -1)
+		return (ft_putstr_fd("Error\nDuplicate color\n", 2), 1);
+	else if (color_dest)
+		*color_dest = parse_rgb(line + 2);
+	else if (*line == '1' || *line == '0')
+	{
+		if (parce_map_grid(&map[i], cub))
+			return (1);
+		return (2);
+	}
+	return (0);
+}
+
+int	parce_config(char **map, t_cub3d *cub)
+{
+	int	res;
+	int	i;
+
+	res = 0;
 	i = 0;
 	while (map[i])
 	{
-		line = map[i];
-		while (*line == ' ' || *line == '\n' || *line == '\t')
-			line++;
-		dest = get_texture_dest(line, &cub->texture);
-		color_dest = get_color_dest(line, &cub->texture);
-		if (dest && *dest)
-			return (ft_putstr_fd("Error\nDuplicate texture\n", 2), 1);
-		else if (dest)
-			*dest = ft_strtrim(line + 3, " \t\n");
-		else if (color_dest && *color_dest != -1)
-			return (ft_putstr_fd("Error\nDuplicate color\n", 2), 1);
-		else if (color_dest)
-			*color_dest = parse_rgb(line + 2);
-		else if (*line == '1' || *line == '0')
-		{
-			if (parce_map_grid(&map[i], cub))
-				return (1);
-			break ;
-		}
+		res = handle_parce_config(map, cub, i);
 		i++;
+		if (res == 1)
+			return (1);
+		else if (res == 2)
+			break ;
 	}
 	if (!config_complete(&cub->texture))
 		return (ft_putstr_fd("Error\nIncomplete config\n", 2), 1);
