@@ -102,6 +102,25 @@ static char	**make_rect_map(char **map, int height, int width)
 	return (rect_map);
 }
 
+static void	restore_map(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'V')
+				map[i][j] = '0';
+			j++;
+		}
+		i++;
+	}
+}
+
 int	parce_map_grid(char **map, t_cub3d *cub)
 {
 	char	**rect_map;
@@ -123,8 +142,7 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 		free_tabc(rect_map);
 		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
 	}
-	/*
-	8f97436ce3df45eb764e7df206a0ef0441e67b13*/
+	restore_map(rect_map);
 	cub->map_grid = rect_map;
 	return (0);
 }

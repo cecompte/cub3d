@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esergeev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:12:00 by esergeev          #+#    #+#             */
-/*   Updated: 2025/05/27 18:12:30 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/01/19 18:33:46 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+
 #include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
@@ -54,7 +54,7 @@ char	*ft_strjoin(char const *s1, char const	*s2)
 	return (start);
 }
 
-/*size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
@@ -64,7 +64,7 @@ char	*ft_strjoin(char const *s1, char const	*s2)
 	while (str[i])
 		i++;
 	return (i);
-}*/
+}
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
@@ -81,5 +81,25 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		res++;
 		buf++;
 	}
+	return (dest);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*dest;
+	size_t	i;
+
+	if (!src)
+		return (NULL);
+	dest = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
 	return (dest);
 }

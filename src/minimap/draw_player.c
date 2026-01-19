@@ -2,7 +2,7 @@
 
 int	find_player_minimap(t_cub3d *cub)
 {
-	int x = 0;
+	int	x = 0;
 	int	y = 0;
 	while (y < cub->map_info.height)
 	{
@@ -26,7 +26,7 @@ int	find_player_minimap(t_cub3d *cub)
 				else if (cub->map[y][x] == 'S')
 				{
 					cub->player.dir_x = 0;
-					cub->player.dir_y = -1;
+					cub->player.dir_y = 1; // j'ai suprimer '-' parce que t'as utilise deja pour 'N'
 				}
 				else
 				{
@@ -69,7 +69,7 @@ void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int 
 	{
 		int draw_x = cub->minimap.offset_x + (int)(x * cub->minimap.tile_size);
 		int draw_y = cub->minimap.offset_y + (int)(y * cub->minimap.tile_size);
-		if (draw_x >= 0 && draw_x < cub->game.win_width && 
+		if (draw_x >= 0 && draw_x < cub->game.win_width &&
 			draw_y >= 0 && draw_y < cub->game.win_height)
 			my_mlx_pixel_put(&cub->img, draw_x, draw_y, color);
 		x += x_inc;
@@ -102,14 +102,14 @@ int	draw_player_minimap(t_cub3d *cub)
 {
 	int player_x = cub->minimap.offset_x + cub->player.x * cub->minimap.tile_size;
 	int player_y = cub->minimap.offset_y + cub->player.y * cub->minimap.tile_size;
-	
+
 	for (int y = -2; y <= 2; y++)
 	{
 		for (int x = -2; x <= 2; x++)
 		{
 			int draw_x = player_x + x;
 			int draw_y = player_y + y;
-			if (draw_x >= 0 && draw_x < cub->game.win_width && 
+			if (draw_x >= 0 && draw_x < cub->game.win_width &&
 				draw_y >= 0 && draw_y < cub->game.win_height)
 				my_mlx_pixel_put(&cub->img, draw_x, draw_y, 0x00FF0000);
 		}
