@@ -1,28 +1,18 @@
 #include "cub3d.h"
 
-int	check_map(char **arg)
+int	check_extension(char *str, char *ext)
 {
-	(void)arg;
-	return (0);
-}
+	int	len;
+	int	ext_len;
 
-int	extension_map(int ac, char **av)
-{
-	char	*ptr;
-
-	ptr = av[1];
-	if (ac == 2)
-	{
-		while (*ptr && (ft_strncmp(ptr, ".cub", 4) != 0))
-			ptr++;
-		if (!(*ptr))
-			return (1);
-		ptr += 4;
-		if (*ptr == '\0')
-			return (0);
-		else
-			return (1);
-	}
+	if (!str)
+		return (1);
+	len = ft_strlen(str);
+	ext_len = ft_strlen(ext);
+	if (len < ext_len)
+		return (1);
+	if (ft_strncmp(str + len - ext_len, ext, ext_len) == 0)
+		return (0);
 	return (1);
 }
 
@@ -86,8 +76,6 @@ char	**parse_map(char *av, t_cub3d *cub)
 	ft_lstclear(&list, NULL);
 	if (!cub->map)
 		return (NULL);
-	if (check_map(cub->map) != 0)
-		return (ft_putstr_fd("Error\nMap is not valid\n", 2), NULL);
 	return (cub->map);
 
 }

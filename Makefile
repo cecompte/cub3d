@@ -12,7 +12,7 @@ SRC				= main.c \
 					map_grid.c \
 					map_utils.c \
 					init.c \
-					init_game.c \
+					texture_operation.c \
 					mlx_utils.c \
 					minimap/get_next_line.c \
 					minimap/draw_minimap.c \
@@ -20,7 +20,9 @@ SRC				= main.c \
 					minimap/parsing_so_long.c \
 					hooks.c \
 					rays.c \
+					clean.c \
 					render.c
+
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
 # Mlx

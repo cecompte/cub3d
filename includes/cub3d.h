@@ -104,6 +104,10 @@ typedef struct s_cub3d
 	t_map_info	map_info;
 	char		**map;
 	t_texture	texture;
+	t_img		tex_n;	//images
+	t_img		tex_s;
+	t_img		tex_w;
+	t_img		tex_e;
 	t_player	player;
 	t_input		input;
 	t_img		img;
@@ -116,8 +120,7 @@ typedef struct s_cub3d
 	int			screen_height;
 }				t_cub3d;
 
-int		check_map(char **arg);
-int		extension_map(int ac, char **av);
+int		check_extension(char *str, char *ext);
 char	**read_map(char av[1], t_cub3d *cub);
 int		parce_config(char **map, t_cub3d *cub);
 int		parce_map_grid(char **map, t_cub3d *cub);
@@ -126,6 +129,13 @@ int		get_map_height(char **map);
 int		get_max_width(char **map, int height);
 int		flood_fill(char **map, t_map_info *info, int y, int x);
 void	free_tabc(char **tab);
+int		check_empty_line(char **map);
+int		check_file(char *path);
+int		validate_texture(t_cub3d *cub);
+void	load_texture(t_cub3d *cub);
+char	**get_texture_dest(char *line, t_texture *texture);
+int		free_cub3d(t_cub3d *cub);
+void	free_texture(t_texture *texture);
 
 
 

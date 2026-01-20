@@ -27,7 +27,7 @@ static void	init_win(t_game *game)
 	game->speed = 0.05;
 }
 
-static void init_input(t_input *input)
+static void	init_input(t_input *input)
 {
 	input->down = 0;
 	input->up = 0;
@@ -48,4 +48,9 @@ void	init_cub3d(t_cub3d *cub)
 	cub->map = NULL;
 	cub->mlx_ptr = NULL;
 	cub->win_ptr = NULL;
+	cub->map_grid = NULL;
+	cub->img.img = NULL;
+	cub->img.addr = NULL;
+	cub->screen_width = 0;
+	cub->screen_height = 0;
 }
