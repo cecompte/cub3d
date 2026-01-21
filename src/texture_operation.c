@@ -49,7 +49,6 @@ int	validate_texture(t_cub3d *cub)
 	return (0);
 }
 
-static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 int	**create_texture_table(t_img *img)
 {
 	int		**texture;
@@ -78,7 +77,7 @@ int	**create_texture_table(t_img *img)
 	return (texture);
 }
 
-static void	load_one_texture(t_cub3d *cub, t_img *img, char *path)
+static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 {
 	img->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &img->width, &img->height);
 	if (!img->img)
@@ -88,13 +87,13 @@ static void	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
-	return (0);
 	img->texture_table = create_texture_table(img);
 	if (!img->texture_table)
 	{
-		ft_putstr_fd("Error\nMalloc failed", 2);
-		exit(1);
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		return (1);
 	}
+	return (0);
 }
 
 int	load_texture(t_cub3d *cub)
