@@ -78,9 +78,7 @@ char	**parse_map(char *av, t_cub3d *cub)
 		ft_lstclear(&list, free);
 		return (NULL);
 	}
-	ft_lstclear(&list, NULL);
-	if (!cub->map)
-		return (NULL);
+	free_nodes(list);
 	return (cub->map);
 
 }

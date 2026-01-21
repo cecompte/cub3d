@@ -38,6 +38,8 @@ int	main(int ac, char **av)
 	if (check_arguments(ac, av))
 		return (1);
 	cub.map = read_map(av[1], &cub);
+	if (!cub.map)
+		return (1);
 	if (parce_config(cub.map, &cub))
 		return (free_cub3d(&cub), 1);
 	find_player_minimap(&cub); // ??? I have function find_player in map_grid.c but find_player_minimap(&cub) copy serch result to cub.player for minimap

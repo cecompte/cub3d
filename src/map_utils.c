@@ -6,7 +6,11 @@ int	get_map_height(char **map)
 
 	i = 0;
 	while (map[i])
+	{
+		if (map[i][0] == '\n' || map[i][0] == '\0')
+			break ;
 		i++;
+	}
 	return (i);
 }
 

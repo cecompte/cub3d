@@ -6,7 +6,7 @@
 /*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:12:00 by esergeev          #+#    #+#             */
-/*   Updated: 2026/01/19 18:33:46 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/01/21 19:03:26 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_strjoin(char const *s1, char const	*s2)
 	return (start);
 }
 
-size_t	ft_strlen(const char *str)
+/*size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
@@ -64,7 +64,7 @@ size_t	ft_strlen(const char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
+}*/
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
