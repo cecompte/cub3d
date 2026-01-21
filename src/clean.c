@@ -1,5 +1,17 @@
 #include "cub3d.h"
 
+void	free_nodes(t_list *list)
+{
+	t_list	*tmp;
+
+	while (list)
+	{
+		tmp = list->next;
+		free(list);
+		list = tmp;
+	}
+}
+
 void	free_tabc(char **tab)
 {
 	int	i;
