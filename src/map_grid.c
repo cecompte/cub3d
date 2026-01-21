@@ -2,9 +2,30 @@
 
 static void	save_player(t_player *player, int i, int j, char dir)
 {
-	player->strt_dir = dir;
-	player->x = j;
-	player->y = i;
+	player->x = j + 0.5;
+	player->y = i + 0.5;
+	if (dir == 'N')
+	{
+		player->dir_x = 0;
+		player->dir_y = -1;
+	}
+	else if (dir == 'W')
+	{
+		player->dir_x = -1;
+		player->dir_y = 0;
+	}
+	else if (dir == 'S')
+	{
+		player->dir_x = 0;
+		player->dir_y = 1;
+	}
+	else
+	{
+		player->dir_x = 1;
+		player->dir_y = 0;
+	}
+	player->plane_x = -0.66 * player->dir_y;
+	player->plane_y = 0.66 * player->dir_x;
 }
 
 int	find_player(char **map, t_player *player)
@@ -40,9 +61,9 @@ int	check_chars(char **map)
 {
 	int		i;
 	int		j;
-	int		player_count;
+	// int		player_count;
 
-	player_count = 0;
+	// player_count = 0;
 	j = 0;
 	i = 0;
 	while (map[i])

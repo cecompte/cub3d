@@ -18,8 +18,6 @@
 # define ESC 65307
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
-# define WIDTH 800
-# define HEIGHT 600
 
 typedef struct s_game
 {
@@ -72,6 +70,12 @@ typedef struct s_ray
 	int			map_x;
 	int			map_y;
 	int			hit_side; // 0 = vertical, 1 = horizontal
+	double		line_height;
+	double		perp_wall_dist;
+	double		draw_start;
+	double		draw_end;
+	double 		wallX; // where exactly the wall was hit (between 0 and 1)
+	int			tex_x; // x coordinate on the texture
 }				t_ray;
 
 typedef struct s_input
@@ -90,6 +94,9 @@ typedef struct	s_img {
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	int			width;
+	int			height;
+	int			**texture_table;
 }				t_img;
 
 typedef struct	s_minimap {
@@ -118,8 +125,6 @@ typedef struct s_cub3d
 	void		*win_ptr;
 	void		*img_ptr;
 	char		**map_grid;
-	int			screen_width;
-	int			screen_height;
 }				t_cub3d;
 
 int		check_extension(char *str, char *ext);
@@ -138,7 +143,7 @@ void	load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
 int		free_cub3d(t_cub3d *cub);
 void	free_texture(t_texture *texture);
-
+void	free_array(int **arr, int height);
 
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -156,6 +161,7 @@ void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int 
 // full map
 void	init_ray(t_cub3d *cub, t_ray *ray);
 int		dda_loop(t_cub3d *cub, t_ray *ray);
+void	draw_rays_utils(t_cub3d *cub, t_ray *ray);
 
 // hooks
 void	rotate(t_cub3d *cub, double angle);

@@ -40,7 +40,7 @@ int	main(int ac, char **av)
 	cub.map = read_map(av[1], &cub);
 	if (parce_config(cub.map, &cub))
 		return (free_cub3d(&cub), 1);
-	find_player_minimap(&cub); // find player position and set direction
+	// find_player_minimap(&cub); // find player position and set direction
 	if (validate_texture(&cub))
 		return (free_cub3d(&cub), 1);
 	init_game(&cub);
