@@ -125,8 +125,6 @@ typedef struct s_cub3d
 	void		*win_ptr;
 	void		*img_ptr;
 	char		**map_grid;
-	int			screen_width;
-	int			screen_height;
 }				t_cub3d;
 
 int		check_extension(char *str, char *ext);

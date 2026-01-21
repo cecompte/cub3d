@@ -8,8 +8,6 @@ void	draw_floor_ceiling(t_cub3d *cub)
 	int	y;
 
 	y = 0;
-	cub->texture.floor_color = 0x7a7a7a; // to remove (test only)
-	cub->texture.ceiling_color = 0x4b0082; // to remove (test only)
 	while (y < cub->game.win_height / 2)
 	{
 		x = 0;
