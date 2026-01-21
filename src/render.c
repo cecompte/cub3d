@@ -54,39 +54,58 @@ int	draw_vertical_line(t_cub3d *cub, int col, double draw_start, double draw_end
 	}
 	return (0);
 }
+void	draw_textured(t_cub3d *cub, t_ray *ray, t_img *img, int col)
+{
+	int y;
+	int relative_y;
+	int tex_y;
+	int	start;
+	int	end;
+
+	if (col < 0 || col >= cub->game.win_width)
+		return;
+	start = (int)ray->draw_start;
+	end = (int)ray->draw_end;
+	if (start < 0)
+		start = 0;
+	if (end > cub->game.win_height)
+		end = cub->game.win_height;
+	y = start;
+	while (y < end)
+	{
+		relative_y = y - ray->draw_start;
+		tex_y = relative_y * img->height / ray->line_height;
+		my_mlx_pixel_put(&cub->img, col, y, img->texture_table[tex_y][ray->tex_x]);
+		y++;
+	}
+}
 
 int	draw_walls(t_cub3d *cub)
 {
 	t_ray	ray;
 	int 	i;
-	double	line_height;
-	double	perp_wall_dist;
-	double	draw_start;
-	double	draw_end;
 
-	if (!cub->map || cub->map_info.width == 0 || cub->map_info.height == 0)
-		return (0);
+	// if (!cub->map || cub->map_info.width == 0 || cub->map_info.height == 0)
+	// 	return (0);
 	i = 0;
 	while (i < cub->game.win_width)
 	{
 		ray.cameraX = 2 * i / (double)(cub->game.win_width - 1) - 1;
 		init_ray(cub, &ray);
 		dda_loop(cub, &ray);
-		if (ray.hit_side == 0)
-			perp_wall_dist = (ray.map_x - cub->player.x + (1 - ray.step_x) /2) / ray.dir_x;
-		else
-			perp_wall_dist = (ray.map_y - cub->player.y + (1 - ray.step_y) /2) / ray.dir_y;
-		line_height = cub->game.win_height / perp_wall_dist;
-		draw_start = cub->game.win_height/2 - line_height/2;
-		draw_end   = cub->game.win_height/2 + line_height/2;
+		draw_rays_utils(cub, &ray);
 		if (ray.hit_side == 0 && ray.dir_x > 0) // EAST
-			draw_vertical_line(cub, i, draw_start, draw_end, 0x00FFC0CB);
+		{
+			ray.tex_x = (int)(ray.wallX * (double)(cub->tex_e.width));
+			ray.tex_x = cub->tex_e.width - ray.tex_x - 1;
+			draw_textured(cub, &ray, &cub->tex_e, i);
+		}
 		else if (ray.hit_side == 0 && ray.dir_x < 0) // WEST
-			draw_vertical_line(cub, i, draw_start, draw_end, 0x00FF0000);
-		else if (ray.hit_side == 1 && ray.dir_y > 0) // NORTH
-			draw_vertical_line(cub, i, draw_start, draw_end, 0x000000FF);
-		else // SOUTH
-			draw_vertical_line(cub, i, draw_start, draw_end, 0x00C0CBFF);
+			draw_vertical_line(cub, i, ray.draw_start, ray.draw_end, 0x00FF0000);
+		else if (ray.hit_side == 1 && ray.dir_y < 0) // NORTH
+			draw_vertical_line(cub, i, ray.draw_start, ray.draw_end, 0x000000FF);
+		else // SOUTH (dir_y > 0) or any unmatched case
+			draw_vertical_line(cub, i, ray.draw_start, ray.draw_end, 0x00C0CBFF);
 		i++;
 	}
 	return (0);

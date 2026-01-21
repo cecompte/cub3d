@@ -1,7 +1,7 @@
-NO texture/floor.xpm
-SO texture/floor.xpm
-WE texture/floor.xpm
-EA texture/wall.xpm
+NO texture/greystone.xpm
+SO texture/purplestone.xpm
+WE texture/redbrick.xpm
+EA texture/wood.xpm
 
 F 220,100,0
 C 225,30,0

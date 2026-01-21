@@ -30,7 +30,7 @@ int	draw_grid(t_cub3d *cub)
 		width = 0;
 		while (width < cub->map_info.width)
 		{
-			if (cub->map[height][width] == '1')
+			if (cub->map_grid[height][width] == '1')
 				print_tile(cub, width * cub->minimap.tile_size, height * cub->minimap.tile_size, 0x00808080);
 			else
 				print_tile(cub, width * cub->minimap.tile_size, height * cub->minimap.tile_size, 0x00FFFFFF);

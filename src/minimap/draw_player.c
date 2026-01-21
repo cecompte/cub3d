@@ -1,49 +1,5 @@
 #include "cub3d.h"
 
-int	find_player_minimap(t_cub3d *cub)
-{
-	int	x = 0;
-	int	y = 0;
-	while (y < cub->map_info.height)
-	{
-		x = 0;
-		while (x < cub->map_info.width)
-		{
-			if (cub->map[y][x] == 'N' || cub->map[y][x] == 'W' || cub->map[y][x] == 'S' || cub->map[y][x] == 'E')
-			{
-				cub->player.x = x + 0.5;
-				cub->player.y = y + 0.5;
-				if (cub->map[y][x] == 'N')
-				{
-					cub->player.dir_x = 0;
-					cub->player.dir_y = -1;
-				}
-				else if (cub->map[y][x] == 'W')
-				{
-					cub->player.dir_x = -1;
-					cub->player.dir_y = 0;
-				}
-				else if (cub->map[y][x] == 'S')
-				{
-					cub->player.dir_x = 0;
-					cub->player.dir_y = 1; // j'ai suprimer '-' parce que t'as utilise deja pour 'N'
-				}
-				else
-				{
-					cub->player.dir_x = 1;
-					cub->player.dir_y = 0;
-				}
-				cub->player.plane_x = -0.66 * cub->player.dir_y;
-				cub->player.plane_y = 0.66 * cub->player.dir_x;
-				return (1);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
-
 void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color)
 {
 	double	dx;

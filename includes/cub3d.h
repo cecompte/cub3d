@@ -70,6 +70,12 @@ typedef struct s_ray
 	int			map_x;
 	int			map_y;
 	int			hit_side; // 0 = vertical, 1 = horizontal
+	double		line_height;
+	double		perp_wall_dist;
+	double		draw_start;
+	double		draw_end;
+	double 		wallX; // where exactly the wall was hit (between 0 and 1)
+	int			tex_x; // x coordinate on the texture
 }				t_ray;
 
 typedef struct s_input
@@ -88,6 +94,9 @@ typedef struct	s_img {
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	int			width;
+	int			height;
+	int			**texture_table;
 }				t_img;
 
 typedef struct	s_minimap {
@@ -154,6 +163,7 @@ void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int 
 // full map
 void	init_ray(t_cub3d *cub, t_ray *ray);
 int		dda_loop(t_cub3d *cub, t_ray *ray);
+void	draw_rays_utils(t_cub3d *cub, t_ray *ray);
 
 // hooks
 void	rotate(t_cub3d *cub, double angle);

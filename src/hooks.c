@@ -33,12 +33,12 @@ void	update_position(t_cub3d *cub, int forward, int strafe, double speed)
 	double	try_x;
 
 	try_x = cub->player.x + (forward * cub->player.dir_x + strafe * cub->player.plane_x) * speed;
-	if (cub->map[(int)cub->player.y][(int)try_x] != '1')
-    	cub->player.x = try_x;
+	if (cub->map_grid[(int)cub->player.y][(int)try_x] != '1')
+		cub->player.x = try_x;
 	
 	try_y = cub->player.y + (forward * cub->player.dir_y + strafe * cub->player.plane_y) * speed;
-	if (cub->map[(int)try_y][(int)cub->player.x] != '1')
-    	cub->player.y = try_y;
+	if (cub->map_grid[(int)try_y][(int)cub->player.x] != '1')
+		cub->player.y = try_y;
 }
 
 int	handle_keypress(int keycode, t_cub3d *cub)
