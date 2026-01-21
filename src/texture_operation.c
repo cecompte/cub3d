@@ -49,7 +49,7 @@ int	validate_texture(t_cub3d *cub)
 	return (0);
 }
 
-static void	load_one_texture(t_cub3d *cub, t_img *img, char *path)
+static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 {
 	int	width;
 	int	height;
@@ -58,16 +58,22 @@ static void	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 	if (!img->img)
 	{
 		ft_putstr_fd("Error\nCannot load texture\n", 2);
-		exit (1);
+		return (1);
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
+	return (0);
 }
 
-void	load_texture(t_cub3d *cub)
+int	load_texture(t_cub3d *cub)
 {
-	load_one_texture(cub, &cub->tex_n, cub->texture.no_path);
-	load_one_texture(cub, &cub->tex_s, cub->texture.so_path);
-	load_one_texture(cub, &cub->tex_w, cub->texture.we_path);
-	load_one_texture(cub, &cub->tex_e, cub->texture.ea_path);
+	if (load_one_texture(cub, &cub->tex_n, cub->texture.no_path))
+		return (1);
+	if (load_one_texture(cub, &cub->tex_s, cub->texture.so_path))
+		return (1);
+	if (load_one_texture(cub, &cub->tex_w, cub->texture.we_path))
+		return (1);
+	if (load_one_texture(cub, &cub->tex_e, cub->texture.ea_path))
+		return (1);
+	return (0);
 }

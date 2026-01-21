@@ -53,4 +53,9 @@ void	init_cub3d(t_cub3d *cub)
 	cub->img.addr = NULL;
 	cub->screen_width = 0;
 	cub->screen_height = 0;
+	cub->minimap.offset_x = 10;
+	cub->minimap.offset_y = 10;
+	cub->minimap.tile_size = 8;
+	cub->minimap.width = 0;
+	cub->minimap.height = 0;
 }
