@@ -50,11 +50,37 @@ int	validate_texture(t_cub3d *cub)
 }
 
 static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
+int	**create_texture_table(t_img *img)
 {
-	int	width;
-	int	height;
+	int		**texture;
+	char	*pixel_address;
+	int		y;
+	int		x;
 
-	img->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &width, &height);
+	texture = malloc(img->height * sizeof(int *));
+	if (!texture)
+		return (NULL);
+	y = 0;
+	while (y < img->height)
+	{
+		texture[y] = malloc(img->width * sizeof(int));
+		if (!texture[y])
+			return (free_array(texture, y), NULL);
+		x = 0;
+		while (x < img->width)
+        {
+			pixel_address = img->addr + y * img->line_length + x * img->bits_per_pixel / 8;;
+			texture[y][x] = *(int *)pixel_address;
+			x++;
+		}
+		y++;
+	}
+	return (texture);
+}
+
+static void	load_one_texture(t_cub3d *cub, t_img *img, char *path)
+{
+	img->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &img->width, &img->height);
 	if (!img->img)
 	{
 		ft_putstr_fd("Error\nCannot load texture\n", 2);
@@ -63,6 +89,12 @@ static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
 	return (0);
+	img->texture_table = create_texture_table(img);
+	if (!img->texture_table)
+	{
+		ft_putstr_fd("Error\nMalloc failed", 2);
+		exit(1);
+	}
 }
 
 int	load_texture(t_cub3d *cub)

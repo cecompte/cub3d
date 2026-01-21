@@ -1,7 +1,7 @@
 CC				= cc
 CFLAGS			= -g3 -Wall -Wextra -Werror -MMD -MP
 INCLUDES		= -Iincludes -Ilibft -I./minilibx-linux
-LDFLAGS			= -L./minilibx-linux -lmlx -lXext -lX11 -lm -lz
+LDFLAGS			= -L./minilibx-linux -lmlx -lXext -lX11 -lm
 NAME			= cub3d
 
 # Sources
@@ -17,6 +17,8 @@ SRC				= main.c \
 					minimap/draw_minimap.c \
 					minimap/draw_player.c \
 					minimap/parsing_so_long.c \
+					draw_minimap.c \
+					draw_player_minimap.c \
 					hooks.c \
 					rays.c \
 					clean.c \

@@ -5,7 +5,7 @@ int	close_game(t_cub3d *cub)
 	mlx_destroy_image(cub->mlx_ptr, cub->img.img);
 	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 	mlx_destroy_display(cub->mlx_ptr);
-	// free all structures
+	free_cub3d(cub);
 	free(cub->mlx_ptr);
 	exit(0);
 	return (0);
@@ -33,12 +33,12 @@ void	update_position(t_cub3d *cub, int forward, int strafe, double speed)
 	double	try_x;
 
 	try_x = cub->player.x + (forward * cub->player.dir_x + strafe * cub->player.plane_x) * speed;
-	if (cub->map[(int)cub->player.y][(int)try_x] != '1')
-    	cub->player.x = try_x;
+	if (cub->map_grid[(int)cub->player.y][(int)try_x] != '1')
+		cub->player.x = try_x;
 	
 	try_y = cub->player.y + (forward * cub->player.dir_y + strafe * cub->player.plane_y) * speed;
-	if (cub->map[(int)try_y][(int)cub->player.x] != '1')
-    	cub->player.y = try_y;
+	if (cub->map_grid[(int)try_y][(int)cub->player.x] != '1')
+		cub->player.y = try_y;
 }
 
 int	handle_keypress(int keycode, t_cub3d *cub)

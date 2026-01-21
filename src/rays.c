@@ -50,14 +50,7 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 	max_steps = 0;
 	while (max_steps++ < 1000)
 	{
-		if (ray->map_x < 0 || ray->map_x >= cub->map_info.width || 
-			ray->map_y < 0 || ray->map_y >= cub->map_info.height)
-			break;
-		if (!cub->map[ray->map_y])
-			break;
-		if (ray->map_x >= (int)ft_strlen(cub->map[ray->map_y]))
-			break;
-		if (cub->map[ray->map_y][ray->map_x] == '1')
+		if (cub->map_grid[ray->map_y][ray->map_x] == '1')
 			break;
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -73,4 +66,20 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 		}
 	}
 	return (0);
+}
+
+void	draw_rays_utils(t_cub3d *cub, t_ray *ray)
+{
+	if (ray->hit_side == 0)
+		ray->perp_wall_dist = (ray->map_x - cub->player.x + (1 - ray->step_x) /2) / ray->dir_x;
+	else
+		ray->perp_wall_dist = (ray->map_y - cub->player.y + (1 - ray->step_y) /2) / ray->dir_y;
+	ray->line_height = cub->game.win_height / ray->perp_wall_dist;
+	ray->draw_start = cub->game.win_height/2 - ray->line_height/2;
+	ray->draw_end   = cub->game.win_height/2 + ray->line_height/2;
+	if (ray->hit_side == 0) 
+		ray->wallX = ray->pos_y + ray->perp_wall_dist * ray->dir_y;
+	else           
+		ray->wallX = ray->pos_x + ray->perp_wall_dist * ray->dir_x;
+	ray->wallX -= floor((ray->wallX));
 }

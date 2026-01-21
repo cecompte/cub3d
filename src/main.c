@@ -69,6 +69,7 @@ int	main(int ac, char **av)
     }
     cub->player.plane_x = -0.66 * cub->player.dir_y;
     cub->player.plane_y = 0.66 * cub->player.dir_x;*/
+	// find_player_minimap(&cub); // find player position and set direction
 	if (validate_texture(&cub))
 		return (free_cub3d(&cub), 1);
 	init_game(&cub);
