@@ -85,8 +85,6 @@ int	draw_walls(t_cub3d *cub)
 	t_ray	ray;
 	int 	i;
 
-	// if (!cub->map || cub->map_info.width == 0 || cub->map_info.height == 0)
-	// 	return (0);
 	i = 0;
 	while (i < cub->game.win_width)
 	{
@@ -96,16 +94,24 @@ int	draw_walls(t_cub3d *cub)
 		draw_rays_utils(cub, &ray);
 		if (ray.hit_side == 0 && ray.dir_x > 0) // EAST
 		{
-			ray.tex_x = (int)(ray.wallX * (double)(cub->tex_e.width));
-			ray.tex_x = cub->tex_e.width - ray.tex_x - 1;
+			ray.tex_x = cub->tex_e.width - (int)(ray.wallX * (double)(cub->tex_e.width)) - 1;
 			draw_textured(cub, &ray, &cub->tex_e, i);
 		}
 		else if (ray.hit_side == 0 && ray.dir_x < 0) // WEST
-			draw_vertical_line(cub, i, ray.draw_start, ray.draw_end, 0x00FF0000);
+		{
+			ray.tex_x = (int)(ray.wallX * (double)(cub->tex_w.width));
+			draw_textured(cub, &ray, &cub->tex_w, i);
+		}
 		else if (ray.hit_side == 1 && ray.dir_y < 0) // NORTH
-			draw_vertical_line(cub, i, ray.draw_start, ray.draw_end, 0x000000FF);
+		{
+			ray.tex_x = cub->tex_n.width - (int)(ray.wallX * (double)(cub->tex_n.width)) - 1;
+			draw_textured(cub, &ray, &cub->tex_n, i);
+		}
 		else // SOUTH (dir_y > 0) or any unmatched case
-			draw_vertical_line(cub, i, ray.draw_start, ray.draw_end, 0x00C0CBFF);
+		{
+			ray.tex_x = (int)(ray.wallX * (double)(cub->tex_s.width));
+			draw_textured(cub, &ray, &cub->tex_s, i);
+		}
 		i++;
 	}
 	return (0);

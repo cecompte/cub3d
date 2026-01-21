@@ -52,12 +52,10 @@ int	validate_texture(t_cub3d *cub)
 int	**create_texture_table(t_img *img)
 {
 	int		**texture;
-	int 	bytes_per_pixel;
 	char	*pixel_address;
 	int		y;
 	int		x;
 
-	bytes_per_pixel = img->bits_per_pixel / 8;
 	texture = malloc(img->height * sizeof(int *));
 	if (!texture)
 		return (NULL);
@@ -66,16 +64,11 @@ int	**create_texture_table(t_img *img)
 	{
 		texture[y] = malloc(img->width * sizeof(int));
 		if (!texture[y])
-		{
-			while (--y >= 0)
-				free(texture[y]);
-			free(texture);
-			return (NULL);
-		}
+			return (free_array(texture, y), NULL);
 		x = 0;
 		while (x < img->width)
         {
-			pixel_address = img->addr + y * img->line_length + x * bytes_per_pixel;
+			pixel_address = img->addr + y * img->line_length + x * img->bits_per_pixel / 8;;
 			texture[y][x] = *(int *)pixel_address;
 			x++;
 		}

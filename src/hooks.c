@@ -5,7 +5,7 @@ int	close_game(t_cub3d *cub)
 	mlx_destroy_image(cub->mlx_ptr, cub->img.img);
 	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 	mlx_destroy_display(cub->mlx_ptr);
-	// free all structures
+	free_cub3d(cub);
 	free(cub->mlx_ptr);
 	exit(0);
 	return (0);

@@ -14,6 +14,20 @@ void	free_tabc(char **tab)
 	}
 	free(tab);
 }
+void	free_array(int **arr, int height)
+{
+	int	y;
+
+	y = 0;
+	if (!arr)
+		return;
+	while (y < height)
+	{
+		free(arr[y]);
+		y++;
+	}
+	free(arr);
+}
 
 void	free_texture(t_texture *texture)
 {
@@ -38,5 +52,13 @@ int	free_cub3d(t_cub3d *cub)
 	free_texture(&cub->texture);
 	if (cub->map_grid)
 		free_tabc(cub->map_grid);
+	if (cub->tex_e.texture_table)
+		free_array(cub->tex_e.texture_table, cub->tex_e.height);
+	if (cub->tex_s.texture_table)
+		free_array(cub->tex_s.texture_table, cub->tex_s.height);
+	if (cub->tex_w.texture_table)
+		free_array(cub->tex_w.texture_table, cub->tex_w.height);
+	if (cub->tex_n.texture_table)
+		free_array(cub->tex_n.texture_table, cub->tex_n.height);
 	return (1);
 }

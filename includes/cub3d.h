@@ -145,7 +145,7 @@ void	load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
 int		free_cub3d(t_cub3d *cub);
 void	free_texture(t_texture *texture);
-
+void	free_array(int **arr, int height);
 
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
