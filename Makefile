@@ -14,9 +14,6 @@ SRC				= main.c \
 					init.c \
 					texture_operation.c \
 					mlx_utils.c \
-					minimap/draw_minimap.c \
-					minimap/draw_player.c \
-					minimap/parsing_so_long.c \
 					draw_minimap.c \
 					draw_player_minimap.c \
 					hooks.c \
