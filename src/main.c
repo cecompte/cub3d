@@ -8,8 +8,11 @@ void	init_game(t_cub3d *cub)
 		exit(1);
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->game.win_width,
 			cub->game.win_height, "Cub3D");
-	//cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
-	//		cub->game.win_height);// not used
+	if (!cub->win_ptr)
+	{
+		free_cub3d(cub);
+		exit(1);
+	}
 	cub->img.img = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
 			cub->game.win_height);
 	cub->img.addr = mlx_get_data_addr(cub->img.img, &cub->img.bits_per_pixel,
@@ -47,7 +50,6 @@ int	main(int ac, char **av)
 	init_game(&cub);
 	if (load_texture(&cub))
 		return (free_cub3d(&cub), 1);
-	init_minimap(&cub);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
 	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);

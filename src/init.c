@@ -38,6 +38,17 @@ static void	init_input(t_input *input)
 	input->rotate_left = 0;
 	input->rotate_right = 0;
 }
+static void	init_img(t_img *img)
+{
+	img->img = NULL;
+	img->addr = NULL;
+	img->bits_per_pixel = 0;
+	img->line_length = 0;
+	img->endian = 0;
+	img->width = 0;
+	img->height = 0;
+	img->texture_table = NULL;
+}
 
 void	init_cub3d(t_cub3d *cub)
 {
@@ -45,14 +56,18 @@ void	init_cub3d(t_cub3d *cub)
 	init_texture(&cub->texture);
 	init_player(&cub->player);
 	init_input(&cub->input);
+	init_img(&cub->tex_e);
+	init_img(&cub->tex_n);
+	init_img(&cub->tex_s);
+	init_img(&cub->tex_w);
+	init_img(&cub->img);
+	init_minimap(cub);
 	cub->map_info.width = 0;
 	cub->map_info.height = 0;
 	cub->map = NULL;
 	cub->mlx_ptr = NULL;
 	cub->win_ptr = NULL;
 	cub->map_grid = NULL;
-	cub->img.img = NULL;
-	cub->img.addr = NULL;
 	cub->minimap.offset_x = 10;
 	cub->minimap.offset_y = 10;
 	cub->minimap.tile_size = 8;

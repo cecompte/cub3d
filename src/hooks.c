@@ -2,11 +2,20 @@
 
 int	close_game(t_cub3d *cub)
 {
-	mlx_destroy_image(cub->mlx_ptr, cub->img.img);
+	if (cub->tex_e.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_e.img);
+	if (cub->tex_n.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_n.img);
+	if (cub->tex_s.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_s.img);
+	if (cub->tex_w.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_w.img);
+	if (cub->img.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->img.img);
 	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 	mlx_destroy_display(cub->mlx_ptr);
-	free_cub3d(cub);
 	free(cub->mlx_ptr);
+	free_cub3d(cub);
 	exit(0);
 	return (0);
 }

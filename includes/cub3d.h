@@ -126,7 +126,6 @@ typedef struct s_cub3d
 	t_minimap	minimap;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*img_ptr;
 	char		**map_grid;
 }				t_cub3d;
 

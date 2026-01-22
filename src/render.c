@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-#include "cub3d.h"
-
 void	draw_floor_ceiling(t_cub3d *cub)
 {
 	int x;
@@ -83,7 +81,7 @@ int	draw_walls(t_cub3d *cub)
 			ray.tex_x = cub->tex_n.width - (int)(ray.wallX * (double)(cub->tex_n.width)) - 1;
 			draw_textured(cub, &ray, &cub->tex_n, i);
 		}
-		else // SOUTH (dir_y > 0) or any unmatched case
+		else // SOUTH
 		{
 			ray.tex_x = (int)(ray.wallX * (double)(cub->tex_s.width));
 			draw_textured(cub, &ray, &cub->tex_s, i);
@@ -99,7 +97,7 @@ void	handle_inputs(t_cub3d *cub)
 	double	delta_time;
 
 	current_time = get_current_time();
-	delta_time = (current_time - cub->game.last_frame_time) / 1000.0; // in seconds
+	delta_time = (current_time - cub->game.last_frame_time) / 1000.0;
 	cub->game.last_frame_time = current_time;
 	if (cub->input.down == 1)
 		update_position(cub, -1, 0, cub->game.move_speed * delta_time);
