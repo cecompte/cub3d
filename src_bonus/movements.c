@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	rotate(t_cub3d *cub, double angle)
 {

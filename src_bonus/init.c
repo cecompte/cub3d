@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	init_texture(t_texture *texture)
 {
@@ -61,11 +61,18 @@ void	init_cub3d(t_cub3d *cub)
 	init_img(&cub->tex_n);
 	init_img(&cub->tex_s);
 	init_img(&cub->tex_w);
+	init_img(&cub->tex_door);
 	init_img(&cub->img);
+	init_minimap(cub);
 	cub->map_info.width = 0;
 	cub->map_info.height = 0;
 	cub->map = NULL;
 	cub->mlx_ptr = NULL;
 	cub->win_ptr = NULL;
 	cub->map_grid = NULL;
+	cub->minimap.offset_x = 10;
+	cub->minimap.offset_y = 10;
+	cub->minimap.tile_size = 8;
+	cub->minimap.width = 0;
+	cub->minimap.height = 0;
 }
