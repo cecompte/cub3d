@@ -6,10 +6,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	int		pixel_offset;
 
 	if (!img || !img->addr || x < 0 || y < 0)
-		return;
+		return ;
 	pixel_offset = y * img->line_length + x * (img->bits_per_pixel / 8);
 	dst = img->addr + pixel_offset;
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 size_t	get_current_time(void)
@@ -54,7 +54,7 @@ void	free_array(int **arr, int height)
 
 	y = 0;
 	if (!arr)
-		return;
+		return ;
 	while (y < height)
 	{
 		free(arr[y]);
