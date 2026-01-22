@@ -1,16 +1,5 @@
 #include "cub3d.h"
 
-int	close_game(t_cub3d *cub)
-{
-	mlx_destroy_image(cub->mlx_ptr, cub->img.img);
-	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
-	mlx_destroy_display(cub->mlx_ptr);
-	free_cub3d(cub);
-	free(cub->mlx_ptr);
-	exit(0);
-	return (0);
-}
-
 void	rotate(t_cub3d *cub, double angle)
 {
 	double	new_dir_y;
@@ -78,3 +67,24 @@ int	handle_keyrelease(int keycode, t_cub3d *cub)
 	return (0);
 }
 
+void	handle_inputs(t_cub3d *cub)
+{
+	size_t	current_time;
+	double	delta_time;
+
+	current_time = get_current_time();
+	delta_time = (current_time - cub->game.last_frame_time) / 1000.0;
+	cub->game.last_frame_time = current_time;
+	if (cub->input.down == 1)
+		update_position(cub, -1, 0, cub->game.move_speed * delta_time);
+	if (cub->input.up == 1)
+		update_position(cub, 1, 0, cub->game.move_speed * delta_time);
+	if (cub->input.left == 1)
+		update_position(cub, 0, -1, cub->game.move_speed * delta_time);
+	if (cub->input.right == 1)
+		update_position(cub, 0, 1, cub->game.move_speed * delta_time);
+	if (cub->input.rotate_left == 1)
+		rotate(cub, -cub->game.rotation_speed * delta_time);
+	if (cub->input.rotate_right == 1)
+		rotate(cub, cub->game.rotation_speed * delta_time);
+}

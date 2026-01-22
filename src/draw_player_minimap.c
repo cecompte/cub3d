@@ -2,34 +2,28 @@
 
 void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color)
 {
-	double	dx;
-	double	dy;
+	int draw_x;
+	int	draw_y;
 	double	steps;
-	double	x_inc;
-	double	y_inc;
 	double	x;
 	double	y;
 	int		i;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
-	steps = fmax(fabs(dx), fabs(dy)) * cub->minimap.tile_size;
+	steps = fmax(fabs(x1 - x0), fabs(y1 - y0)) * cub->minimap.tile_size;
 	if (steps == 0)
 		steps = 1;
-	x_inc = dx / steps;
-	y_inc = dy / steps;
 	x = x0;
 	y = y0;
 	i = 0;
 	while (i <= (int)steps && i < 10000)
 	{
-		int draw_x = cub->minimap.offset_x + (int)(x * cub->minimap.tile_size);
-		int draw_y = cub->minimap.offset_y + (int)(y * cub->minimap.tile_size);
+		draw_x = cub->minimap.offset_x + (int)(x * cub->minimap.tile_size);
+		draw_y = cub->minimap.offset_y + (int)(y * cub->minimap.tile_size);
 		if (draw_x >= 0 && draw_x < cub->game.win_width &&
 			draw_y >= 0 && draw_y < cub->game.win_height)
 			my_mlx_pixel_put(&cub->img, draw_x, draw_y, color);
-		x += x_inc;
-		y += y_inc;
+		x += (x1 - x0) / steps;
+		y += (y1 - y0) / steps;
 		i++;
 	}
 }

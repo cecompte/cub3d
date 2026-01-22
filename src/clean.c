@@ -1,46 +1,5 @@
 #include "cub3d.h"
 
-void	free_nodes(t_list *list)
-{
-	t_list	*tmp;
-
-	while (list)
-	{
-		tmp = list->next;
-		free(list);
-		list = tmp;
-	}
-}
-
-void	free_tabc(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-void	free_array(int **arr, int height)
-{
-	int	y;
-
-	y = 0;
-	if (!arr)
-		return;
-	while (y < height)
-	{
-		free(arr[y]);
-		y++;
-	}
-	free(arr);
-}
-
 void	free_texture(t_texture *texture)
 {
 	if (texture->no_path)
@@ -73,4 +32,24 @@ int	free_cub3d(t_cub3d *cub)
 	if (cub->tex_n.texture_table)
 		free_array(cub->tex_n.texture_table, cub->tex_n.height);
 	return (1);
+}
+
+int	close_game(t_cub3d *cub)
+{
+	if (cub->tex_e.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_e.img);
+	if (cub->tex_n.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_n.img);
+	if (cub->tex_s.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_s.img);
+	if (cub->tex_w.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_w.img);
+	if (cub->img.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->img.img);
+	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
+	mlx_destroy_display(cub->mlx_ptr);
+	free(cub->mlx_ptr);
+	free_cub3d(cub);
+	exit(0);
+	return (0);
 }
