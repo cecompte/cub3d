@@ -10,6 +10,7 @@
 #include <X11/keysym.h>
 #include <X11/X.h>
 #include <math.h>
+#include <sys/time.h>
 
 # define UP 119
 # define DOWN 115
@@ -24,7 +25,9 @@ typedef struct s_game
 	int			run;
 	int			win_width;
 	int			win_height;
-	double		speed;
+	double		rotation_speed;
+	double		move_speed;
+	size_t		last_frame_time;
 }				t_game;
 
 typedef struct s_map_info
@@ -141,26 +144,26 @@ int		check_file(char *path);
 int		validate_texture(t_cub3d *cub);
 int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
+
+//clean
 int		free_cub3d(t_cub3d *cub);
 void	free_texture(t_texture *texture);
 void	free_nodes(t_list *list);
-
 void	free_array(int **arr, int height);
 
-
+// utils
+size_t	get_current_time(void);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		render_frame(void *param);
-void	init_game(t_cub3d *cub);
 
 // minimap
-int		parse_map_sl(t_cub3d *cub, char **argv);
 void	init_minimap(t_cub3d *cub);
 int		render_minimap(t_cub3d *cub);
-int		find_player_minimap(t_cub3d *cub);
 int		draw_player_minimap(t_cub3d *cub);
 void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color);
 
 // full map
+int		render_frame(void *param);
+void	init_game(t_cub3d *cub);
 void	init_ray(t_cub3d *cub, t_ray *ray);
 int		dda_loop(t_cub3d *cub, t_ray *ray);
 void	draw_rays_utils(t_cub3d *cub, t_ray *ray);

@@ -13,7 +13,7 @@ SRC				= main.c \
 					map_utils.c \
 					init.c \
 					texture_operation.c \
-					mlx_utils.c \
+					utils.c \
 					draw_minimap.c \
 					draw_player_minimap.c \
 					hooks.c \

@@ -30,28 +30,6 @@ void	draw_floor_ceiling(t_cub3d *cub)
 	}
 }
 
-int	draw_vertical_line(t_cub3d *cub, int col, double draw_start, double draw_end, int wall_color)
-{
-	int	y;
-	int	start;
-	int	end;
-
-	if (col < 0 || col >= cub->game.win_width)
-		return (0);
-	start = (int)draw_start;
-	end = (int)draw_end;
-	if (start < 0)
-		start = 0;
-	if (end > cub->game.win_height)
-		end = cub->game.win_height;
-	y = start;
-	while (y < end)
-	{
-		my_mlx_pixel_put(&cub->img, col, y, wall_color);
-		y++;
-	}
-	return (0);
-}
 void	draw_textured(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 {
 	int y;
@@ -117,24 +95,30 @@ int	draw_walls(t_cub3d *cub)
 
 void	handle_inputs(t_cub3d *cub)
 {
+	size_t	current_time;
+	double	delta_time;
+
+	current_time = get_current_time();
+	delta_time = (current_time - cub->game.last_frame_time) / 1000.0; // in seconds
+	cub->game.last_frame_time = current_time;
 	if (cub->input.down == 1)
-		update_position(cub, -1, 0, cub->game.speed);
+		update_position(cub, -1, 0, cub->game.move_speed * delta_time);
 	if (cub->input.up == 1)
-		update_position(cub, 1, 0, cub->game.speed);
+		update_position(cub, 1, 0, cub->game.move_speed * delta_time);
 	if (cub->input.left == 1)
-		update_position(cub, 0, -1, cub->game.speed);
+		update_position(cub, 0, -1, cub->game.move_speed * delta_time);
 	if (cub->input.right == 1)
-		update_position(cub, 0, 1, cub->game.speed);
+		update_position(cub, 0, 1, cub->game.move_speed * delta_time);
 	if (cub->input.rotate_left == 1)
-		rotate(cub, -cub->game.speed);
+		rotate(cub, -cub->game.rotation_speed * delta_time);
 	if (cub->input.rotate_right == 1)
-		rotate(cub, cub->game.speed);
+		rotate(cub, cub->game.rotation_speed * delta_time);
 }
 
 int	render_frame(void *param)
 {
 	t_cub3d	*cub;
-	int	total_pixels;
+	int		total_pixels;
 
 	cub = (t_cub3d *)param;
 	if (!cub->img.addr)

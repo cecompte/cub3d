@@ -24,7 +24,9 @@ static void	init_win(t_game *game)
 	game->run = 1;			// Game loop flag: 1 = running, 0 = exit
 	game->win_width = 1024;	// Default window width in pixels (4:3 aspect)
 	game->win_height = 768;	// Default window height in pixels
-	game->speed = 0.05;
+	game->move_speed = 3;
+	game->rotation_speed = 1.5;
+	game->last_frame_time = get_current_time();
 }
 
 static void	init_input(t_input *input)

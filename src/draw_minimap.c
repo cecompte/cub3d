@@ -48,6 +48,7 @@ void	init_minimap(t_cub3d *cub)
 	cub->minimap.width = cub->minimap.tile_size * cub->map_info.width;
 	cub->minimap.height = cub->minimap.tile_size * cub->map_info.height;
 }
+
 int	render_minimap(t_cub3d *cub)
 {
 	draw_grid(cub);
