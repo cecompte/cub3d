@@ -152,7 +152,7 @@ void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
 
 // utils
-size_t	get_current_time(void)
+size_t	get_current_time(void);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // minimap
