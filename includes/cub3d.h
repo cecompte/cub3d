@@ -137,7 +137,6 @@ void	init_cub3d(t_cub3d *cub);
 int		get_map_height(char **map);
 int		get_max_width(char **map, int height);
 int		flood_fill(char **map, t_map_info *info, int y, int x);
-void	free_tabc(char **tab);
 int		check_empty_line(char **map);
 int		check_file(char *path);
 int		validate_texture(t_cub3d *cub);
@@ -147,12 +146,15 @@ char	**get_texture_dest(char *line, t_texture *texture);
 //clean
 int		free_cub3d(t_cub3d *cub);
 void	free_texture(t_texture *texture);
-void	free_nodes(t_list *list);
-void	free_array(int **arr, int height);
+int		close_game(t_cub3d *cub);
+void	free_tabc(char **tab);
 
 // utils
 size_t	get_current_time(void);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	free_nodes(t_list *list);
+void	free_array(int **arr, int height);
+
 
 // minimap
 void	init_minimap(t_cub3d *cub);
@@ -165,12 +167,10 @@ int		render_frame(void *param);
 void	init_game(t_cub3d *cub);
 void	init_ray(t_cub3d *cub, t_ray *ray);
 int		dda_loop(t_cub3d *cub, t_ray *ray);
-void	draw_rays_utils(t_cub3d *cub, t_ray *ray);
+void	calc_draw_values(t_cub3d *cub, t_ray *ray);
 
-// hooks
-void	rotate(t_cub3d *cub, double angle);
-void	update_position(t_cub3d *cub, int forward, int strafe, double speed);
-int		handle_keypress(int keysym, t_cub3d *cub);
-int		handle_keyrelease(int keysym, t_cub3d *cub);
-int		close_game(t_cub3d *cub);
+// movements
+void	handle_inputs(t_cub3d *cub);
+int		handle_keypress(int keycode, t_cub3d *cub);
+int		handle_keyrelease(int keycode, t_cub3d *cub);
 #endif

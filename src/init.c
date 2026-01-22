@@ -38,6 +38,7 @@ static void	init_input(t_input *input)
 	input->rotate_left = 0;
 	input->rotate_right = 0;
 }
+
 static void	init_img(t_img *img)
 {
 	img->img = NULL;

@@ -68,7 +68,7 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 	return (0);
 }
 
-void	draw_rays_utils(t_cub3d *cub, t_ray *ray)
+void	calc_draw_values(t_cub3d *cub, t_ray *ray)
 {
 	if (ray->hit_side == 0)
 		ray->perp_wall_dist = (ray->map_x - cub->player.x + (1 - ray->step_x) /2) / ray->dir_x;

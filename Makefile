@@ -16,7 +16,7 @@ SRC				= main.c \
 					utils.c \
 					draw_minimap.c \
 					draw_player_minimap.c \
-					hooks.c \
+					movements.c \
 					rays.c \
 					clean.c \
 					render.c
