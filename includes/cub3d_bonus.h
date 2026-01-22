@@ -19,6 +19,10 @@
 # define ESC 65307
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+# define OPEN 1
+# define OPENING 2
+# define CLOSING 3
+# define CLOSED 4
 
 typedef struct s_game
 {
@@ -102,6 +106,23 @@ typedef struct	s_img {
 	int			**texture_table;
 }				t_img;
 
+typedef struct	s_minimap {
+	int			offset_x;       // top-left corner of minimap in window
+    int 		offset_y;
+    int 		tile_size;      // size of each map square in pixels on minimap
+    int 		width;          // total width in pixels
+    int 		height;         // total height in pixels
+} t_minimap;
+
+/*bonus*/
+typedef struct s_door {
+	int			map_x;
+	int			map_y;
+	int			state; // 1, 2, 3 or 4
+	double		openness; // 0 : fully closed, 1 : fully open
+	double		animation_speed;
+} t_door;
+
 typedef struct s_cub3d
 {
 	t_game		game;
@@ -112,9 +133,11 @@ typedef struct s_cub3d
 	t_img		tex_s;
 	t_img		tex_w;
 	t_img		tex_e;
+	t_img		tex_door; // bonus
 	t_player	player;
 	t_input		input;
 	t_img		img;
+	t_minimap	minimap;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**map_grid;

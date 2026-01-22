@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color)
 {

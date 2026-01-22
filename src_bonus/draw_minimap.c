@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	print_tile(t_cub3d *cub, int width, int height, int color)
 {
@@ -35,6 +35,8 @@ int	draw_grid(t_cub3d *cub)
 		{
 			if (cub->map_grid[height][width] == '1')
 				print_tile(cub, width * cub->minimap.tile_size, height * cub->minimap.tile_size, 0x00008880);
+			else if (cub->map_grid[height][width] == 'D')
+				print_tile(cub, width * cub->minimap.tile_size, height * cub->minimap.tile_size, 0x00FF0000);
 			else
 				print_tile(cub, width * cub->minimap.tile_size, height * cub->minimap.tile_size, cub->texture.floor_color);
 			width++;
