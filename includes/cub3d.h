@@ -25,7 +25,7 @@ typedef struct s_game
 	int			run;
 	int			win_width;
 	int			win_height;
-	double		rotation_speed;
+	double		rotation_angle;
 	double		move_speed;
 	size_t		last_frame_time;
 }				t_game;

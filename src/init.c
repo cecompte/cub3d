@@ -25,7 +25,7 @@ static void	init_win(t_game *game)
 	game->win_width = 1024;	// Default window width in pixels (4:3 aspect)
 	game->win_height = 768;	// Default window height in pixels
 	game->move_speed = 3;
-	game->rotation_speed = 1.5;
+	game->rotation_angle = 1.5;
 	game->last_frame_time = get_current_time();
 }
 

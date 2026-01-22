@@ -84,7 +84,7 @@ void	handle_inputs(t_cub3d *cub)
 	if (cub->input.right == 1)
 		update_position(cub, 0, 1, cub->game.move_speed * delta_time);
 	if (cub->input.rotate_left == 1)
-		rotate(cub, -cub->game.rotation_speed * delta_time);
+		rotate(cub, -cub->game.rotation_angle * delta_time);
 	if (cub->input.rotate_right == 1)
-		rotate(cub, cub->game.rotation_speed * delta_time);
+		rotate(cub, cub->game.rotation_angle * delta_time);
 }
