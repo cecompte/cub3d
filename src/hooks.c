@@ -10,6 +10,7 @@ int	close_game(t_cub3d *cub)
 	exit(0);
 	return (0);
 }
+
 void	rotate(t_cub3d *cub, double angle)
 {
 	double	new_dir_y;
