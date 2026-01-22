@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 void	init_game(t_cub3d *cub)
 {
 	cub->mlx_ptr = mlx_init();
@@ -26,8 +25,6 @@ int	check_arguments(int ac, char **av)
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
 		return (1);
 	}
-	//if (!check_map(av[1]))
-		//return (ft_putstr_fd("Error\nMap is not valid\n", 2), 1);
 	if (check_extension(av[1], ".cub"))
 		return (ft_putstr_fd("Error\nNot good extention of map\n", 2), 1);
 	return (0);

@@ -106,6 +106,8 @@ int	parce_config(char **map, t_cub3d *cub)
 		else if (res == 2)
 			break ;
 	}
+	if (res != 2)
+		return (ft_putstr_fd("Error\nNo map found\n", 2), 1);
 	if (!config_complete(&cub->texture))
 		return (ft_putstr_fd("Error\nIncomplete config\n", 2), 1);
 	return (0);
