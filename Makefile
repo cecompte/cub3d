@@ -38,7 +38,7 @@ SRC_BONUS		= main.c \
 					render.c \
 					draw_minimap.c \
 					draw_player_minimap.c \
-					doors_bonus.c
+					doors_init.c
 
 SOURCES_BONUS	= $(addprefix $(SRC_PATH_BONUS), $(SRC_BONUS))
 

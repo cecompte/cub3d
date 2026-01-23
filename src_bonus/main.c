@@ -45,6 +45,8 @@ int	main(int ac, char **av)
 		return (1);
 	if (parce_config(cub.map, &cub))
 		return (free_cub3d(&cub), 1);
+	if (init_all_doors(&cub))
+		return (free_cub3d(&cub), 1);
 	if (validate_texture(&cub))
 		return (free_cub3d(&cub), 1);
 	init_game(&cub);

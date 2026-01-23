@@ -22,7 +22,7 @@
 # define OPEN 1
 # define OPENING 2
 # define CLOSING 3
-# define CLOSED 4
+# define CLOSED 0
 
 typedef struct s_game
 {
@@ -133,11 +133,14 @@ typedef struct s_cub3d
 	t_img		tex_s;
 	t_img		tex_w;
 	t_img		tex_e;
-	t_img		tex_door; // bonus
 	t_player	player;
 	t_input		input;
 	t_img		img;
-	t_minimap	minimap;
+	t_minimap	minimap;	//bonus
+	t_img		tex_door;	//bonus
+	t_door		*doors;
+	int			**door_index;
+	int			door_count;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**map_grid;
@@ -187,4 +190,9 @@ void	calc_draw_values(t_cub3d *cub, t_ray *ray);
 void	handle_inputs(t_cub3d *cub);
 int		handle_keypress(int keycode, t_cub3d *cub);
 int		handle_keyrelease(int keycode, t_cub3d *cub);
+
+//doors
+int		count_doors(char **map);
+int		init_all_doors(t_cub3d *cub);
+
 #endif

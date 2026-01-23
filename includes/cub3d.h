@@ -146,13 +146,6 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
 
-
-// minimap
-void	init_minimap(t_cub3d *cub);
-int		render_minimap(t_cub3d *cub);
-int		draw_player_minimap(t_cub3d *cub);
-void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color);
-
 // full map
 int		render_frame(void *param);
 void	init_game(t_cub3d *cub);
