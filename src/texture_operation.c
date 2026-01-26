@@ -67,8 +67,9 @@ int	**create_texture_table(t_img *img)
 			return (free_array(texture, y), NULL);
 		x = 0;
 		while (x < img->width)
-        {
-			pixel_address = img->addr + y * img->line_length + x * img->bits_per_pixel / 8;;
+		{
+			pixel_address = img->addr + y * img->line_length + x
+				* img->bits_per_pixel / 8;
 			texture[y][x] = *(int *)pixel_address;
 			x++;
 		}

@@ -53,6 +53,9 @@ int	main(int ac, char **av)
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
 	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);
+	mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);
+	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, cub.game.win_width / 2, cub.game.win_height / 2);
+	mlx_hook(cub.win_ptr, 6, 1L << 6, &handle_mouse, &cub);
 	mlx_loop_hook(cub.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_cub3d(&cub);

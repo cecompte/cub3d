@@ -89,9 +89,10 @@ typedef struct s_input
 	int			down;
 	int			rotate_left;
 	int			rotate_right;
-} t_input;
+}	t_input;
 
-typedef struct	s_img {
+typedef struct	s_img
+{
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
@@ -108,7 +109,7 @@ typedef struct s_cub3d
 	t_map_info	map_info;
 	char		**map;
 	t_texture	texture;
-	t_img		tex_n;	//images
+	t_img		tex_n;
 	t_img		tex_s;
 	t_img		tex_w;
 	t_img		tex_e;
