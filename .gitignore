@@ -30,6 +30,7 @@
 
 # Executables
 cub3d
+cub3d_bonus
 Makefile.gen
 mlx-test
 

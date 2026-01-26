@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	draw_floor_ceiling(t_cub3d *cub)
 {
@@ -54,9 +54,14 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 	}
 }
 
-void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col)
+void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col, int flag)
 {
-	if (ray->hit_side == 0 && ray->dir_x > 0) // EAST
+	if (flag == 2)
+	{
+		ray->tex_x = (int)(ray->wallX * (double)(cub->tex_door.width));
+		draw_textured_line(cub, ray, &cub->tex_door, col);
+	}
+	else if (ray->hit_side == 0 && ray->dir_x > 0) // EAST
 	{
 		ray->tex_x = cub->tex_e.width - (int)(ray->wallX * (double)(cub->tex_e.width)) - 1;
 		draw_textured_line(cub, ray, &cub->tex_e, col);
@@ -82,15 +87,16 @@ int	draw_all_walls(t_cub3d *cub)
 {
 	t_ray	ray;
 	int 	i;
+	int		flag;
 
 	i = 0;
 	while (i < cub->game.win_width)
 	{
 		ray.cameraX = 2 * i / (double)(cub->game.win_width - 1) - 1;
 		init_ray(cub, &ray);
-		dda_loop(cub, &ray);
+		flag = dda_loop(cub, &ray);
 		calc_draw_values(cub, &ray);
-		draw_one_wall(cub, &ray, i);
+		draw_one_wall(cub, &ray, i, flag);
 		i++;
 	}
 	return (0);
@@ -109,6 +115,7 @@ int	render_frame(void *param)
 	handle_inputs(cub);
 	draw_floor_ceiling(cub);
 	draw_all_walls(cub);
+	render_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img.img, 0, 0);
 	return (0);
 }
