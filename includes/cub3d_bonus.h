@@ -123,6 +123,12 @@ typedef struct s_door {
 	double		animation_speed;
 } t_door;
 
+typedef struct s_sprite {
+	double	x;
+	double	y;
+	int	cadr;
+} t_sprite;
+
 typedef struct s_cub3d
 {
 	t_game		game;
@@ -141,6 +147,9 @@ typedef struct s_cub3d
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**map_grid;
+	t_sprite	*sprites;
+	int			sprite_count;
+	t_img		anime_sprite[4];
 }				t_cub3d;
 
 int		check_extension(char *str, char *ext);
@@ -168,6 +177,7 @@ size_t	get_current_time(void);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
+void	rotate(t_cub3d *cub, double angle);
 
 
 // minimap
@@ -187,4 +197,5 @@ void	calc_draw_values(t_cub3d *cub, t_ray *ray);
 void	handle_inputs(t_cub3d *cub);
 int		handle_keypress(int keycode, t_cub3d *cub);
 int		handle_keyrelease(int keycode, t_cub3d *cub);
+int		handle_mouse(int x, int y, t_cub3d *cub);
 #endif
