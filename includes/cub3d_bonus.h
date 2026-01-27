@@ -123,12 +123,6 @@ typedef struct s_door {
 	double		animation_speed;
 } t_door;
 
-typedef struct s_sprite {
-	double	x;
-	double	y;
-	int	cadr;
-} t_sprite;
-
 typedef struct s_cub3d
 {
 	t_game		game;
@@ -147,9 +141,6 @@ typedef struct s_cub3d
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**map_grid;
-	t_sprite	*sprites;
-	int			sprite_count;
-	t_img		anime_sprite[4];
 }				t_cub3d;
 
 int		check_extension(char *str, char *ext);
