@@ -31,6 +31,8 @@ int	free_cub3d(t_cub3d *cub)
 		free_array(cub->tex_w.texture_table, cub->tex_w.height);
 	if (cub->tex_n.texture_table)
 		free_array(cub->tex_n.texture_table, cub->tex_n.height);
+	if (cub->tex_door.texture_table)
+		free_array(cub->tex_door.texture_table, cub->tex_door.height);
 	return (1);
 }
 
