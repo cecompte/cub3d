@@ -156,6 +156,8 @@ int		check_file(char *path);
 int		validate_texture(t_cub3d *cub);
 int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
+int		check_chars(char **map);
+
 
 //clean
 int		free_cub3d(t_cub3d *cub);

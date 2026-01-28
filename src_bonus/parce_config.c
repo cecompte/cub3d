@@ -1,11 +1,5 @@
 #include "cub3d_bonus.h"
 
-int	config_complete(t_texture *texture)
-{
-	return (texture->no_path && texture->so_path && texture->ea_path
-		&& texture->we_path && (texture->floor_color != -1)
-		&& (texture->ceiling_color != -1));
-}
 
 int	*get_color_dest(char *line, t_texture *texture)
 {
@@ -30,7 +24,7 @@ int	is_numeric(char *str)
 	while (str[i])
 	{
 		if (str[i] != '\n' && str[i] != '\t' && str[i] != ' ')
-			return (0);
+			return (0); 
 		i++;
 	}
 	return (1);
@@ -106,7 +100,9 @@ int	parce_config(char **map, t_cub3d *cub)
 		else if (res == 2)
 			break ;
 	}
-	if (!config_complete(&cub->texture))
+	if (!(cub->texture.no_path && cub->texture.so_path && cub->texture.ea_path
+			&& cub->texture.we_path && (cub->texture.floor_color != -1)
+			&& (cub->texture.ceiling_color != -1)))
 		return (ft_putstr_fd("Error\nIncomplete config\n", 2), 1);
 	return (0);
 }
