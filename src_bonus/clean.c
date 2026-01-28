@@ -1,15 +1,30 @@
 #include "cub3d_bonus.h"
 
+void	free_tabc(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
 void	free_texture(t_texture *texture)
 {
 	if (texture->no_path)
-		free (texture->no_path);
+		free(texture->no_path);
 	if (texture->so_path)
-		free (texture->so_path);
+		free(texture->so_path);
 	if (texture->we_path)
-		free (texture->we_path);
+		free(texture->we_path);
 	if (texture->ea_path)
-		free (texture->ea_path);
+		free(texture->ea_path);
 	texture->no_path = NULL;
 	texture->so_path = NULL;
 	texture->we_path = NULL;

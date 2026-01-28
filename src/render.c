@@ -2,7 +2,7 @@
 
 void	draw_floor_ceiling(t_cub3d *cub)
 {
-	int x;
+	int	x;
 	int	y;
 
 	y = 0;
@@ -30,14 +30,14 @@ void	draw_floor_ceiling(t_cub3d *cub)
 
 void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 {
-	int y;
-	int relative_y;
-	int tex_y;
+	int	y;
+	int	relative_y;
+	int	tex_y;
 	int	start;
 	int	end;
 
 	if (col < 0 || col >= cub->game.win_width)
-		return;
+		return ;
 	start = (int)ray->draw_start;
 	end = (int)ray->draw_end;
 	if (start < 0)
@@ -49,7 +49,8 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 	{
 		relative_y = y - ray->draw_start;
 		tex_y = relative_y * img->height / ray->line_height;
-		my_mlx_pixel_put(&cub->img, col, y, img->texture_table[tex_y][ray->tex_x]);
+		my_mlx_pixel_put(&cub->img, col, y,
+			img->texture_table[tex_y][ray->tex_x]);
 		y++;
 	}
 }
@@ -58,7 +59,8 @@ void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col)
 {
 	if (ray->hit_side == 0 && ray->dir_x > 0) // EAST
 	{
-		ray->tex_x = cub->tex_e.width - (int)(ray->wallX * (double)(cub->tex_e.width)) - 1;
+		ray->tex_x = cub->tex_e.width - (int)(ray->wallX
+				* (double)(cub->tex_e.width)) - 1;
 		draw_textured_line(cub, ray, &cub->tex_e, col);
 	}
 	else if (ray->hit_side == 0 && ray->dir_x < 0) // WEST
@@ -68,7 +70,8 @@ void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col)
 	}
 	else if (ray->hit_side == 1 && ray->dir_y < 0) // NORTH
 	{
-		ray->tex_x = cub->tex_n.width - (int)(ray->wallX * (double)(cub->tex_n.width)) - 1;
+		ray->tex_x = cub->tex_n.width - (int)(ray->wallX
+				* (double)(cub->tex_n.width)) - 1;
 		draw_textured_line(cub, ray, &cub->tex_n, col);
 	}
 	else // SOUTH
@@ -81,7 +84,7 @@ void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col)
 int	draw_all_walls(t_cub3d *cub)
 {
 	t_ray	ray;
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (i < cub->game.win_width)
@@ -104,7 +107,8 @@ int	render_frame(void *param)
 	cub = (t_cub3d *)param;
 	if (!cub->img.addr)
 		return (0);
-	total_pixels = cub->game.win_width * cub->game.win_height * (cub->img.bits_per_pixel / 8);
+	total_pixels = cub->game.win_width * cub->game.win_height
+		* (cub->img.bits_per_pixel / 8);
 	ft_memset(cub->img.addr, 0, total_pixels);
 	handle_inputs(cub);
 	draw_floor_ceiling(cub);

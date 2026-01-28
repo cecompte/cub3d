@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	init_texture(t_texture *texture)
+static void	init_texture_and_player(t_texture *texture, t_player *player)
 {
 	texture->no_path = NULL;
 	texture->so_path = NULL;
@@ -8,10 +8,6 @@ static void	init_texture(t_texture *texture)
 	texture->ea_path = NULL;
 	texture->floor_color = -1;
 	texture->ceiling_color = -1;
-}
-
-static void	init_player(t_player *player)
-{
 	player->x = 0;
 	player->y = 0;
 	player->dir_x = 0;
@@ -21,9 +17,9 @@ static void	init_player(t_player *player)
 
 static void	init_win(t_game *game)
 {
-	game->run = 1;			// Game loop flag: 1 = running, 0 = exit
-	game->win_width = 1024;	// Default window width in pixels (4:3 aspect)
-	game->win_height = 768;	// Default window height in pixels
+	game->run = 1;          // Game loop flag: 1 = running, 0 = exit
+	game->win_width = 1024; // Default window width in pixels (4:3 aspect)
+	game->win_height = 768; // Default window height in pixels
 	game->move_speed = 3;
 	game->rotation_angle = 1.5;
 	game->last_frame_time = get_current_time();
@@ -54,8 +50,7 @@ static void	init_img(t_img *img)
 void	init_cub3d(t_cub3d *cub)
 {
 	init_win(&cub->game);
-	init_texture(&cub->texture);
-	init_player(&cub->player);
+	init_texture_and_player(&cub->texture, &cub->player);
 	init_input(&cub->input);
 	init_img(&cub->tex_e);
 	init_img(&cub->tex_n);

@@ -1,5 +1,20 @@
 #include "cub3d.h"
 
+void	free_tabc(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
 void	free_texture(t_texture *texture)
 {
 	if (texture->no_path)

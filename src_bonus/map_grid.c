@@ -57,41 +57,6 @@ int	find_player(char **map, t_player *player)
 	return (0);
 }
 
-int	check_chars(char **map)
-{
-	int		i;
-	int		j;
-	// int		player_count;
-
-	// player_count = 0;
-	j = 0;
-	i = 0;
-	while (map[i])
-	{
-		while (map[i][j])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
-				|| map[i][j] == 'W' || map[i][j] == '1' || map[i][j] == '0'
-				|| map[i][j] == ' ' || map[i][j] == '\n' || map[i][j] == 'D' )
-				j++;
-			else
-				return (1);
-		}
-		j = 0;
-		i++;
-	}
-	return (0);
-}
-/*-Первый и последний символ строки обязаны быть '1',
-иначе карта считается «протекающей» (незакрытой).
-
--Если текущая строка длиннее строки сверху:
-Тогда все «выступающие» символы справа (те, у которых current_col > strlen(row_on_top)) должны быть '1'.
-→ Это нужно, чтобы не возникало "дыр" между строками разной длины.
-
--Если текущая строка длиннее строки снизу:
-То же самое правило — все символы правее длины нижней строки должны быть '1'.
-*/
 
 static char	**make_rect_map(char **map, int height, int width)
 {
@@ -119,8 +84,7 @@ static char	**make_rect_map(char **map, int height, int width)
 		rect_map[i][j] = '\0';
 		i++;
 	}
-	rect_map[i] = NULL;
-	return (rect_map);
+	return (rect_map[i] = NULL, rect_map);
 }
 
 static void	restore_map(char **map)
