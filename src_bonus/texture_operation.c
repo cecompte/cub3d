@@ -1,17 +1,5 @@
 #include "cub3d_bonus.h"
 
-/*oid	init_game(t_cub3d *cub)
-{
-	cub->mlx_ptr = mlx_init();
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->game.win_width,
-			cub->game.win_height, "Cub3D");
-	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->game.win_width,
-			cub->game.win_height);
-	cub->img.img = mlx_new_image(cub->mlx_ptr, cub->game.win_width, cub->game.win_height);
-	cub->img.addr = mlx_get_data_addr(cub->img.img, &cub->img.bits_per_pixel, &cub->img.line_length,
-								&cub->img.endian);
-}*/
-
 char	**get_texture_dest(char *line, t_texture *texture)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
@@ -23,17 +11,6 @@ char	**get_texture_dest(char *line, t_texture *texture)
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		return (&texture->ea_path);
 	return (NULL);
-}
-
-int	check_file(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	close (fd);
-	return (0);
 }
 
 int	validate_texture(t_cub3d *cub)
@@ -67,8 +44,10 @@ int	**create_texture_table(t_img *img)
 			return (free_array(texture, y), NULL);
 		x = 0;
 		while (x < img->width)
-        {
-			pixel_address = img->addr + y * img->line_length + x * img->bits_per_pixel / 8;;
+		{
+			pixel_address = img->addr + y * img->line_length + x
+				* img->bits_per_pixel / 8;
+			;
 			texture[y][x] = *(int *)pixel_address;
 			x++;
 		}
@@ -79,7 +58,8 @@ int	**create_texture_table(t_img *img)
 
 static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 {
-	img->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &img->width, &img->height);
+	img->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &img->width,
+			&img->height);
 	if (!img->img)
 	{
 		ft_putstr_fd("Error\nCannot load texture\n", 2);

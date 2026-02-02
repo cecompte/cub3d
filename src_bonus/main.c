@@ -1,6 +1,5 @@
 #include "cub3d_bonus.h"
 
-
 void	init_game(t_cub3d *cub)
 {
 	cub->mlx_ptr = mlx_init();
@@ -26,8 +25,8 @@ int	check_arguments(int ac, char **av)
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
 		return (1);
 	}
-	//if (!check_map(av[1]))
-		//return (ft_putstr_fd("Error\nMap is not valid\n", 2), 1);
+	// if (!check_map(av[1]))
+	// return (ft_putstr_fd("Error\nMap is not valid\n", 2), 1);
 	if (check_extension(av[1], ".cub"))
 		return (ft_putstr_fd("Error\nNot good extention of map\n", 2), 1);
 	return (0);
@@ -54,7 +53,12 @@ int	main(int ac, char **av)
 		return (free_cub3d(&cub), 1);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
-	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);
+	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game,
+		&cub);
+	mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);
+	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, cub.game.win_width / 2,
+		cub.game.win_height / 2);
+	mlx_hook(cub.win_ptr, 6, 1L << 6, &handle_mouse, &cub);
 	mlx_loop_hook(cub.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_cub3d(&cub);

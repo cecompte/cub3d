@@ -73,15 +73,17 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 void	calc_draw_values(t_cub3d *cub, t_ray *ray)
 {
 	if (ray->hit_side == 0)
-		ray->perp_wall_dist = (ray->map_x - cub->player.x + (1 - ray->step_x) /2) / ray->dir_x;
+		ray->perp_wall_dist = (ray->map_x - cub->player.x + (1 - ray->step_x)
+				/ 2) / ray->dir_x;
 	else
-		ray->perp_wall_dist = (ray->map_y - cub->player.y + (1 - ray->step_y) /2) / ray->dir_y;
+		ray->perp_wall_dist = (ray->map_y - cub->player.y + (1 - ray->step_y)
+				/ 2) / ray->dir_y;
 	ray->line_height = cub->game.win_height / ray->perp_wall_dist;
-	ray->draw_start = cub->game.win_height/2 - ray->line_height/2;
-	ray->draw_end   = cub->game.win_height/2 + ray->line_height/2;
-	if (ray->hit_side == 0) 
+	ray->draw_start = cub->game.win_height / 2 - ray->line_height / 2;
+	ray->draw_end = cub->game.win_height / 2 + ray->line_height / 2;
+	if (ray->hit_side == 0)
 		ray->wallX = ray->pos_y + ray->perp_wall_dist * ray->dir_y;
-	else           
+	else
 		ray->wallX = ray->pos_x + ray->perp_wall_dist * ray->dir_x;
 	ray->wallX -= floor((ray->wallX));
 }

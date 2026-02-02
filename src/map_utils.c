@@ -66,3 +66,27 @@ int	flood_fill(char **map, t_map_info *info, int y, int x)
 		return (1);
 	return (0);
 }
+
+int	check_chars(char **map)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	while (map[i])
+	{
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
+				|| map[i][j] == 'W' || map[i][j] == '1' || map[i][j] == '0'
+				|| map[i][j] == ' ' || map[i][j] == '\n')
+				j++;
+			else
+				return (1);
+		}
+		j = 0;
+		i++;
+	}
+	return (0);
+}

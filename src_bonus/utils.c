@@ -6,10 +6,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	int		pixel_offset;
 
 	if (!img || !img->addr || x < 0 || y < 0)
-		return;
+		return ;
 	pixel_offset = y * img->line_length + x * (img->bits_per_pixel / 8);
 	dst = img->addr + pixel_offset;
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 size_t	get_current_time(void)
@@ -19,6 +19,17 @@ size_t	get_current_time(void)
 	if (gettimeofday(&time, NULL) == -1)
 		printf("gettimeofday error\n");
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	check_file(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close(fd);
+	return (0);
 }
 
 void	free_nodes(t_list *list)
@@ -33,28 +44,13 @@ void	free_nodes(t_list *list)
 	}
 }
 
-void	free_tabc(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
 void	free_array(int **arr, int height)
 {
 	int	y;
 
 	y = 0;
 	if (!arr)
-		return;
+		return ;
 	while (y < height)
 	{
 		free(arr[y]);

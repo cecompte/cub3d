@@ -159,6 +159,8 @@ int		check_file(char *path);
 int		validate_texture(t_cub3d *cub);
 int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
+int		check_chars(char **map);
+
 
 //clean
 int		free_cub3d(t_cub3d *cub);
@@ -171,6 +173,7 @@ size_t	get_current_time(void);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
+void	rotate(t_cub3d *cub, double angle);
 
 
 // minimap
@@ -195,4 +198,5 @@ int		handle_keyrelease(int keycode, t_cub3d *cub);
 int		count_doors(char **map);
 int		init_all_doors(t_cub3d *cub);
 
+int		handle_mouse(int x, int y, t_cub3d *cub);
 #endif

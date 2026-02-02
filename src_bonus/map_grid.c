@@ -107,8 +107,7 @@ static char	**make_rect_map(char **map, int height, int width)
 		rect_map[i][j] = '\0';
 		i++;
 	}
-	rect_map[i] = NULL;
-	return (rect_map);
+	return (rect_map[i] = NULL, rect_map);
 }
 
 static void	restore_map(char **map)
