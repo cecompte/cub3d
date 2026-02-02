@@ -120,7 +120,7 @@ typedef struct s_door {
 	int			map_y;
 	int			state; // 1, 2, 3 or 4
 	double		openness; // 0 : fully closed, 1 : fully open
-	double		animation_speed;
+	double		opening_speed;
 } t_door;
 
 typedef struct s_cub3d
@@ -190,13 +190,14 @@ int		dda_loop(t_cub3d *cub, t_ray *ray);
 void	calc_draw_values(t_cub3d *cub, t_ray *ray);
 
 // movements
-void	handle_inputs(t_cub3d *cub);
+void	handle_inputs(t_cub3d *cub, double delta_time);
 int		handle_keypress(int keycode, t_cub3d *cub);
 int		handle_keyrelease(int keycode, t_cub3d *cub);
+int		handle_mouse(int x, int y, t_cub3d *cub);
 
 //doors
 int		count_doors(char **map);
 int		init_all_doors(t_cub3d *cub);
+void	door_update(t_cub3d *cub, double delta_time);
 
-int		handle_mouse(int x, int y, t_cub3d *cub);
 #endif

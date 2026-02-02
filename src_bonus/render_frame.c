@@ -57,7 +57,7 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 
 void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col, int flag)
 {
-	if (flag == 2)
+	if (flag == 2) // DOOR
 	{
 		ray->tex_x = (int)(ray->wallX * (double)(cub->tex_door.width));
 		draw_textured_line(cub, ray, &cub->tex_door, col);
@@ -109,14 +109,17 @@ int	render_frame(void *param)
 {
 	t_cub3d	*cub;
 	int		total_pixels;
+	double	delta_time;
 
 	cub = (t_cub3d *)param;
 	if (!cub->img.addr)
 		return (0);
 	total_pixels = cub->game.win_width * cub->game.win_height
 		* (cub->img.bits_per_pixel / 8);
+	delta_time = (get_current_time() - cub->game.last_frame_time) / 1000.0;
 	ft_memset(cub->img.addr, 0, total_pixels);
-	handle_inputs(cub);
+	door_update(cub, delta_time);
+	handle_inputs(cub, delta_time);
 	draw_floor_ceiling(cub);
 	draw_all_walls(cub);
 	render_minimap(cub);

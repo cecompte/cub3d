@@ -27,9 +27,9 @@ void	init_door(t_door *door)
 {
 	door->map_x = 0;
 	door->map_y = 0;
-	door->state = CLOSED;
+	door->state = OPENING;
 	door->openness = 0;
-	door->animation_speed = 0;
+	door->opening_speed = 0.8;
 };
 
 
@@ -53,7 +53,7 @@ int	init_door_index(t_cub3d *cub)
 		while (++x < cub->map_info.width)
 		{
 			if (cub->map_grid[y][x] == 'D')
-				cub->door_index = 0;
+				cub->door_index[y][x] = 0;
 			else
 				cub->door_index[y][x] = -1;
 		}
