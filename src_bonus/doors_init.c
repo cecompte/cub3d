@@ -53,9 +53,35 @@ int	init_door_index(t_cub3d *cub)
 		while (++x < cub->map_info.width)
 		{
 			if (cub->map_grid[y][x] == 'D')
-				cub->door_index[y][x] = 0;
+				cub->door_index[y][x] = x;
 			else
 				cub->door_index[y][x] = -1;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	set_door_orientation(t_cub3d *cub)
+{
+	int x;
+	int	y;
+
+	y = 0;
+	while (y < cub->map_info.height)
+	{
+		x = -1;
+		while (++x < cub->map_info.width)
+		{
+			if (cub->map_grid[y][x] == 'D')
+			{
+				if (cub->map_grid[y][x - 1] == '1' && cub->map_grid[y][x + 1] == '1')
+					cub->doors[cub->door_index[y][x]].orientation = VERTICAL;
+				else if (cub->map_grid[y - 1][x] == '1' && cub->map_grid[y + 1][x] == '1')
+					cub->doors[cub->door_index[y][x]].orientation = HORIZONTAL;
+				else
+					return (1);	
+			}
 		}
 		y++;
 	}
@@ -80,5 +106,8 @@ int	init_all_doors(t_cub3d *cub)
 		init_door(&cub->doors[i]);
 		i++;
 	}
+	if (set_door_orientation(cub))
+		return (ft_putstr_fd("Error\nDoors should be surrounded by walls", 2), 1);
 	return (0);
 }
+

@@ -23,6 +23,8 @@
 # define OPENING 2
 # define CLOSING 3
 # define CLOSED 0
+# define VERTICAL -1
+# define HORIZONTAL -2
 
 typedef struct s_game
 {
@@ -121,6 +123,7 @@ typedef struct s_door {
 	int			state; // 1, 2, 3 or 4
 	double		openness; // 0 : fully closed, 1 : fully open
 	double		opening_speed;
+	int			orientation;
 } t_door;
 
 typedef struct s_cub3d

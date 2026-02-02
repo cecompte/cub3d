@@ -31,6 +31,14 @@ void	free_texture(t_texture *texture)
 	texture->ea_path = NULL;
 }
 
+void	free_doors(t_cub3d *cub)
+{
+	if (cub->door_index)
+		free_array(cub->door_index, cub->map_info.height);
+	if (cub->doors)
+		free(cub->doors);
+}
+
 int	free_cub3d(t_cub3d *cub)
 {
 	if (cub->map)
@@ -48,6 +56,8 @@ int	free_cub3d(t_cub3d *cub)
 		free_array(cub->tex_n.texture_table, cub->tex_n.height);
 	if (cub->tex_door.texture_table)
 		free_array(cub->tex_door.texture_table, cub->tex_door.height);
+	if (cub->door_count > 0)
+		free_doors(cub);
 	return (1);
 }
 
