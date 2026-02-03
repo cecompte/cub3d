@@ -6,23 +6,23 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:25:11 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:37:39 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "libft.h"
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "../minilibx-linux/mlx.h"
-#include <X11/keysym.h>
-#include <X11/X.h>
-#include <math.h>
-#include <sys/time.h>
+# include "libft.h"
+# include <string.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <mlx.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
+# include <math.h>
+# include <sys/time.h>
 
 # define UP 119
 # define DOWN 115
@@ -79,7 +79,7 @@ typedef struct s_ray
 	double		delta_dist_y;
 	double		side_dist_x;
 	double		side_dist_y;
-	double		cameraX;
+	double		camera_x;
 	int			step_x;
 	int			step_y;
 	int			map_x;
@@ -89,7 +89,7 @@ typedef struct s_ray
 	double		perp_wall_dist;
 	double		draw_start;
 	double		draw_end;
-	double 		wallX; // where exactly the wall was hit (between 0 and 1)
+	double		wall_x; // where exactly the wall was hit (between 0 and 1)
 	int			tex_x; // x coordinate on the texture
 }				t_ray;
 
@@ -101,9 +101,9 @@ typedef struct s_input
 	int			down;
 	int			rotate_left;
 	int			rotate_right;
-}	t_input;
+}				t_input;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void		*img;
 	char		*addr;
@@ -147,7 +147,6 @@ int		validate_texture(t_cub3d *cub);
 int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
 int		check_chars(char **map);
-
 
 //clean
 int		free_cub3d(t_cub3d *cub);

@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:42:34 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ int	check_arguments(int ac, char **av)
 	return (0);
 }
 
+void	hooks(t_cub3d *cub)
+{
+	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, &handle_keypress, cub);
+	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, cub);
+	mlx_hook(cub->win_ptr, DestroyNotify, StructureNotifyMask,
+		&close_game, cub);
+	mlx_mouse_hide(cub->mlx_ptr, cub->win_ptr);
+	mlx_mouse_move(cub->mlx_ptr, cub->win_ptr, cub->game.win_width / 2,
+		cub->game.win_height / 2);
+	mlx_hook(cub->win_ptr, 6, 1L << 6, &handle_mouse, cub);
+}
+
 int	main(int ac, char **av)
 {
 	t_cub3d	cub;
@@ -61,14 +73,7 @@ int	main(int ac, char **av)
 	init_game(&cub);
 	if (load_texture(&cub))
 		return (free_cub3d(&cub), 1);
-	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
-	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
-	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game,
-		&cub);
-	mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);
-	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, cub.game.win_width / 2,
-		cub.game.win_height / 2);
-	mlx_hook(cub.win_ptr, 6, 1L << 6, &handle_mouse, &cub);
+	hooks(&cub);
 	mlx_loop_hook(cub.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_cub3d(&cub);
