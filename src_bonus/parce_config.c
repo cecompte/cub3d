@@ -1,11 +1,16 @@
-#include "cub3d_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parce_config.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	config_complete(t_texture *texture)
-{
-	return (texture->no_path && texture->so_path && texture->ea_path
-		&& texture->we_path && (texture->floor_color != -1)
-		&& (texture->ceiling_color != -1));
-}
+#include "cub3d_bonus.h"
 
 int	*get_color_dest(char *line, t_texture *texture)
 {
@@ -106,8 +111,9 @@ int	parce_config(char **map, t_cub3d *cub)
 		else if (res == 2)
 			break ;
 	}
-	if (!config_complete(&cub->texture))
+	if (!(cub->texture.no_path && cub->texture.so_path && cub->texture.ea_path
+			&& cub->texture.we_path && (cub->texture.floor_color != -1)
+			&& (cub->texture.ceiling_color != -1)))
 		return (ft_putstr_fd("Error\nIncomplete config\n", 2), 1);
 	return (0);
 }
-

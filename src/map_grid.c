@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_grid.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:28:56 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	save_player(t_player *player, int i, int j, char dir)
@@ -42,7 +54,7 @@ int	find_player(char **map, t_player *player)
 		while (map[i][j])
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
-				|| map[i][j] == 'W' )
+				|| map[i][j] == 'W')
 			{
 				save_player(player, i, j, map[i][j]);
 				player_count++;
@@ -53,33 +65,7 @@ int	find_player(char **map, t_player *player)
 		i++;
 	}
 	if (player_count != 1)
-		return (ft_putstr_fd("Error\nNo player found in map\n", 2), 1);
-	return (0);
-}
-
-int	check_chars(char **map)
-{
-	int		i;
-	int		j;
-	// int		player_count;
-
-	// player_count = 0;
-	j = 0;
-	i = 0;
-	while (map[i])
-	{
-		while (map[i][j])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
-				|| map[i][j] == 'W' || map[i][j] == '1' || map[i][j] == '0'
-				|| map[i][j] == ' ' || map[i][j] == '\n')
-				j++;
-			else
-				return (1);
-		}
-		j = 0;
-		i++;
-	}
+		return (ft_putstr_fd("Error\nNo player found\n", 2), 1);
 	return (0);
 }
 
@@ -109,8 +95,7 @@ static char	**make_rect_map(char **map, int height, int width)
 		rect_map[i][j] = '\0';
 		i++;
 	}
-	rect_map[i] = NULL;
-	return (rect_map);
+	return (rect_map[i] = NULL, rect_map);
 }
 
 static void	restore_map(char **map)

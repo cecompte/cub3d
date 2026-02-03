@@ -1,19 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:22:32 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	free_texture(t_texture *texture)
 {
 	if (texture->no_path)
-		free (texture->no_path);
+		free(texture->no_path);
 	if (texture->so_path)
-		free (texture->so_path);
+		free(texture->so_path);
 	if (texture->we_path)
-		free (texture->we_path);
+		free(texture->we_path);
 	if (texture->ea_path)
-		free (texture->ea_path);
+		free(texture->ea_path);
 	texture->no_path = NULL;
 	texture->so_path = NULL;
 	texture->we_path = NULL;
 	texture->ea_path = NULL;
+}
+
+void	free_doors(t_cub3d *cub)
+{
+	if (cub->door_index)
+		free_array(cub->door_index, cub->map_info.height);
+	if (cub->doors)
+		free(cub->doors);
 }
 
 int	free_cub3d(t_cub3d *cub)
@@ -31,6 +51,10 @@ int	free_cub3d(t_cub3d *cub)
 		free_array(cub->tex_w.texture_table, cub->tex_w.height);
 	if (cub->tex_n.texture_table)
 		free_array(cub->tex_n.texture_table, cub->tex_n.height);
+	if (cub->tex_door.texture_table)
+		free_array(cub->tex_door.texture_table, cub->tex_door.height);
+	if (cub->door_count > 0)
+		free_doors(cub);
 	return (1);
 }
 

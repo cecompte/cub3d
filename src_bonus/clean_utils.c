@@ -1,47 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:25:11 by cecompte         ###   ########.fr       */
+/*   Created: 2026/02/03 15:22:24 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:22:26 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	free_tabc(char **tab)
 {
-	char	*dst;
-	int		pixel_offset;
+	int	i;
 
-	if (!img || !img->addr || x < 0 || y < 0)
+	i = 0;
+	if (!tab)
 		return ;
-	pixel_offset = y * img->line_length + x * (img->bits_per_pixel / 8);
-	dst = img->addr + pixel_offset;
-	*(unsigned int *)dst = color;
-}
-
-size_t	get_current_time(void)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		printf("gettimeofday error\n");
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-int	check_file(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	close (fd);
-	return (0);
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
 
 void	free_nodes(t_list *list)

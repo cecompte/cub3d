@@ -35,10 +35,13 @@ SRC_BONUS		= main.c \
 					movements.c \
 					rays.c \
 					clean.c \
-					render.c \
+					render_frame.c \
 					draw_minimap.c \
 					draw_player_minimap.c \
-					doors_bonus.c
+					doors_init.c \
+					doors_utils.c \
+					clean_utils.c \
+					mouse.c
 
 SOURCES_BONUS	= $(addprefix $(SRC_PATH_BONUS), $(SRC_BONUS))
 

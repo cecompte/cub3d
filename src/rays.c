@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rays.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:31:34 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	init_side_dist(t_ray *ray)
@@ -51,7 +63,7 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 	while (max_steps++ < 1000)
 	{
 		if (cub->map_grid[ray->map_y][ray->map_x] == '1')
-			break;
+			break ;
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
 			ray->side_dist_x += ray->delta_dist_x;
@@ -71,15 +83,17 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 void	calc_draw_values(t_cub3d *cub, t_ray *ray)
 {
 	if (ray->hit_side == 0)
-		ray->perp_wall_dist = (ray->map_x - cub->player.x + (1 - ray->step_x) /2) / ray->dir_x;
+		ray->perp_wall_dist = (ray->map_x - cub->player.x + (1 - ray->step_x) / 2)
+				/ ray->dir_x;
 	else
-		ray->perp_wall_dist = (ray->map_y - cub->player.y + (1 - ray->step_y) /2) / ray->dir_y;
+		ray->perp_wall_dist = (ray->map_y - cub->player.y + (1 - ray->step_y) / 2)
+				/ ray->dir_y;
 	ray->line_height = cub->game.win_height / ray->perp_wall_dist;
-	ray->draw_start = cub->game.win_height/2 - ray->line_height/2;
-	ray->draw_end   = cub->game.win_height/2 + ray->line_height/2;
-	if (ray->hit_side == 0) 
+	ray->draw_start = cub->game.win_height / 2 - ray->line_height / 2;
+	ray->draw_end = cub->game.win_height / 2 + ray->line_height / 2;
+	if (ray->hit_side == 0)
 		ray->wallX = ray->pos_y + ray->perp_wall_dist * ray->dir_y;
-	else           
+	else
 		ray->wallX = ray->pos_x + ray->perp_wall_dist * ray->dir_x;
 	ray->wallX -= floor((ray->wallX));
 }

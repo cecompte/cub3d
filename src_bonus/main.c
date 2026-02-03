@@ -1,5 +1,16 @@
-#include "cub3d_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "cub3d_bonus.h"
 
 void	init_game(t_cub3d *cub)
 {
@@ -26,8 +37,6 @@ int	check_arguments(int ac, char **av)
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
 		return (1);
 	}
-	//if (!check_map(av[1]))
-		//return (ft_putstr_fd("Error\nMap is not valid\n", 2), 1);
 	if (check_extension(av[1], ".cub"))
 		return (ft_putstr_fd("Error\nNot good extention of map\n", 2), 1);
 	return (0);
@@ -45,6 +54,8 @@ int	main(int ac, char **av)
 		return (1);
 	if (parce_config(cub.map, &cub))
 		return (free_cub3d(&cub), 1);
+	if (init_all_doors(&cub))
+		return (free_cub3d(&cub), 1);
 	if (validate_texture(&cub))
 		return (free_cub3d(&cub), 1);
 	init_game(&cub);
@@ -52,7 +63,12 @@ int	main(int ac, char **av)
 		return (free_cub3d(&cub), 1);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
 	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
-	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game, &cub);
+	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask, &close_game,
+		&cub);
+	mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);
+	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, cub.game.win_width / 2,
+		cub.game.win_height / 2);
+	mlx_hook(cub.win_ptr, 6, 1L << 6, &handle_mouse, &cub);
 	mlx_loop_hook(cub.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_cub3d(&cub);

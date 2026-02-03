@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:25:11 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 #include "libft.h"
 #include <string.h>
@@ -134,6 +146,8 @@ int		check_file(char *path);
 int		validate_texture(t_cub3d *cub);
 int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
+int		check_chars(char **map);
+
 
 //clean
 int		free_cub3d(t_cub3d *cub);
@@ -146,13 +160,6 @@ size_t	get_current_time(void);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
-
-
-// minimap
-void	init_minimap(t_cub3d *cub);
-int		render_minimap(t_cub3d *cub);
-int		draw_player_minimap(t_cub3d *cub);
-void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color);
 
 // full map
 int		render_frame(void *param);

@@ -1,11 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parce_config.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:31:34 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	config_complete(t_texture *texture)
-{
-	return (texture->no_path && texture->so_path && texture->ea_path
-		&& texture->we_path && (texture->floor_color != -1)
-		&& (texture->ceiling_color != -1));
-}
+#include "cub3d.h"
 
 int	*get_color_dest(char *line, t_texture *texture)
 {
@@ -108,8 +113,9 @@ int	parce_config(char **map, t_cub3d *cub)
 	}
 	if (res != 2)
 		return (ft_putstr_fd("Error\nNo map found\n", 2), 1);
-	if (!config_complete(&cub->texture))
+	if (!(cub->texture.no_path && cub->texture.so_path && cub->texture.ea_path
+			&& cub->texture.we_path && (cub->texture.floor_color != -1)
+			&& (cub->texture.ceiling_color != -1)))
 		return (ft_putstr_fd("Error\nIncomplete config\n", 2), 1);
 	return (0);
 }
-

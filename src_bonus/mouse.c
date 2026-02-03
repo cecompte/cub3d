@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,42 +12,19 @@
 
 #include "cub3d_bonus.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+int	handle_mouse(int x, int y, t_cub3d *cub)
 {
-	char	*dst;
-	int		pixel_offset;
+	int	centre_x;
+	int	centre_y;
+	int	delta;
 
-	if (!img || !img->addr || x < 0 || y < 0)
-		return ;
-	pixel_offset = y * img->line_length + x * (img->bits_per_pixel / 8);
-	dst = img->addr + pixel_offset;
-	*(unsigned int *)dst = color;
-}
-
-size_t	get_current_time(void)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		printf("gettimeofday error\n");
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-int	check_file(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	close(fd);
+	(void)y;
+	centre_x = cub->game.win_width / 2;
+	centre_y = cub->game.win_height / 2;
+	delta = x - centre_x;
+	if (delta == 0)
+		return (0);
+	rotate(cub, delta * 0.005);
+	mlx_mouse_move(cub->mlx_ptr, cub->win_ptr, centre_x, centre_y);
 	return (0);
-}
-
-void	clamp_values(int *val, int size)
-{
-	if (*val < 0)
-		*val = 0;
-	if (*val >= size)
-		*val = size - 1;
 }

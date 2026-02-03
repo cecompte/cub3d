@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 int	get_map_height(char **map)
@@ -64,5 +76,29 @@ int	flood_fill(char **map, t_map_info *info, int y, int x)
 	if (flood_fill(map, info, y + 1, x) || flood_fill(map, info, y - 1, x)
 		|| flood_fill(map, info, y, x + 1) || flood_fill(map, info, y, x - 1))
 		return (1);
+	return (0);
+}
+
+int	check_chars(char **map)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	while (map[i])
+	{
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
+				|| map[i][j] == 'W' || map[i][j] == '1' || map[i][j] == '0'
+				|| map[i][j] == ' ' || map[i][j] == '\n' || map[i][j] == 'D' )
+				j++;
+			else
+				return (1);
+		}
+		j = 0;
+		i++;
+	}
 	return (0);
 }
