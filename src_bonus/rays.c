@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rays.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	init_side_dist(t_ray *ray)
@@ -43,6 +55,34 @@ void	init_ray(t_cub3d *cub, t_ray *ray)
 	init_side_dist(ray);
 }
 
+int	check_door_hit(t_cub3d *cub, t_ray *ray)
+{
+	int		index;
+	double	wall_pos;
+
+	if (cub->map_grid[ray->map_y][ray->map_x] != 'D')
+		return (0);
+	index = cub->door_index[ray->map_y][ray->map_x];
+	if (cub->doors[index].openness >= 1)
+		return (0);
+	if (ray->hit_side == 0)
+		wall_pos = ray->pos_y + (ray->side_dist_x
+				- ray->delta_dist_x) * ray->dir_y;
+	else
+		wall_pos = ray->pos_x + (ray->side_dist_y
+				- ray->delta_dist_y) * ray->dir_x;
+	wall_pos = wall_pos - floor(wall_pos);
+	if (cub->doors[index].direction == VERTICAL)
+	{
+		if (ray->hit_side == 1 && wall_pos < cub->doors[index].openness)
+			return (0);
+	}
+	else
+		if (ray->hit_side == 0 && wall_pos < cub->doors[index].openness)
+			return (0);
+	return (1);
+}
+
 int	dda_loop(t_cub3d *cub, t_ray *ray)
 {
 	int	max_steps;
@@ -52,8 +92,8 @@ int	dda_loop(t_cub3d *cub, t_ray *ray)
 	{
 		if (cub->map_grid[ray->map_y][ray->map_x] == '1')
 			return (1);
-		if (cub->map_grid[ray->map_y][ray->map_x] == 'D')
-			return (2); // bonus
+		if (check_door_hit(cub, ray))
+			return (2);
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
 			ray->side_dist_x += ray->delta_dist_x;

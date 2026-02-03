@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_grid.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 static void	save_player(t_player *player, int i, int j, char dir)
@@ -56,7 +68,6 @@ int	find_player(char **map, t_player *player)
 		return (ft_putstr_fd("Error\nNo player found in map\n", 2), 1);
 	return (0);
 }
-
 
 static char	**make_rect_map(char **map, int height, int width)
 {

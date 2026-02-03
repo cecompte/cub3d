@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 static void	init_texture_and_player(t_texture *texture, t_player *player)
@@ -17,9 +29,9 @@ static void	init_texture_and_player(t_texture *texture, t_player *player)
 
 static void	init_win(t_game *game)
 {
-	game->run = 1;          // Game loop flag: 1 = running, 0 = exit
-	game->win_width = 1024; // Default window width in pixels (4:3 aspect)
-	game->win_height = 768; // Default window height in pixels
+	game->run = 1;
+	game->win_width = 1024;
+	game->win_height = 768;
 	game->move_speed = 3;
 	game->rotation_angle = 1.5;
 	game->last_frame_time = get_current_time();
@@ -70,4 +82,7 @@ void	init_cub3d(t_cub3d *cub)
 	cub->minimap.tile_size = 8;
 	cub->minimap.width = 0;
 	cub->minimap.height = 0;
+	cub->doors = NULL;
+	cub->door_index = NULL;
+	cub->door_count = 0;
 }

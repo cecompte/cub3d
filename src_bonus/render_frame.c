@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	draw_floor_ceiling(t_cub3d *cub)
@@ -31,13 +43,13 @@ void	draw_floor_ceiling(t_cub3d *cub)
 void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 {
 	int	y;
-	int	relative_y;
 	int	tex_y;
 	int	start;
 	int	end;
 
 	if (col < 0 || col >= cub->game.win_width)
 		return ;
+	clamp_values(&ray->tex_x, cub->tex_door.width);
 	start = (int)ray->draw_start;
 	end = (int)ray->draw_end;
 	if (start < 0)
@@ -47,8 +59,8 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 	y = start;
 	while (y < end)
 	{
-		relative_y = y - ray->draw_start;
-		tex_y = relative_y * img->height / ray->line_height;
+		tex_y = (y - ray->draw_start) * img->height / ray->line_height;
+		clamp_values(&tex_y, img->height);
 		my_mlx_pixel_put(&cub->img, col, y,
 			img->texture_table[tex_y][ray->tex_x]);
 		y++;
@@ -58,28 +70,25 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col, int flag)
 {
 	if (flag == 2)
-	{
-		ray->tex_x = (int)(ray->wallX * (double)(cub->tex_door.width));
-		draw_textured_line(cub, ray, &cub->tex_door, col);
-	}
-	else if (ray->hit_side == 0 && ray->dir_x > 0) // EAST
+		draw_door(cub, ray, col);
+	else if (ray->hit_side == 0 && ray->dir_x > 0)
 	{
 		ray->tex_x = cub->tex_e.width - (int)(ray->wallX
 				* (double)(cub->tex_e.width)) - 1;
 		draw_textured_line(cub, ray, &cub->tex_e, col);
 	}
-	else if (ray->hit_side == 0 && ray->dir_x < 0) // WEST
+	else if (ray->hit_side == 0 && ray->dir_x < 0)
 	{
 		ray->tex_x = (int)(ray->wallX * (double)(cub->tex_w.width));
 		draw_textured_line(cub, ray, &cub->tex_w, col);
 	}
-	else if (ray->hit_side == 1 && ray->dir_y < 0) // NORTH
+	else if (ray->hit_side == 1 && ray->dir_y < 0)
 	{
 		ray->tex_x = cub->tex_n.width - (int)(ray->wallX
 				* (double)(cub->tex_n.width)) - 1;
 		draw_textured_line(cub, ray, &cub->tex_n, col);
 	}
-	else // SOUTH
+	else
 	{
 		ray->tex_x = (int)(ray->wallX * (double)(cub->tex_s.width));
 		draw_textured_line(cub, ray, &cub->tex_s, col);
@@ -109,14 +118,17 @@ int	render_frame(void *param)
 {
 	t_cub3d	*cub;
 	int		total_pixels;
+	double	delta_time;
 
 	cub = (t_cub3d *)param;
 	if (!cub->img.addr)
 		return (0);
 	total_pixels = cub->game.win_width * cub->game.win_height
 		* (cub->img.bits_per_pixel / 8);
+	delta_time = (get_current_time() - cub->game.last_frame_time) / 1000.0;
 	ft_memset(cub->img.addr, 0, total_pixels);
-	handle_inputs(cub);
+	door_update(cub, delta_time);
+	handle_inputs(cub, delta_time);
 	draw_floor_ceiling(cub);
 	draw_all_walls(cub);
 	render_minimap(cub);

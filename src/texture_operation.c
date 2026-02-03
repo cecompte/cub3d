@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture_operation.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:28:56 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	**get_texture_dest(char *line, t_texture *texture)
@@ -20,8 +32,10 @@ int	validate_texture(t_cub3d *cub)
 		|| check_extension(cub->texture.we_path, ".xpm")
 		|| check_extension(cub->texture.ea_path, ".xpm"))
 		return (ft_putstr_fd("Error\nTexture must be .xpm\n", 2), 1);
-	if (check_file(cub->texture.no_path) || check_file(cub->texture.so_path)
-		|| check_file(cub->texture.we_path) || check_file(cub->texture.ea_path))
+	if (check_file(cub->texture.no_path)
+		|| check_file(cub->texture.so_path)
+		|| check_file(cub->texture.we_path)
+		|| check_file(cub->texture.ea_path))
 		return (ft_putstr_fd("Error\nTexture file not found\n", 2), 1);
 	return (0);
 }

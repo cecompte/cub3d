@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture_operation.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 char	**get_texture_dest(char *line, t_texture *texture)
@@ -47,7 +59,6 @@ int	**create_texture_table(t_img *img)
 		{
 			pixel_address = img->addr + y * img->line_length + x
 				* img->bits_per_pixel / 8;
-			;
 			texture[y][x] = *(int *)pixel_address;
 			x++;
 		}
@@ -86,7 +97,7 @@ int	load_texture(t_cub3d *cub)
 		return (1);
 	if (load_one_texture(cub, &cub->tex_e, cub->texture.ea_path))
 		return (1);
-	if (load_one_texture(cub, &cub->tex_door, "./texture/door.xpm")) // bonus
+	if (load_one_texture(cub, &cub->tex_door, "./texture/door.xpm"))
 		return (1);
 	return (0);
 }

@@ -1,5 +1,17 @@
-#ifndef CUB3D_H
-#define CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:25:11 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 #include "libft.h"
 #include <string.h>
@@ -19,10 +31,14 @@
 # define ESC 65307
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+# define E_KEY 101
+# define SPACE_KEY 32
 # define OPEN 1
 # define OPENING 2
 # define CLOSING 3
-# define CLOSED 4
+# define CLOSED 0
+# define VERTICAL -1
+# define HORIZONTAL -2
 
 typedef struct s_game
 {
@@ -114,13 +130,13 @@ typedef struct	s_minimap {
     int 		height;         // total height in pixels
 } t_minimap;
 
-/*bonus*/
 typedef struct s_door {
 	int			map_x;
 	int			map_y;
-	int			state; // 1, 2, 3 or 4
+	int			state; // open, opening, closing, closed
 	double		openness; // 0 : fully closed, 1 : fully open
-	double		animation_speed;
+	double		opening_speed;
+	int			direction; // vertical or horizontal
 } t_door;
 
 typedef struct s_cub3d
@@ -133,11 +149,14 @@ typedef struct s_cub3d
 	t_img		tex_s;
 	t_img		tex_w;
 	t_img		tex_e;
-	t_img		tex_door; // bonus
 	t_player	player;
 	t_input		input;
 	t_img		img;
 	t_minimap	minimap;
+	t_img		tex_door;
+	t_door		*doors;
+	int			**door_index;
+	int			door_count;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**map_grid;
@@ -171,6 +190,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
 void	rotate(t_cub3d *cub, double angle);
+void 	clamp_values(int *val, int size);
 
 
 // minimap
@@ -185,10 +205,19 @@ void	init_game(t_cub3d *cub);
 void	init_ray(t_cub3d *cub, t_ray *ray);
 int		dda_loop(t_cub3d *cub, t_ray *ray);
 void	calc_draw_values(t_cub3d *cub, t_ray *ray);
+void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col);
 
 // movements
-void	handle_inputs(t_cub3d *cub);
+void	handle_inputs(t_cub3d *cub, double delta_time);
 int		handle_keypress(int keycode, t_cub3d *cub);
 int		handle_keyrelease(int keycode, t_cub3d *cub);
 int		handle_mouse(int x, int y, t_cub3d *cub);
+void	toggle_door(t_cub3d *cub);
+
+//doors
+int		count_doors(char **map);
+int		init_all_doors(t_cub3d *cub);
+void	door_update(t_cub3d *cub, double delta_time);
+void	draw_door(t_cub3d *cub, t_ray *ray, int col);
+
 #endif
