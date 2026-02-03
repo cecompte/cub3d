@@ -27,7 +27,7 @@ void	init_door(t_door *door)
 {
 	door->map_x = 0;
 	door->map_y = 0;
-	door->state = OPENING;
+	door->state = CLOSED;
 	door->openness = 0;
 	door->opening_speed = 0.8;
 };

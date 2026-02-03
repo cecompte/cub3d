@@ -19,6 +19,7 @@
 # define ESC 65307
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+# define E_KEY 101
 # define OPEN 1
 # define OPENING 2
 # define CLOSING 3
@@ -198,6 +199,7 @@ void	handle_inputs(t_cub3d *cub, double delta_time);
 int		handle_keypress(int keycode, t_cub3d *cub);
 int		handle_keyrelease(int keycode, t_cub3d *cub);
 int		handle_mouse(int x, int y, t_cub3d *cub);
+void	toggle_door(t_cub3d *cub);
 
 //doors
 int		count_doors(char **map);
