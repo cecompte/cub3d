@@ -32,10 +32,10 @@ int	check_file(char *path)
 	return (0);
 }
 
-void clamp_values(int val, int size)
+void clamp_values(int *val, int size)
 {
-	if (val < 0)
-		val = 0;
-	if (val >= size)
-		val = size - 1;
+	if (*val < 0)
+		*val = 0;
+	if (*val >= size)
+		*val = size - 1;
 }

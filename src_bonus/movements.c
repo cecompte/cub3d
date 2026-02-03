@@ -50,7 +50,7 @@ int	handle_keypress(int keycode, t_cub3d *cub)
 		cub->input.rotate_left = 1;
 	else if (keycode == RIGHT_ARROW)
 		cub->input.rotate_right = 1;
-	else if (keycode == E_KEY)
+	else if (keycode == SPACE_KEY)
 		toggle_door(cub);
 	return (0);
 }

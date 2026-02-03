@@ -20,6 +20,7 @@
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
 # define E_KEY 101
+# define SPACE_KEY 32
 # define OPEN 1
 # define OPENING 2
 # define CLOSING 3
@@ -177,7 +178,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
 void	rotate(t_cub3d *cub, double angle);
-void 	clamp_values(int val, int size);
+void 	clamp_values(int *val, int size);
 
 
 // minimap

@@ -70,4 +70,7 @@ void	init_cub3d(t_cub3d *cub)
 	cub->minimap.tile_size = 8;
 	cub->minimap.width = 0;
 	cub->minimap.height = 0;
+	cub->doors = NULL;
+	cub->door_index = NULL;
+	cub->door_count = 0;
 }

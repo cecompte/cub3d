@@ -37,7 +37,7 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 
 	if (col < 0 || col >= cub->game.win_width)
 		return ;
-	clamp_values(ray->tex_x, cub->tex_door.width);
+	clamp_values(&ray->tex_x, cub->tex_door.width);
 	start = (int)ray->draw_start;
 	end = (int)ray->draw_end;
 	if (start < 0)
@@ -48,7 +48,7 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 	while (y < end)
 	{
 		tex_y = (y - ray->draw_start) * img->height / ray->line_height;
-		clamp_values(tex_y, img->height);
+		clamp_values(&tex_y, img->height);
 		my_mlx_pixel_put(&cub->img, col, y,
 			img->texture_table[tex_y][ray->tex_x]);
 		y++;
