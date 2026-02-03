@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/03 21:05:06 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	load_texture(t_cub3d *cub)
 		return (1);
 	if (load_one_texture(cub, &cub->tex_e, cub->texture.ea_path))
 		return (1);
-	if (load_one_texture(cub, &cub->tex_door, "./texture/door.xpm"))
+	if (load_one_texture(cub, &cub->tex_door, "./texture/wooden-door.xpm"))
 		return (1);
 	return (0);
 }
