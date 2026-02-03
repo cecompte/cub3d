@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:31:34 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:52:09 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	update_position(t_cub3d *cub, int forward, int strafe, double speed)
 	double	try_x;
 
 	try_x = cub->player.x + (forward * cub->player.dir_x
-		+ strafe * cub->player.plane_x) * speed;
+			+ strafe * cub->player.plane_x) * speed;
 	if (cub->map_grid[(int)cub->player.y][(int)try_x] != '1')
 		cub->player.x = try_x;
 	try_y = cub->player.y + (forward * cub->player.dir_y
-		+ strafe * cub->player.plane_y) * speed;
+			+ strafe * cub->player.plane_y) * speed;
 	if (cub->map_grid[(int)try_y][(int)cub->player.x] != '1')
 		cub->player.y = try_y;
 }
