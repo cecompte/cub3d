@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 20:35:52 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/03 21:02:08 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../minilibx-linux/mlx.h"
+# include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <math.h>
