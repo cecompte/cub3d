@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esergeev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:29:11 by esergeev          #+#    #+#             */
-/*   Updated: 2025/06/11 11:29:20 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:37:19 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_puthex(unsigned int arg, char format)
 			if (format == 'x')
 				len += ft_putchar(arg - 10 + 'a');
 		else if (format == 'X')
-				len += ft_putchar(arg - 10 + 'A');
+			len += ft_putchar(arg - 10 + 'A');
 	}
 	return (len);
 }
