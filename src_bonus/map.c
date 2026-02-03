@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 int	check_extension(char *str, char *ext)
@@ -80,7 +92,6 @@ char	**parse_map(char *av, t_cub3d *cub)
 	}
 	free_nodes(list);
 	return (cub->map);
-
 }
 
 char	**read_map(char av[1], t_cub3d *cub)
@@ -90,4 +101,3 @@ char	**read_map(char av[1], t_cub3d *cub)
 		return (ft_putstr_fd("Error\nCannot read map\n", 2), NULL);
 	return (cub->map);
 }
-

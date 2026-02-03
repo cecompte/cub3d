@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
@@ -32,7 +44,7 @@ int	check_file(char *path)
 	return (0);
 }
 
-void clamp_values(int *val, int size)
+void	clamp_values(int *val, int size)
 {
 	if (*val < 0)
 		*val = 0;

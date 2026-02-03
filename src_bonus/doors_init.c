@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:37 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:22:39 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 int	count_doors(char **map)
@@ -23,21 +35,20 @@ int	count_doors(char **map)
 	return (door_count);
 }
 
-void	init_door(t_door *door) 
+void	init_door(t_door *door)
 {
 	door->map_x = 0;
 	door->map_y = 0;
 	door->state = CLOSED;
 	door->openness = 0;
 	door->opening_speed = 0.8;
-};
-
+}
 
 int	init_door_index(t_cub3d *cub)
 {
-	int y;
-	int x;
-	int door_idx;
+	int	y;
+	int	x;
+	int	door_idx;
 
 	if (!cub->door_count)
 		return (cub->door_index = NULL, 0);
@@ -62,9 +73,9 @@ int	init_door_index(t_cub3d *cub)
 
 int	set_slide_direction(t_cub3d *cub)
 {
-	int x;
+	int	x;
 	int	y;
-	int door_idx;
+	int	door_idx;
 
 	y = -1;
 	while (++y < cub->map_info.height)
@@ -77,12 +88,14 @@ int	set_slide_direction(t_cub3d *cub)
 				door_idx = cub->door_index[y][x];
 				cub->doors[door_idx].map_x = x;
 				cub->doors[door_idx].map_y = y;
-				if (cub->map_grid[y][x - 1] == '1' && cub->map_grid[y][x + 1] == '1')
+				if (cub->map_grid[y][x - 1] == '1'
+					&& cub->map_grid[y][x + 1] == '1')
 					cub->doors[door_idx].direction = VERTICAL;
-				else if (cub->map_grid[y - 1][x] == '1' && cub->map_grid[y + 1][x] == '1')
+				else if (cub->map_grid[y - 1][x] == '1'
+					&& cub->map_grid[y + 1][x] == '1')
 					cub->doors[door_idx].direction = HORIZONTAL;
 				else
-					return (1);	
+					return (1);
 			}
 		}
 	}
@@ -108,7 +121,6 @@ int	init_all_doors(t_cub3d *cub)
 		i++;
 	}
 	if (set_slide_direction(cub))
-		return (ft_putstr_fd("Error\nDoors should be surrounded by walls", 2), 1);
+		return (ft_putstr_fd("Error\nDoor invalid\n", 2), 1);
 	return (0);
 }
-

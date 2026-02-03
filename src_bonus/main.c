@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	init_game(t_cub3d *cub)
@@ -25,8 +37,6 @@ int	check_arguments(int ac, char **av)
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
 		return (1);
 	}
-	// if (!check_map(av[1]))
-	// return (ft_putstr_fd("Error\nMap is not valid\n", 2), 1);
 	if (check_extension(av[1], ".cub"))
 		return (ft_putstr_fd("Error\nNot good extention of map\n", 2), 1);
 	return (0);

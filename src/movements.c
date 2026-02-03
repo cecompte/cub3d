@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movements.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:31:34 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	rotate(t_cub3d *cub, double angle)
@@ -7,10 +19,14 @@ void	rotate(t_cub3d *cub, double angle)
 	double	new_plane_y;
 	double	new_plane_x;
 
-	new_dir_x = cub->player.dir_x * cos(angle) - cub->player.dir_y * sin(angle);
-	new_dir_y = cub->player.dir_x * sin(angle) + cub->player.dir_y * cos(angle);
-	new_plane_x = cub->player.plane_x * cos(angle) - cub->player.plane_y * sin(angle);
-	new_plane_y = cub->player.plane_x * sin(angle) + cub->player.plane_y * cos(angle);
+	new_dir_x = cub->player.dir_x * cos(angle)
+		- cub->player.dir_y * sin(angle);
+	new_dir_y = cub->player.dir_x * sin(angle)
+		+ cub->player.dir_y * cos(angle);
+	new_plane_x = cub->player.plane_x * cos(angle)
+		- cub->player.plane_y * sin(angle);
+	new_plane_y = cub->player.plane_x * sin(angle)
+		+ cub->player.plane_y * cos(angle);
 	cub->player.dir_x = new_dir_x;
 	cub->player.dir_y = new_dir_y;
 	cub->player.plane_x = new_plane_x;
@@ -22,11 +38,12 @@ void	update_position(t_cub3d *cub, int forward, int strafe, double speed)
 	double	try_y;
 	double	try_x;
 
-	try_x = cub->player.x + (forward * cub->player.dir_x + strafe * cub->player.plane_x) * speed;
+	try_x = cub->player.x + (forward * cub->player.dir_x
+		+ strafe * cub->player.plane_x) * speed;
 	if (cub->map_grid[(int)cub->player.y][(int)try_x] != '1')
 		cub->player.x = try_x;
-	
-	try_y = cub->player.y + (forward * cub->player.dir_y + strafe * cub->player.plane_y) * speed;
+	try_y = cub->player.y + (forward * cub->player.dir_y
+		+ strafe * cub->player.plane_y) * speed;
 	if (cub->map_grid[(int)try_y][(int)cub->player.x] != '1')
 		cub->player.y = try_y;
 }

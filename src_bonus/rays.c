@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rays.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	init_side_dist(t_ray *ray)
@@ -55,22 +67,21 @@ int	check_door_hit(t_cub3d *cub, t_ray *ray)
 		return (0);
 	if (ray->hit_side == 0)
 		wall_pos = ray->pos_y + (ray->side_dist_x
-			- ray->delta_dist_x) * ray->dir_y;
+				- ray->delta_dist_x) * ray->dir_y;
 	else
-		wall_pos = ray->pos_x + (ray->side_dist_y 
-			- ray->delta_dist_y) * ray->dir_x;
+		wall_pos = ray->pos_x + (ray->side_dist_y
+				- ray->delta_dist_y) * ray->dir_x;
 	wall_pos = wall_pos - floor(wall_pos);
 	if (cub->doors[index].direction == VERTICAL)
 	{
-        if (ray->hit_side == 1 && wall_pos < cub->doors[index].openness)
-            return (0);
+		if (ray->hit_side == 1 && wall_pos < cub->doors[index].openness)
+			return (0);
 	}
-    else 
+	else
 		if (ray->hit_side == 0 && wall_pos < cub->doors[index].openness)
-            return (0);
+			return (0);
 	return (1);
 }
-
 
 int	dda_loop(t_cub3d *cub, t_ray *ray)
 {
@@ -114,5 +125,5 @@ void	calc_draw_values(t_cub3d *cub, t_ray *ray)
 		ray->wallX = ray->pos_y + ray->perp_wall_dist * ray->dir_y;
 	else
 		ray->wallX = ray->pos_x + ray->perp_wall_dist * ray->dir_x;
-	ray->wallX -= floor((ray->wallX)); 
+	ray->wallX -= floor((ray->wallX));
 }

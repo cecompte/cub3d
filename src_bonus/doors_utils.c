@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:22:44 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	door_update(t_cub3d *cub, double delta_time)
 {
 	int	i;
+
 	i = 0;
 	while (i < cub->door_count)
 	{
@@ -36,7 +49,7 @@ void	draw_door(t_cub3d *cub, t_ray *ray, int col)
 	index = cub->door_index[ray->map_y][ray->map_x];
 	shifted_texture_x = ray->wallX - cub->doors[index].openness;
 	ray->tex_x = (int)(shifted_texture_x * (double)(cub->tex_door.width));
-    draw_textured_line(cub, ray, &cub->tex_door, col);
+	draw_textured_line(cub, ray, &cub->tex_door, col);
 }
 
 void	toggle_door(t_cub3d *cub)

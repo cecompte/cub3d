@@ -1,5 +1,16 @@
-#include "cub3d_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parce_config.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "cub3d_bonus.h"
 
 int	*get_color_dest(char *line, t_texture *texture)
 {
@@ -24,7 +35,7 @@ int	is_numeric(char *str)
 	while (str[i])
 	{
 		if (str[i] != '\n' && str[i] != '\t' && str[i] != ' ')
-			return (0); 
+			return (0);
 		i++;
 	}
 	return (1);
@@ -106,4 +117,3 @@ int	parce_config(char **map, t_cub3d *cub)
 		return (ft_putstr_fd("Error\nIncomplete config\n", 2), 1);
 	return (0);
 }
-

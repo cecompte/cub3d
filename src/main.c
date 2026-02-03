@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:29:45 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	init_game(t_cub3d *cub)
@@ -48,9 +60,10 @@ int	main(int ac, char **av)
 	if (load_texture(&cub))
 		return (free_cub3d(&cub), 1);
 	mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &cub);
-	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &cub);
+	mlx_hook(cub.win_ptr, KeyRelease, KeyReleaseMask,
+		&handle_keyrelease, &cub);
 	mlx_hook(cub.win_ptr, DestroyNotify, StructureNotifyMask,
-			&close_game, &cub);
+		&close_game, &cub);
 	mlx_loop_hook(cub.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_cub3d(&cub);

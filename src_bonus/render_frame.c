@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
+/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	draw_floor_ceiling(t_cub3d *cub)
@@ -55,29 +67,28 @@ void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col)
 	}
 }
 
-
 void	draw_one_wall(t_cub3d *cub, t_ray *ray, int col, int flag)
 {
-	if (flag == 2) // DOOR
+	if (flag == 2)
 		draw_door(cub, ray, col);
-	else if (ray->hit_side == 0 && ray->dir_x > 0) // EAST
+	else if (ray->hit_side == 0 && ray->dir_x > 0)
 	{
 		ray->tex_x = cub->tex_e.width - (int)(ray->wallX
 				* (double)(cub->tex_e.width)) - 1;
 		draw_textured_line(cub, ray, &cub->tex_e, col);
 	}
-	else if (ray->hit_side == 0 && ray->dir_x < 0) // WEST
+	else if (ray->hit_side == 0 && ray->dir_x < 0)
 	{
 		ray->tex_x = (int)(ray->wallX * (double)(cub->tex_w.width));
 		draw_textured_line(cub, ray, &cub->tex_w, col);
 	}
-	else if (ray->hit_side == 1 && ray->dir_y < 0) // NORTH
+	else if (ray->hit_side == 1 && ray->dir_y < 0)
 	{
 		ray->tex_x = cub->tex_n.width - (int)(ray->wallX
 				* (double)(cub->tex_n.width)) - 1;
 		draw_textured_line(cub, ray, &cub->tex_n, col);
 	}
-	else // SOUTH
+	else
 	{
 		ray->tex_x = (int)(ray->wallX * (double)(cub->tex_s.width));
 		draw_textured_line(cub, ray, &cub->tex_s, col);
