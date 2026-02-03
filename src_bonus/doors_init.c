@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:37 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:22:39 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:53:10 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	set_slide_direction(t_cub3d *cub)
 {
 	int	x;
 	int	y;
-	int	door_idx;
 
 	y = -1;
 	while (++y < cub->map_info.height)
@@ -85,15 +84,14 @@ int	set_slide_direction(t_cub3d *cub)
 		{
 			if (cub->map_grid[y][x] == 'D')
 			{
-				door_idx = cub->door_index[y][x];
-				cub->doors[door_idx].map_x = x;
-				cub->doors[door_idx].map_y = y;
+				cub->doors[cub->door_index[y][x]].map_x = x;
+				cub->doors[cub->door_index[y][x]].map_y = y;
 				if (cub->map_grid[y][x - 1] == '1'
 					&& cub->map_grid[y][x + 1] == '1')
-					cub->doors[door_idx].direction = VERTICAL;
+					cub->doors[cub->door_index[y][x]].direction = VERTICAL;
 				else if (cub->map_grid[y - 1][x] == '1'
 					&& cub->map_grid[y + 1][x] == '1')
-					cub->doors[door_idx].direction = HORIZONTAL;
+					cub->doors[cub->door_index[y][x]].direction = HORIZONTAL;
 				else
 					return (1);
 			}
