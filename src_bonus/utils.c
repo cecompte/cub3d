@@ -32,29 +32,10 @@ int	check_file(char *path)
 	return (0);
 }
 
-void	free_nodes(t_list *list)
+void clamp_values(int val, int size)
 {
-	t_list	*tmp;
-
-	while (list)
-	{
-		tmp = list->next;
-		free(list);
-		list = tmp;
-	}
-}
-
-void	free_array(int **arr, int height)
-{
-	int	y;
-
-	y = 0;
-	if (!arr)
-		return ;
-	while (y < height)
-	{
-		free(arr[y]);
-		y++;
-	}
-	free(arr);
+	if (val < 0)
+		val = 0;
+	if (val >= size)
+		val = size - 1;
 }

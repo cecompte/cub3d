@@ -116,14 +116,13 @@ typedef struct	s_minimap {
     int 		height;         // total height in pixels
 } t_minimap;
 
-/*bonus*/
 typedef struct s_door {
 	int			map_x;
 	int			map_y;
-	int			state; // 1, 2, 3 or 4
+	int			state; // open, opening, closing, closed
 	double		openness; // 0 : fully closed, 1 : fully open
 	double		opening_speed;
-	int			orientation;
+	int			direction; // vertical or horizontal
 } t_door;
 
 typedef struct s_cub3d
@@ -139,8 +138,8 @@ typedef struct s_cub3d
 	t_player	player;
 	t_input		input;
 	t_img		img;
-	t_minimap	minimap;	//bonus
-	t_img		tex_door;	//bonus
+	t_minimap	minimap;
+	t_img		tex_door;
 	t_door		*doors;
 	int			**door_index;
 	int			door_count;
@@ -177,6 +176,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
 void	rotate(t_cub3d *cub, double angle);
+void 	clamp_values(int val, int size);
 
 
 // minimap
@@ -191,6 +191,7 @@ void	init_game(t_cub3d *cub);
 void	init_ray(t_cub3d *cub, t_ray *ray);
 int		dda_loop(t_cub3d *cub, t_ray *ray);
 void	calc_draw_values(t_cub3d *cub, t_ray *ray);
+void	draw_textured_line(t_cub3d *cub, t_ray *ray, t_img *img, int col);
 
 // movements
 void	handle_inputs(t_cub3d *cub, double delta_time);
@@ -202,5 +203,6 @@ int		handle_mouse(int x, int y, t_cub3d *cub);
 int		count_doors(char **map);
 int		init_all_doors(t_cub3d *cub);
 void	door_update(t_cub3d *cub, double delta_time);
+void	draw_door(t_cub3d *cub, t_ray *ray, int col);
 
 #endif

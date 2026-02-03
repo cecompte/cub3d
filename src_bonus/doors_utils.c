@@ -27,3 +27,14 @@ void	door_update(t_cub3d *cub, double delta_time)
 		i++;
 	}
 }
+
+void	draw_door(t_cub3d *cub, t_ray *ray, int col)
+{
+	int		index;
+	double	shifted_texture_x;
+
+	index = cub->door_index[ray->map_y][ray->map_x];
+	shifted_texture_x = ray->wallX - cub->doors[index].openness;
+	ray->tex_x = (int)(shifted_texture_x * (double)(cub->tex_door.width));
+    draw_textured_line(cub, ray, &cub->tex_door, col);
+}

@@ -37,53 +37,54 @@ int	init_door_index(t_cub3d *cub)
 {
 	int y;
 	int x;
+	int door_idx;
 
 	if (!cub->door_count)
 		return (cub->door_index = NULL, 0);
 	cub->door_index = malloc(cub->map_info.height * sizeof(int *));
 	if (!cub->door_index)
 		return (1);
-	y = 0;
-	while (y < cub->map_info.height)
+	y = -1;
+	door_idx = 0;
+	while (++y < cub->map_info.height)
 	{
 		cub->door_index[y] = malloc(cub->map_info.width * sizeof(int));
 		if (!cub->door_index[y])
 			return (free_array(cub->door_index, y), 1);
+		ft_memset(cub->door_index[y], -1, cub->map_info.width * sizeof(int));
 		x = -1;
 		while (++x < cub->map_info.width)
-		{
 			if (cub->map_grid[y][x] == 'D')
-				cub->door_index[y][x] = x;
-			else
-				cub->door_index[y][x] = -1;
-		}
-		y++;
+				cub->door_index[y][x] = door_idx++;
 	}
 	return (0);
 }
 
-int	set_door_orientation(t_cub3d *cub)
+int	set_slide_direction(t_cub3d *cub)
 {
 	int x;
 	int	y;
+	int door_idx;
 
-	y = 0;
-	while (y < cub->map_info.height)
+	y = -1;
+	while (++y < cub->map_info.height)
 	{
 		x = -1;
 		while (++x < cub->map_info.width)
 		{
 			if (cub->map_grid[y][x] == 'D')
 			{
+				door_idx = cub->door_index[y][x];
+				cub->doors[door_idx].map_x = x;
+				cub->doors[door_idx].map_y = y;
 				if (cub->map_grid[y][x - 1] == '1' && cub->map_grid[y][x + 1] == '1')
-					cub->doors[cub->door_index[y][x]].orientation = VERTICAL;
+					cub->doors[door_idx].direction = VERTICAL;
 				else if (cub->map_grid[y - 1][x] == '1' && cub->map_grid[y + 1][x] == '1')
-					cub->doors[cub->door_index[y][x]].orientation = HORIZONTAL;
+					cub->doors[door_idx].direction = HORIZONTAL;
 				else
 					return (1);	
 			}
 		}
-		y++;
 	}
 	return (0);
 }
@@ -106,7 +107,7 @@ int	init_all_doors(t_cub3d *cub)
 		init_door(&cub->doors[i]);
 		i++;
 	}
-	if (set_door_orientation(cub))
+	if (set_slide_direction(cub))
 		return (ft_putstr_fd("Error\nDoors should be surrounded by walls", 2), 1);
 	return (0);
 }
