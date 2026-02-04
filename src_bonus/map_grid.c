@@ -93,28 +93,18 @@ static char	**make_rect_map(char **map, int height, int width)
 	return (rect_map);
 }
 
-static void	restore_map(char **map)
+int	free_error(char **map, char **map2, char *message)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'V')
-				map[i][j] = '0';
-			j++;
-		}
-		i++;
-	}
+	free_tabc(map);
+	free_tabc(map2);
+	ft_putstr_fd(message, 2);
+	return (1);
 }
 
 int	parce_map_grid(char **map, t_cub3d *cub)
 {
 	char	**rect_map;
+	char	**rect_map_2;
 
 	cub->map_info.height = get_map_height(map);
 	cub->map_info.width = get_max_width(map, cub->map_info.height);
@@ -125,9 +115,10 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 	if (check_chars(map) != 0)
 		return (ft_putstr_fd("Error\nInvalid character in map\n", 2), 1);
 	rect_map = make_rect_map(map, cub->map_info.height, cub->map_info.width);
-	if (!rect_map)
-		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
-	if (flood_fill(rect_map, &cub->map_info, (int)cub->player.y,
+	rect_map_2 = make_rect_map(map, cub->map_info.height, cub->map_info.width);
+	if (!rect_map || !rect_map_2)
+		return (free_error(rect_map, rect_map_2, "Error\nMalloc error\n"));
+	if (flood_fill(rect_map_2, &cub->map_info, (int)cub->player.y,
 			(int)cub->player.x) != 0)
 	{
 		free_tabc(rect_map);

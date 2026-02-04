@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:39:05 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	init_win(t_game *game)
 	game->move_speed = 3;
 	game->rotation_angle = 1.5;
 	game->last_frame_time = get_current_time();
+	game->mouse_enabled = 1;
 }
 
 static void	init_input(t_input *input)

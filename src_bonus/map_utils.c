@@ -75,7 +75,7 @@ int	flood_fill(char **map, t_map_info *info, int y, int x)
 		return (1);
 	if (map[y][x] == ' ')
 		return (1);
-	if (map[y][x] == '1' || map[y][x] == 'V' || map[y][x] == 'D')
+	if (map[y][x] == '1' || map[y][x] == 'V')
 		return (0);
 	map[y][x] = 'V';
 	if (flood_fill(map, info, y + 1, x) || flood_fill(map, info, y - 1, x)
