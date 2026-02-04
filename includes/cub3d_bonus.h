@@ -33,6 +33,7 @@
 # define RIGHT_ARROW 65363
 # define E_KEY 101
 # define SPACE_KEY 32
+# define M_KEY 109
 # define OPEN 1
 # define OPENING 2
 # define CLOSING 3
@@ -48,6 +49,7 @@ typedef struct s_game
 	double		rotation_angle;
 	double		move_speed;
 	size_t		last_frame_time;
+	int			mouse_enabled;
 }				t_game;
 
 typedef struct s_map_info

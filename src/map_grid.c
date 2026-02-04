@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_grid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 16:01:18 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:43:19 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	find_player(char **map, t_player *player)
 	int		j;
 	int		player_count;
 
-	i = 0;
+	i = -1;
 	player_count = 0;
-	while (map[i])
+	while (map[++i])
 	{
 		j = 0;
 		while (map[i][j])
@@ -61,7 +61,6 @@ int	find_player(char **map, t_player *player)
 			}
 			j++;
 		}
-		i++;
 	}
 	if (player_count < 1)
 		return (ft_putstr_fd("Error\nNo player found\n", 2), 1);
