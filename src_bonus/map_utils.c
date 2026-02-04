@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:19:03 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	flood_fill(char **map, t_map_info *info, int y, int x)
 		return (1);
 	if (map[y][x] == ' ')
 		return (1);
-	if (map[y][x] == '1' || map[y][x] == 'V' || map[y][x] == 'D')
+	if (map[y][x] == '1' || map[y][x] == 'V')
 		return (0);
 	map[y][x] = 'V';
 	if (flood_fill(map, info, y + 1, x) || flood_fill(map, info, y - 1, x)

@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:26:36 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:42:30 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	update_position(t_cub3d *cub, int forward, int strafe, double speed)
 
 	try_x = cub->player.x + (forward * cub->player.dir_x + strafe
 			* cub->player.plane_x) * speed;
-	if (cub->map_grid[(int)cub->player.y][(int)try_x] != '1')
+	if (cub->map_grid[(int)cub->player.y][(int)try_x] != '1'
+		&& can_pass_door(cub, (int)try_x, (int)cub->player.y))
 		cub->player.x = try_x;
 	try_y = cub->player.y + (forward * cub->player.dir_y + strafe
 			* cub->player.plane_y) * speed;
-	if (cub->map_grid[(int)try_y][(int)cub->player.x] != '1')
+	if (cub->map_grid[(int)try_y][(int)cub->player.x] != '1'
+		&& can_pass_door(cub, (int)cub->player.x, (int)try_y))
 		cub->player.y = try_y;
 }
 
@@ -64,6 +66,14 @@ int	handle_keypress(int keycode, t_cub3d *cub)
 		cub->input.rotate_right = 1;
 	else if (keycode == SPACE_KEY)
 		toggle_door(cub);
+	else if (keycode == M_KEY)
+	{
+		cub->game.mouse_enabled = !cub->game.mouse_enabled;
+		if (cub->game.mouse_enabled)
+			mlx_mouse_hide(cub->mlx_ptr, cub->win_ptr);
+		else
+			mlx_mouse_show(cub->mlx_ptr, cub->win_ptr);
+	}
 	return (0);
 }
 

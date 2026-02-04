@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 20:41:31 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:56:20 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,16 @@ void	toggle_door(t_cub3d *cub)
 		cub->doors[index].state = OPENING;
 	else if (cub->doors[index].state == OPEN)
 		cub->doors[index].state = CLOSING;
+}
+
+int	can_pass_door(t_cub3d *cub, int x, int y)
+{
+	int	index;
+
+	if (cub->map_grid[y][x] != 'D')
+		return (1);
+	index = cub->door_index[y][x];
+	if (cub->doors[index].openness > 0.8)
+		return (1);
+	return (0);
 }
