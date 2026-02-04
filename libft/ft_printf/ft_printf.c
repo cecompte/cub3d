@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esergeev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 17:27:30 by esergeev          #+#    #+#             */
-/*   Updated: 2025/06/03 17:27:34 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:37:19 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_formater(va_list arg, const char format)
 	else if (format == '%')
 		len += ft_putchar('%');
 	return (len);
-}	
+}
 
 int	ft_printf(const char *format, ...)
 {

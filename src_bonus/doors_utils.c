@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:22:44 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:41:31 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_door(t_cub3d *cub, t_ray *ray, int col)
 	double	shifted_texture_x;
 
 	index = cub->door_index[ray->map_y][ray->map_x];
-	shifted_texture_x = ray->wallX - cub->doors[index].openness;
+	shifted_texture_x = ray->wall_x - cub->doors[index].openness;
 	ray->tex_x = (int)(shifted_texture_x * (double)(cub->tex_door.width));
 	draw_textured_line(cub, ray, &cub->tex_door, col);
 }

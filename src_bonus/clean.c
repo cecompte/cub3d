@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:22:32 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 13:41:09 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	close_game(t_cub3d *cub)
 		mlx_destroy_image(cub->mlx_ptr, cub->tex_s.img);
 	if (cub->tex_w.img)
 		mlx_destroy_image(cub->mlx_ptr, cub->tex_w.img);
+	if (cub->tex_door.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->tex_door.img);
 	if (cub->img.img)
 		mlx_destroy_image(cub->mlx_ptr, cub->img.img);
 	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);

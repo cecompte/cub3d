@@ -6,23 +6,23 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:25:11 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 13:50:40 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
-#include "libft.h"
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "../minilibx-linux/mlx.h"
-#include <X11/keysym.h>
-#include <X11/X.h>
-#include <math.h>
-#include <sys/time.h>
+# include "libft.h"
+# include <string.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <mlx.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
+# include <math.h>
+# include <sys/time.h>
 
 # define UP 119
 # define DOWN 115
@@ -87,18 +87,18 @@ typedef struct s_ray
 	double		delta_dist_y;
 	double		side_dist_x;
 	double		side_dist_y;
-	double		cameraX;
+	double		camera_x;
 	int			step_x;
 	int			step_y;
 	int			map_x;
 	int			map_y;
-	int			hit_side; // 0 = vertical, 1 = horizontal
+	int			hit_side;
 	double		line_height;
 	double		perp_wall_dist;
 	double		draw_start;
 	double		draw_end;
-	double 		wallX; // where exactly the wall was hit (between 0 and 1)
-	int			tex_x; // x coordinate on the texture
+	double		wall_x;
+	int			tex_x;
 }				t_ray;
 
 typedef struct s_input
@@ -109,9 +109,10 @@ typedef struct s_input
 	int			down;
 	int			rotate_left;
 	int			rotate_right;
-} t_input;
+}				t_input;
 
-typedef struct	s_img {
+typedef struct s_img
+{
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
@@ -122,22 +123,24 @@ typedef struct	s_img {
 	int			**texture_table;
 }				t_img;
 
-typedef struct	s_minimap {
-	int			offset_x;       // top-left corner of minimap in window
-    int 		offset_y;
-    int 		tile_size;      // size of each map square in pixels on minimap
-    int 		width;          // total width in pixels
-    int 		height;         // total height in pixels
-} t_minimap;
+typedef struct s_minimap
+{
+	int			offset_x;
+	int			offset_y;
+	int			tile_size;
+	int			width;
+	int			height;
+}				t_minimap;
 
-typedef struct s_door {
+typedef struct s_door
+{
 	int			map_x;
 	int			map_y;
-	int			state; // open, opening, closing, closed
-	double		openness; // 0 : fully closed, 1 : fully open
+	int			state;
+	double		openness;
 	double		opening_speed;
-	int			direction; // vertical or horizontal
-} t_door;
+	int			direction;
+}				t_door;
 
 typedef struct s_cub3d
 {
@@ -145,7 +148,7 @@ typedef struct s_cub3d
 	t_map_info	map_info;
 	char		**map;
 	t_texture	texture;
-	t_img		tex_n;	//images
+	t_img		tex_n;
 	t_img		tex_s;
 	t_img		tex_w;
 	t_img		tex_e;
@@ -177,7 +180,6 @@ int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
 int		check_chars(char **map);
 
-
 //clean
 int		free_cub3d(t_cub3d *cub);
 void	free_texture(t_texture *texture);
@@ -190,14 +192,13 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	free_nodes(t_list *list);
 void	free_array(int **arr, int height);
 void	rotate(t_cub3d *cub, double angle);
-void 	clamp_values(int *val, int size);
-
+void	clamp_values(int *val, int size);
 
 // minimap
 void	init_minimap(t_cub3d *cub);
 int		render_minimap(t_cub3d *cub);
 int		draw_player_minimap(t_cub3d *cub);
-void	draw_segment(t_cub3d *cub, double x0, double y0, double x1, double y1, int color);
+void	draw_segment(t_cub3d *cub, double start[], double end[], int color);
 
 // full map
 int		render_frame(void *param);
