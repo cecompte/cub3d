@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:37 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 20:53:10 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 13:49:28 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	init_door_index(t_cub3d *cub)
 	{
 		cub->door_index[y] = malloc(cub->map_info.width * sizeof(int));
 		if (!cub->door_index[y])
-			return (free_array(cub->door_index, y), 1);
+			return (free_array(cub->door_index, y), cub->door_index = NULL, 1);
 		ft_memset(cub->door_index[y], -1, cub->map_info.width * sizeof(int));
 		x = -1;
 		while (++x < cub->map_info.width)

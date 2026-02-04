@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 20:37:39 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 13:50:30 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ typedef struct s_ray
 	int			step_y;
 	int			map_x;
 	int			map_y;
-	int			hit_side; // 0 = vertical, 1 = horizontal
+	int			hit_side;
 	double		line_height;
 	double		perp_wall_dist;
 	double		draw_start;
 	double		draw_end;
-	double		wall_x; // where exactly the wall was hit (between 0 and 1)
-	int			tex_x; // x coordinate on the texture
+	double		wall_x;
+	int			tex_x;
 }				t_ray;
 
 typedef struct s_input
