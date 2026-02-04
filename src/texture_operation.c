@@ -75,6 +75,7 @@ static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 			&img->width, &img->height);
 	if (!img->img)
 	{
+		close_game(cub);
 		ft_putstr_fd("Error\nCannot load texture\n", 2);
 		return (1);
 	}
