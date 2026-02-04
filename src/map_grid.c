@@ -6,7 +6,7 @@
 /*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 16:01:18 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/04 19:05:12 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,57 +46,51 @@ int	find_player(char **map, t_player *player)
 	int		j;
 	int		player_count;
 
-	i = 0;
+	i = -1;
 	player_count = 0;
-	while (map[i])
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S'
-				|| map[i][j] == 'E' || map[i][j] == 'W')
+			if (ft_strchr("NSWE", map[i][j]))
 			{
 				save_player(player, i, j, map[i][j]);
 				player_count++;
 			}
-			j++;
 		}
-		i++;
 	}
-	if (player_count < 1)
+	if (player_count == 1)
+		return (0);
+	if (player_count == 0)
 		return (ft_putstr_fd("Error\nNo player found\n", 2), 1);
-	if (player_count > 1)
-		return (ft_putstr_fd("Error\nMultiple players found\n", 2), 1);
-	return (0);
+	return (ft_putstr_fd("Error\nMultiple players found\n", 2), 1);
 }
 
 static char	**make_rect_map(char **map, int height, int width)
 {
 	int		i;
-	int		j;
 	char	**rect_map;
+	int		j;
 
-	i = 0;
+	i = -1;
 	rect_map = malloc(sizeof(char *) * (height + 1));
 	if (!rect_map)
 		return (NULL);
-	while (i < height)
+	while (++i < height)
 	{
 		rect_map[i] = malloc(sizeof(char) * (width + 1));
 		if (!rect_map[i])
 			return (free_tabc(rect_map), NULL);
-		j = 0;
-		while (map[i][j])
-		{
+		j = -1;
+		while (map[i][++j])
 			rect_map[i][j] = map[i][j];
-			j++;
-		}
 		while (j < width)
 			rect_map[i][j++] = ' ';
 		rect_map[i][j] = '\0';
-		i++;
 	}
-	return (rect_map[i] = NULL, rect_map);
+	rect_map[i] = NULL;
+	return (rect_map);
 }
 
 static void	restore_map(char **map)
@@ -133,15 +127,15 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 	rect_map = make_rect_map(map, cub->map_info.height, cub->map_info.width);
 	if (!rect_map)
 		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
-	if (check_islands(rect_map, cub->map_info))
-		return (free_tabc(rect_map), ft_putstr_fd("Error\nMap has open zero(s)\n",
-				2), 1);
 	if (flood_fill(rect_map, &cub->map_info, (int)cub->player.y,
 			(int)cub->player.x) != 0)
 	{
 		free_tabc(rect_map);
 		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
 	}
+	if (check_islands(rect_map, cub->map_info))
+		return (free_tabc(rect_map), ft_putstr_fd("Error\nMap has open zero(s)\n",
+				2), 1);
 	restore_map(rect_map);
 	cub->map_grid = rect_map;
 	return (0);

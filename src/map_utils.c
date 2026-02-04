@@ -6,7 +6,7 @@
 /*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 16:07:27 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/04 18:29:39 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,24 @@ int	get_max_width(char **map, int height)
 int	check_empty_line(char **map)
 {
 	int	i;
-	int	map_end;
+	int	j;
+	int	on_map;
 
-	i = 0;
-	map_end = 0;
-	while (map[i] && map[i][0] == '\0')
-		i++;
-	while (map[i])
+	i = -1;
+	on_map = 0;
+	while (map[++i])
 	{
-		if (map[i][0] == '\0' || map[i][0] == '\n' || map[i][1] == '\0')
-			map_end = 1;
-		else if (map_end == 1)
-			return (1);
-		i++;
+		j = 0;
+		while (map[i][j] == ' ' || map[i][j] == '\t' || map[i][j] == '\n')
+			j++;
+		if (map[i][j] == '\0')
+		{
+			if (on_map == 2)
+				return (1);
+			on_map = 1;
+		}
+		else if (on_map == 1)
+			on_map = 2;
 	}
 	return (0);
 }
