@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_operation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 21:05:06 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 19:23:48 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 			&img->height);
 	if (!img->img)
 	{
+		close_game(cub);
 		ft_putstr_fd("Error\nCannot load texture\n", 2);
 		return (1);
 	}
