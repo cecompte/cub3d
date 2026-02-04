@@ -6,7 +6,7 @@
 /*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 19:23:48 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/04 19:44:04 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static int	load_one_texture(t_cub3d *cub, t_img *img, char *path)
 	img->texture_table = create_texture_table(img);
 	if (!img->texture_table)
 	{
+		close_game(cub);
 		ft_putstr_fd("Error\nMalloc failed\n", 2);
 		return (1);
 	}
