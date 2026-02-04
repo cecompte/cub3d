@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_grid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 15:28:56 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:01:18 by esergeev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,27 @@ int	find_player(char **map, t_player *player)
 	int		j;
 	int		player_count;
 
-	player_count = 0;
-	j = 0;
 	i = 0;
+	player_count = 0;
 	while (map[i])
 	{
+		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
-				|| map[i][j] == 'W')
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				save_player(player, i, j, map[i][j]);
 				player_count++;
 			}
 			j++;
 		}
-		j = 0;
 		i++;
 	}
-	if (player_count != 1)
+	if (player_count < 1)
 		return (ft_putstr_fd("Error\nNo player found\n", 2), 1);
+	if (player_count > 1)
+		return (ft_putstr_fd("Error\nMultiple players found\n", 2), 1);
 	return (0);
 }
 
@@ -132,6 +133,9 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 	rect_map = make_rect_map(map, cub->map_info.height, cub->map_info.width);
 	if (!rect_map)
 		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
+	if (check_islands(rect_map, cub->map_info))
+		return (free_tabc(rect_map), ft_putstr_fd("Error\nMap has open zero(s)\n",
+				2), 1);
 	if (flood_fill(rect_map, &cub->map_info, (int)cub->player.y,
 			(int)cub->player.x) != 0)
 	{

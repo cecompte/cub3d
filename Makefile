@@ -18,7 +18,8 @@ SRC				= main.c \
 					movements.c \
 					rays.c \
 					clean.c \
-					render.c
+					render.c \
+					map_grid_utils.c \
 
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
