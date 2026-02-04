@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 13:50:40 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:43:59 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,13 @@ void	handle_inputs(t_cub3d *cub, double delta_time);
 int		handle_keypress(int keycode, t_cub3d *cub);
 int		handle_keyrelease(int keycode, t_cub3d *cub);
 int		handle_mouse(int x, int y, t_cub3d *cub);
-void	toggle_door(t_cub3d *cub);
 
 //doors
 int		count_doors(char **map);
 int		init_all_doors(t_cub3d *cub);
 void	door_update(t_cub3d *cub, double delta_time);
 void	draw_door(t_cub3d *cub, t_ray *ray, int col);
+int		can_pass_door(t_cub3d *cub, int x, int y);
+void	toggle_door(t_cub3d *cub);
 
 #endif
