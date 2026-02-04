@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 15:43:59 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:14:11 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int		validate_texture(t_cub3d *cub);
 int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
 int		check_chars(char **map);
+int		check_islands(char **map, t_map_info info);
 
 //clean
 int		free_cub3d(t_cub3d *cub);
