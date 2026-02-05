@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_grid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 19:06:02 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:21:58 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,6 @@ static char	**make_rect_map(char **map, int height, int width)
 	return (rect_map);
 }
 
-int	free_error(char **map, char **map2, char *message)
-{
-	free_tabc(map);
-	free_tabc(map2);
-	ft_putstr_fd(message, 2);
-	return (1);
-}
-
 int	parce_map_grid(char **map, t_cub3d *cub)
 {
 	char	**rect_map;
@@ -120,14 +112,11 @@ int	parce_map_grid(char **map, t_cub3d *cub)
 		return (free_error(rect_map, rect_map_2, "Error\nMalloc error\n"));
 	if (flood_fill(rect_map_2, &cub->map_info, (int)cub->player.y,
 			(int)cub->player.x) != 0)
-	{
-		free_tabc(rect_map);
-		return (ft_putstr_fd("Error\nWall is not closed\n", 2), 1);
-	}
-	if (check_islands(rect_map, cub->map_info))
-		return (free_tabc(rect_map), ft_putstr_fd("Error\nMap has open zero(s)\n",
-				2), 1);
-	restore_map(rect_map);
+		return (free_error(rect_map, rect_map_2, "Error\nWall is not closed\n"));
+	if (check_islands(rect_map_2, cub->map_info))
+		return (free_error(rect_map, rect_map_2,
+				"Error\nMap has open zero(s)\n"));
+	free_tabc(rect_map_2);
 	cub->map_grid = rect_map;
 	return (0);
 }

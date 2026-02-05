@@ -19,7 +19,7 @@ SRC				= main.c \
 					rays.c \
 					clean.c \
 					render.c \
-					map_grid_utils.c \
+					map_grid_utils.c
 
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
@@ -42,7 +42,8 @@ SRC_BONUS		= main.c \
 					doors_init.c \
 					doors_utils.c \
 					clean_utils.c \
-					mouse.c
+					mouse.c \
+					map_grid_utils.c
 
 SOURCES_BONUS	= $(addprefix $(SRC_PATH_BONUS), $(SRC_BONUS))
 

@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:43 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/03 20:58:42 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:07:49 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ int	draw_player_minimap(t_cub3d *cub)
 		y++;
 	}
 	draw_direction(cub);
+	draw_plane(cub);
 	return (0);
 }

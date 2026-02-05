@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:24 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 13:49:00 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:03:36 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,12 @@ void	free_array(int **arr, int height)
 		y++;
 	}
 	free(arr);
+}
+
+int	free_error(char **map, char **map2, char *message)
+{
+	free_tabc(map);
+	free_tabc(map2);
+	ft_putstr_fd(message, 2);
+	return (1);
 }
