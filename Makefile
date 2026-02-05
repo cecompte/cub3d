@@ -2,8 +2,8 @@ CC				= cc
 CFLAGS			= -g3 -Wall -Wextra -Werror -MMD -MP
 INCLUDES		= -Iincludes -Ilibft -I./minilibx-linux
 LDFLAGS			= -L./minilibx-linux -lmlx -lXext -lX11 -lm
-NAME			= cub3d
-NAME_BONUS		= cub3d_bonus
+NAME			= cub3D
+NAME_BONUS		= cub3D_bonus
 
 # Mandatory Sources
 SRC_PATH		= src/
