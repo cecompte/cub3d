@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 16:14:11 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:09:18 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define ESC 65307
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
-# define E_KEY 101
 # define SPACE_KEY 32
 # define M_KEY 109
 # define OPEN 1
@@ -188,6 +187,7 @@ int		free_cub3d(t_cub3d *cub);
 void	free_texture(t_texture *texture);
 int		close_game(t_cub3d *cub);
 void	free_tabc(char **tab);
+int		free_error(char **map, char **map2, char *message);
 
 // utils
 size_t	get_current_time(void);

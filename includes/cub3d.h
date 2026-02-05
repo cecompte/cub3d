@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esergeev <esergeev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:30 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 16:05:01 by esergeev         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:22:15 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ int		load_texture(t_cub3d *cub);
 char	**get_texture_dest(char *line, t_texture *texture);
 int		check_chars(char **map);
 int		check_islands(char **map, t_map_info info);
-
 
 //clean
 int		free_cub3d(t_cub3d *cub);
