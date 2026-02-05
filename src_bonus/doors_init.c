@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:22:37 by cecompte          #+#    #+#             */
-/*   Updated: 2026/02/04 15:56:14 by cecompte         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:26:26 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	count_doors(char **map)
 	int		j;
 	int		door_count;
 
+	if (!map)
+		return (0);
 	door_count = 0;
 	j = 0;
 	i = 0;

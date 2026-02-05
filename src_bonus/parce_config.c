@@ -111,6 +111,8 @@ int	parce_config(char **map, t_cub3d *cub)
 		else if (res == 2)
 			break ;
 	}
+	if (res != 2)
+		return (ft_putstr_fd("Error\nNo map found\n", 2), 1);
 	if (!(cub->texture.no_path && cub->texture.so_path && cub->texture.ea_path
 			&& cub->texture.we_path && (cub->texture.floor_color != -1)
 			&& (cub->texture.ceiling_color != -1)))
