@@ -26,7 +26,7 @@ The engine reads a `.cub` configuration file that defines the map layout and vis
 ### Requirements
 
 - **Linux-based system** (tested on systems with X11 support)
-- **GCC compiler** with support for C99 standard
+- **C compiler** (CC) with support for C99 standard
 - **minilibx** graphics library (included in the project)
 - **Make** build tool
 
