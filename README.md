@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by cecompte.*
+*This project has been created as part of the 42 curriculum by cecompte and esergeev.*
 
 # cub3D - A Raycasting 3D Graphics Engine
 
